@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MAIL>
+
+
+<MAILCONTENT NAME="inviteProgramOfficer">
+  <SUBJECT> Invitation to register as Program Officer on ICMR portal </SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt;As you are aware that ICMR has initiated online processing and management
+  of extramural research proposal w.e.f January 2012.To proceed further in this endeavor and in order to facilitate receiving and processing of proposal
+  related to your subject discipline you need to register on the system.&lt;br&gt;&lt;br&gt;
+   Hence you are invited to register as Programe Officer with us.&lt;br&gt;
+   Kindly click or copy and paste the following link into the address bar of your browser for registration,
+   &lt;br&gt;&lt;br&gt;#@# &lt;br&gt;&lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards ,&lt;br&gt; Team ICMR Extramural Research  </SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="partialExpertRegistration">
+  <SUBJECT> Regarding your registration as an expert in ICMR Portal</SUBJECT>
+  <BODY>  Dear #@#,&lt;br&gt;&lt;br&gt;
+ You may be aware that ICMR has shifted from manual receipt and processing
+of extramural project to web based interactive system for submission,
+processing and management of extramural research proposals.
+&lt;br&gt;&lt;br&gt;This system has started functioning w.e.f. January 1, 2012. In the new
+system all stake holders (Investigators, Programme Officers, Experts, ICMR
+Management and Disbursing Officers) would be interacting through this
+web-based system.&lt;br&gt;&lt;br&gt;
+You have been helping/guiding Council as an expert, member/chairperson of
+various expert/review/advisory committees/groups,task forces with your
+expertise,invaluable suggestions.We believe that the Council will continue
+gaining from your expertise,deep insight and updated knowledge of the
+subject area of your specialty in this entirely new initiative.&lt;br&gt;&lt;br&gt;
+We, therefore on behalf of Secretary, Department of Health Research and
+Director-General, ICMR and on our behalf would like to invite you to join
+us in our effort to promote biomedical research in the country and guide us
+in identifying deserving proposals.&lt;br&gt;&lt;br&gt;
+To proceed further in this endeavor and in order to facilitate critically
+reviewing of proposals related to your subject specialty you need to take a
+little trouble and register yourself in the system as an expert. The system
+is user friendly and has been devised to help you registering in a hastle
+free manner.&lt;br&gt;&lt;br&gt;
+To make your task further easy we have put your name,created your user Id
+and password and have filled up your discipline and contact
+number.Remaining field you will have to fill up.If you desire you will be
+able to update/modify your discipline and contact number and password also.&lt;br&gt;&lt;br&gt;
+  Following are the details, you can use to log-in into the system :&lt;br&gt;
+  User Id                    :  &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;
+  Name                       :    &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;
+  Login Password             :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;
+   We are enclosing a guideline document along with this mail.Please go through it and follow the given steps so that you can have access to 
+ the proposals assigned to you.&lt;br&gt;&lt;br&gt;
+  
+  Kindly use below link to log-in into the system.In case of any problem the team ICMR is always available to extend all possible assistance.&lt;br&gt;&lt;br&gt;
+  #@#
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;
+  *In case if you have already registered as expert on our system, kindly ignore this mail. &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+   </BODY>
+  <SIGNATURE>  With Regards&lt;br&gt;
+  ICMR Team. </SIGNATURE>
+</MAILCONTENT>
+
+
+
+
+<MAILCONTENT NAME="sendReminderPO">
+      
+  <SUBJECT>Gentle reminder to register as Program Officer on ICMR Portal</SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt; This is a gentle reminder to let you know that your registration as a Program Officer with ICMR portal is pending.
+  &lt;br&gt;&lt;br&gt;
+  You maybe aware that ICMR has initiated online processing and management of extramural research proposal w.e.f 
+  January 2012.To proceed further in this endeavor and in order to facilitate receiving and processing of proposals 
+  related to your subject discipline you need to register as a Program Officer on the system.&lt;br&gt;&lt;br&gt;
+  Please register using the following link: &lt;br&gt;&lt;br&gt; #@#
+  &lt;br&gt;&lt;br&gt; We appreciate your cooperation in this regard.&lt;br&gt;&lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards ,&lt;br&gt; Team ICMR Extramural Research  </SIGNATURE>
+</MAILCONTENT>
+ 
+<MAILCONTENT NAME="inviteDivisionHead">
+  <SUBJECT> Invitation to register as Divisional Head on ICMR Portal </SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt;As you are aware that ICMR has initiated online processing and management
+      of extramural research proposal w.e.f January 2012.To proceed further inthis endeavor and in order to 
+      facilitate receiving and processing of proposal
+      related to your subject discipline you need to register on the system.&lt;br&gt;&lt;br&gt;
+       Hence you are invited to register as Divisional Head with us.&lt;br&gt;
+       Kindly click or copy and paste the following link into the address bar of your browser for registration,
+       &lt;br&gt;&lt;br&gt;#@# &lt;br&gt;&lt;br&gt;
+  </BODY>
+  <SIGNATURE>With best regards ,&lt;br&gt; Team ICMR Extramural Research</SIGNATURE>
+</MAILCONTENT>
+<MAILCONTENT NAME="revokeMailcontent">
+  <SUBJECT>Regarding Proposal Revoking</SUBJECT>
+  <BODY>  Dear #@#,&lt;br&gt;&lt;br&gt;
+  This has reference to an earlier assignment of the proposal #@# titled #@#, assigned to you on #@#. 
+  This assignment has been revoked by the coordinator and hence you will not be able to do any further processing on the proposal. 
+  For any further queries please contact the coordinator, ICMR. &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+   </BODY>
+  <SIGNATURE>  With Regards&lt;br&gt;
+  ICMR Team. </SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="AdvertismentMailcontent">
+  <SUBJECT>Regarding  change in call for advertisement </SUBJECT>
+  <BODY>  Dear #@#,&lt;br&gt;&lt;br&gt;
+  This has reference to an  Advertisement titled &lt;b&gt;#@#  &lt;/b&gt; started on   &lt;b&gt; #@# . &lt;/b&gt;&lt;br&gt;
+  Some details of this advertisement have been updated.&lt;br&gt; The details are given below for your reference:&lt;br&gt;&lt;br&gt;
+  Previous  title             :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  New   title                 :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  Start date                  :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  Previous end date           :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  New End Date                :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  Program Officer             :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  Information updated by      :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  Date of update              :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+   </BODY>
+  <SIGNATURE>  With best Regards&lt;br&gt;
+  ICMR Team. </SIGNATURE>
+</MAILCONTENT>
+<!-- ********  Mail content to be sent to expert on proposal assignment by the program officer  ********* -->
+<MAILCONTENT NAME="assignExpertMail">
+      
+  <SUBJECT>Proposal Assigned</SUBJECT>
+  <BODY>  Dear #@#,&lt;br&gt;&lt;br&gt; 
+  We believe that you would be an excellent reviewer of the proposal, #@# &lt;br&gt;&lt;br&gt;
+  The submission has been made in our proposal management system and we hope that you will consider undertaking this important task for us.&lt;br&gt;&lt;br&gt;
+  Please log into the system to indicate whether you will undertake the review or not, as well as to access the submission and to record your review and recommendation.&lt;br&gt;&lt;br&gt;
+  The system is at URL: #@# &lt;br&gt;&lt;br&gt;
+  Your Login ID is: #@# &lt;br&gt;&lt;br&gt;
+  Your Login Password is: #@# &lt;br&gt;&lt;br&gt;
+  Document Security Password :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+  To safeguard the intellectual property of the investigator(s) and restrict unauthorized access the submitted proposal is stored in an encrypted format in the system. To access the detailed proposal file you will only need to provide the document security password (private key password). The system will prompt you for the password when you try to access the detailed proposal file. &lt;br&gt;&lt;br&gt;
+  This password has been mailed to you in an earlier mail confirming your registration to the ICMR system. As soon as you provide your password the proposal file will open for you to read. You need to store this password securely somewhere so as this can be retrieved easily, in case you do not remember it. We as a policy never store this password with us. &lt;br&gt;&lt;br&gt;
+  Thank you for considering this request.&lt;br&gt;&lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards,&lt;br&gt;&lt;br&gt; #@# (ICMR Team)  </SIGNATURE>
+</MAILCONTENT>
+
+<!-- ********  Mail content to be sent to expert as a proposal review reminder by the program officer  ********* -->
+<MAILCONTENT NAME="sendReminderToExpert">
+      
+  <SUBJECT>Proposal Review Reminder</SUBJECT>
+  <BODY>
+Dear #@#,&lt;br&gt;&lt;br&gt;
+With reference of the proposal, #@# &lt;br&gt;
+The submission has been made in our proposal management system and already marked to you for review,&lt;br&gt;
+as we believe that you would be an excellent reviewer. Please log into the system to indicate whether&lt;br&gt;
+you will undertake the review or not, as well as to access the submission and to record your review and &lt;br&gt;
+recommendations within 15 days.&lt;br&gt;&lt;br&gt;
+The system is at URL: http://icmrextramural.in/ICMR/ &lt;br&gt;&lt;br&gt;
+Your Login ID is: #@# &lt;br&gt;&lt;br&gt;
+Your Login Password is: #@# &lt;br&gt;&lt;br&gt;
+Document Security Password :   &lt;b&gt;  #@#  &lt;/b&gt;   &lt;br&gt;&lt;br&gt;
+/*To safeguard the intellectual property of the investigator(s) and restrict unauthorized access the submitted &lt;br&gt;
+proposal is stored in an encrypted format in the system. To access the detailed proposal file you will only &lt;br&gt;
+need to provide the document security password (private key password). The system will prompt you for the password.&lt;br&gt;
+This password has been mailed to you in an earlier mail confirming your registration to the ICMR system. &lt;br&gt;
+As soon as you provide your password the proposal file will open for you to read. You need to store this &lt;br&gt;
+password securely somewhere so as this can be retrieved easily, in case you do not remember it. We as a &lt;br&gt;
+policy never store this password with us. */&lt;br&gt;&lt;br&gt;  
+  </BODY>
+  <SIGNATURE>
+Thank you for considering this request.&lt;br&gt;&lt;br&gt;
+
+With best regards, &lt;br&gt;&lt;br&gt;
+
+ICMR Team &lt;br&gt;&lt;br&gt;
+
+*In case if you have already reviewed the proposal, kindly ignore this mail.</SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="CRPproposalsubmit">
+  <SUBJECT> Proposal Submitted '#0'. </SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt;Your Proposal has been successfully submitted at the ICMR portal titled
+  &lt;b&gt; #1 &lt;/b&gt;.&lt;br&gt;&lt;br&gt;
+   The reference id of your proposal is &lt;b&gt;#2 &lt;/b&gt;   .&lt;br&gt;&lt;br&gt;
+   To visit your account, please visit this url:
+   &lt;br&gt;&lt;br&gt;#3 &lt;br&gt;&lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards ,&lt;br&gt; Team ICMR </SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="proposedBudgetsubmit">
+  <SUBJECT> Detailed Budget Submitted '#0'. </SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt;The detailed budget of your Proposal titled
+  &lt;b&gt; #1 &lt;/b&gt;  has been successfully submitted at the ICMR portal.  &lt;br&gt;
+  The Total Budget Proposed by you is :  &lt;b&gt; #4 &lt;/b&gt;&lt;br&gt;&lt;br&gt;
+   The reference id of your proposal is &lt;b&gt;#2 &lt;/b&gt;   .&lt;br&gt;&lt;br&gt;
+   To visit your account, please visit this url:
+   &lt;br&gt;&lt;br&gt;#3 &lt;br&gt;&lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards ,&lt;br&gt; Team ICMR </SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="releaseBudgetMail">
+<SUBJECT>Subject: Details of installment released.</SUBJECT>
+  <BODY>
+    Dear Sir/Ma'am,&lt;br&gt;&lt;br&gt;
+      
+    We wish to inform you that next installment has been released for your project.&lt;br&gt;&lt;br&gt;
+    Details provided by ICMR are as follows: &lt;br&gt;&lt;br&gt;
+    #0
+     &lt;br&gt;&lt;br&gt;
+    With best regards,&lt;br&gt;
+    ICMR TEAM &lt;br&gt;&lt;br&gt;
+   
+    
+  </BODY>
+  <SIGNATURE>
+    With best regards,&lt;br&gt;
+    ICMR TEAM &lt;br&gt;&lt;br&gt;
+   
+</SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="startProjectMail">
+<SUBJECT>Subject: Intimating the start date of your ICMR project.</SUBJECT>
+  <BODY>
+    Dear Sir/Ma'am,&lt;br&gt;&lt;br&gt;
+      
+    We wish to inform you that the start date of your project is:&lt;br&gt;
+    #0
+     &lt;br&gt;&lt;br&gt;
+    With best regards,&lt;br&gt;
+    ICMR TEAM &lt;br&gt;&lt;br&gt;
+   
+    
+  </BODY>
+  <SIGNATURE>
+    With best regards,&lt;br&gt;
+    ICMR TEAM &lt;br&gt;&lt;br&gt;
+   
+</SIGNATURE>
+</MAILCONTENT>
+
+
+<MAILCONTENT NAME="monitorBudgetMailContent">
+    <SUBJECT>Subject:Modification in Budget:&lt;b&gt; #0 &lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;</SUBJECT>
+      <BODY>
+           Dear Sir/Ma'am,&lt;br&gt;&lt;br&gt;
+           Project Ref. No.: &lt;b&gt; #1 &lt;/b&gt;&lt;br&gt;
+           Title: &lt;b&gt; #0 &lt;/b&gt;&lt;br&gt;
+           As requested by you,the budget for the project titled &lt;b&gt; #0. &lt;/b&gt; has been modified.&lt;br&gt;
+             &lt;br&gt;&lt;br&gt;
+      </BODY>
+      <SIGNATURE>
+        With best regards,&lt;br&gt; 
+        ICMR TEAM &lt;br&gt;&lt;br&gt;
+        
+    </SIGNATURE>
+</MAILCONTENT>
+
+<MAILCONTENT NAME="extendDurationMailContent">
+<SUBJECT>Subject: Project duration extended.&lt;br&gt;&lt;br&gt;</SUBJECT>
+  <BODY>
+   Dear Sir/Ma'am,&lt;br&gt;&lt;br&gt;
+   
+   As requested by you,the duration of the project titled #0 has been extended from &lt;b&gt; #1 months. &lt;/b&gt; to &lt;b&gt; #2 months. &lt;/b&gt;&lt;br&gt;&lt;br&gt;
+  
+   
+  </BODY>
+  <SIGNATURE>
+    With best regards,&lt;br&gt; 
+    ICMR TEAM &lt;br&gt;&lt;br&gt;
+    
+</SIGNATURE>
+</MAILCONTENT>
+<MAILCONTENT NAME="QueryGenerated">
+  <SUBJECT>Query regarding your proposal submitted to ICMR </SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt;
+  There is clarification required from your end before your proposal can be processed further. 
+  A Query has been raised against your submitted proposal.
+  &lt;br&gt;
+  Proposal Id: #@#&lt;br&gt;
+  Summary: #@#&lt;br&gt;
+  Detail : #@#&lt;br&gt;
+  &lt;br&gt;
+  Kindly reply at the earliest.&lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards,&lt;br&gt; ICMR Team </SIGNATURE>
+</MAILCONTENT>
+<MAILCONTENT NAME="ResponseGenerated">
+  <SUBJECT> Response mail for your query </SUBJECT>
+  <BODY>  Dear Sir/Madam,&lt;br&gt;&lt;br&gt;
+  Response of your query has been given against your submitted proposal.
+  &lt;br&gt;
+  Proposal Id: #@#&lt;br&gt;
+  Summary: #@#&lt;br&gt;
+  Detail : #@#&lt;br&gt;
+  &lt;br&gt;
+  </BODY>
+  <SIGNATURE> With best regards ,&lt;br&gt; ICMR Team </SIGNATURE>
+</MAILCONTENT>
+
+
+</MAIL>

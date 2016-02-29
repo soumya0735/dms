@@ -1,0 +1,22 @@
+.bluetextbig2 {
+    color:#FFFFFF; /*#095CC2;*/
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    /*    background-color: #0076be;*/
+    background-color:  rgb(145,69,0);
+    color: rgb(255,235,215);
+    padding-top:3px;
+    padding-bottom:3px;
+}
+.bluetextbig1 {
+    color:#000000; /*#095CC2;*/
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: rgb(255,235,215);
+    /*    background-color: #9bd0f0;*/
+    /*text-decoration:blink;*/
+}

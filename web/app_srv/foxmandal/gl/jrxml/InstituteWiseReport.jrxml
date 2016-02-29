@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InstituteWiseReport" pageWidth="840" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da507dba-f058-4e1b-adc9-cb758d0b0a69">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="instituteWiseReport" uuid="451aca0d-1fd4-4462-b4cb-02300345d1a9">
+		<parameter name="num_state_id" class="java.lang.String"/>
+		<parameter name="num_city_id" class="java.lang.String"/>
+		<parameter name="num_institute_type" class="java.lang.String"/>
+		<parameter name="str_status" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     tid."institute_id" AS institute_id,
+     tid."str_inst_name" AS inst_name,
+ tid."str_inst_add" AS inst_add,
+       get_city_name(tid."num_city_id") AS city,
+     get_state_name(tid."num_state_id") AS state,
+     titm."ins_type" AS inst_type,
+    decode(tid."is_verified",'V','Verified','Unverified') AS status
+FROM
+"tdc_institution_dtl" tid,
+"tdc_institute_type_master" titm
+where
+ tid.num_inst_type_id=titm.ins_type_id
+and
+tid."num_state_id" like $P{num_state_id}
+and tid."num_city_id" like $P{num_city_id}
+and
+tid.is_verified like upper($P{str_status})
+and
+tid.num_inst_type_id IN ($P!{num_institute_type})
+order by state,city,inst_type]]>
+		</queryString>
+		<field name="institute_id" class="java.math.BigDecimal"/>
+		<field name="inst_name" class="java.lang.String"/>
+		<field name="inst_add" class="java.lang.String"/>
+		<field name="city" class="java.lang.String"/>
+		<field name="state" class="java.lang.String"/>
+		<field name="inst_type" class="java.lang.String"/>
+		<field name="status" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="num_state_id" class="java.lang.String"/>
+	<parameter name="num_city_id" class="java.lang.String"/>
+	<parameter name="num_institute_type" class="java.lang.String"/>
+	<parameter name="str_status" class="java.lang.String"/>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="800" height="20" uuid="dd24557c-ab7e-4c9e-89ec-1b3d98278188"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Institute Report]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="20" width="800" height="50" isRemoveLineWhenBlank="true" uuid="5f1fb8fd-577a-48d2-bbac-0ca7590be2ec"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="instituteWiseReport" uuid="be005e97-15e9-44fd-9976-533dcc30b3f6">
+						<datasetParameter name="num_state_id">
+							<datasetParameterExpression><![CDATA[$P{num_state_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="num_city_id">
+							<datasetParameterExpression><![CDATA[$P{num_city_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="num_institute_type">
+							<datasetParameterExpression><![CDATA[$P{num_institute_type}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="str_status">
+							<datasetParameterExpression><![CDATA[$P{str_status}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="1fe2372d-ffb9-49bd-bc62-fec458669c05">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="30" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b2732515-bb8a-4ec3-9c55-30da7b6d2a61"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.No]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="dabad097-1999-4c7d-89bf-ea890c8a701a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="3e8a9d39-92ff-450c-8e2d-1cc64764d27a">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="70" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7b0db7ca-0378-4489-aabe-f33666d1152b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Institute Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="70" height="20" uuid="276b6d7d-f396-40a3-a41d-b2fef8ae3d04"/>
+								<textFieldExpression><![CDATA[$F{institute_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="4bfa8026-0284-46d7-8ac0-a0032c3d6f4c">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f10d1f2d-1a80-4d61-b636-ca8d5f5ffdbd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="c8f79185-b1b1-4f89-959c-b77fc5bf0c5c"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{inst_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="e67eb9c1-a733-43e9-b0b0-c1908c4f904c">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7fa03715-8903-406a-a48d-1178b05c9130"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Address]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="6deb6294-5628-4706-b6fa-0cc67205209b"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{inst_add}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="8ee66cda-0a66-43f3-949e-a80e70c95a4d">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="599eb752-89f5-4927-b4a0-5243a519a00a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[City]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="9d4e69b0-cd3f-43f8-ab4b-98700d49e4bc"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="1e3d35af-2ece-4d4b-a551-0ea5893baca1">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="9743a4f0-314a-4407-af6f-0a085d3d1adf"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[State]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="29b2816d-b7aa-4ab8-93d0-516a0d081ce8"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="7153c0fc-8dc0-4a32-bed7-c1b28be1d83b">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="de820da5-3bc9-4de2-82fd-6b8091fcc61c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Category/Type]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="44ff0352-0b7e-4f79-abb3-be211aa49855"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{inst_type}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="cb710cd2-ab01-460f-b7e0-62aa4fec104f">
+						<jr:columnHeader style="table 4_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="50" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="15dd1efa-f718-4933-a0a4-527d0cb6a503"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="20" isPrintWhenDetailOverflows="true" uuid="c68e4539-c1bb-48b4-aba8-fc3efe6c61c2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</title>
+</jasperReport>

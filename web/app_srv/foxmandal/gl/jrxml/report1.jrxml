@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from tdc_user_registration]]>
+	</queryString>
+	<field name="STR_USER_ID" class="java.lang.String"/>
+	<field name="STR_PASSWORD" class="java.lang.String"/>
+	<field name="STR_DEPARTMENT" class="java.lang.String"/>
+	<field name="STR_DELETED" class="java.lang.String"/>
+	<field name="STR_USER_TYPE" class="java.lang.String"/>
+	<field name="STR_FNAME" class="java.lang.String"/>
+	<field name="STR_MNAME" class="java.lang.String"/>
+	<field name="STR_LNAME" class="java.lang.String"/>
+	<field name="STR_ADDRESS1" class="java.lang.String"/>
+	<field name="STR_ADDRESS2" class="java.lang.String"/>
+	<field name="STR_E_MAIL" class="java.lang.String"/>
+	<field name="STR_FAX" class="java.lang.String"/>
+	<field name="STR_LAST_DEGREE_TYPE" class="java.lang.String"/>
+	<field name="NUM_LAST_DEGREE_YEAR" class="java.math.BigDecimal"/>
+	<field name="DT_TR_DATE" class="java.sql.Timestamp"/>
+	<field name="NUM_ZIP" class="java.math.BigDecimal"/>
+	<field name="STR_ORG_IND" class="java.lang.String"/>
+	<field name="STR_ORGANISATION" class="java.lang.String"/>
+	<field name="STR_USER_VERIFIED" class="java.lang.String"/>
+	<field name="STR_ALLOC_VERIFIED" class="java.lang.String"/>
+	<field name="STR_TR_FLAG" class="java.lang.String"/>
+	<field name="DT_REGISTRATION_DATE" class="java.sql.Timestamp"/>
+	<field name="DT_ALLOC_VERIFICATION_DATE" class="java.sql.Timestamp"/>
+	<field name="NUM_CITY_ID" class="java.math.BigDecimal"/>
+	<field name="NUM_STATE_ID" class="java.math.BigDecimal"/>
+	<field name="NUM_HIT_COUNTER" class="java.math.BigDecimal"/>
+	<field name="STR_DESIGNATION" class="java.lang.String"/>
+	<field name="NUM_MOBILE_NO" class="java.math.BigDecimal"/>
+	<field name="NUM_CONTACT_NO" class="java.math.BigDecimal"/>
+	<field name="NUM_STD_CODE" class="java.math.BigDecimal"/>
+	<field name="STR_INSTITUTE" class="java.lang.String"/>
+	<field name="NUM_EXT_NO" class="java.math.BigDecimal"/>
+	<field name="STR_STREAM" class="java.lang.String"/>
+	<field name="STR_UNDERTAKING_RECEIVED" class="java.lang.String"/>
+	<field name="STR_UNIVERSITY" class="java.lang.String"/>
+	<field name="DT_DOB" class="java.sql.Timestamp"/>
+	<field name="STR_RESEARCH_SPL" class="java.lang.String"/>
+	<field name="NUM_SALUTATION_ID" class="java.math.BigDecimal"/>
+	<field name="NUM_HOME_STD" class="java.math.BigDecimal"/>
+	<field name="NUM_HOME_CONTACT_NO" class="java.math.BigDecimal"/>
+	<field name="OTHER_DEGREE" class="java.lang.String"/>
+	<field name="STR_SUB_DISC" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Prevent">
+			<textField>
+				<reportElement x="142" y="31" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STR_DESIGNATION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="51" width="100" height="20"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STR_INSTITUTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

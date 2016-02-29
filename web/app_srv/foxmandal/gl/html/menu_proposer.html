@@ -1,0 +1,52 @@
+<html>
+
+<head>
+
+<title>New Page 1</title>
+<script type='text/javascript' src="/ICMR/app_srv/icmr/gl/jssrc/quickmenu.js"></script>
+<link rel='stylesheet' type='text/css' href="/ICMR/app_srv/icmr/gl/theme/quickmenu_styles.css"/>
+</head>
+
+
+<script>
+ function logout()
+  {
+  var log=confirm("Do you really want to Logout");
+  if(log==true)
+     location.href="/ICMR/app_srv/icmr/gl/jsp/logout.jsp";
+  
+  
+   }
+</script>
+<body>
+
+<ul id="qm0" class="qmmc">
+
+	<li><a href="/ICMR/proposerPage.do">User Home</a></li>
+	<li><a class="qmparent" href="javascript:void(0)">Preliminary</a>
+
+		<ul>
+		<li><a href="/ICMR/abstractsubmission.do">New / Edit </a></li>
+    
+    <li><a href="/ICMR/abstractList.do">View Submitted Preliminary Proposals </a></li>
+		</ul>
+                </li>
+<!--
+	<li><a class="qmparent" href="javascript:void(0)">Full Proposal</a>
+
+		<ul>
+		<li><a href="/ICMR/proposalSub.do">Submit</a></li>
+		<a href="/ICMR/proposalReSub.do">Edit / Resubmit </a></li>
+    <li><a href="/ICMR/proposalList.do">view Submitted Proposals</a></li>
+		</ul></li>
+
+	<li><a href="/ICMR/registrationAction.do?hmode=query">Update Profile</a></li>
+	<li><a href="javascript:logout();">Logout</a></li>
+<li class="qmclear">&nbsp;</li></ul>
+
+<!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
+<script type="text/javascript">qm_create(0,false,0,500,false,false,false,false,false);</script>
+	
+	</body>
+
+</html>

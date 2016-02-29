@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>   
+   <definition name="commonpage"  template="/main.jsp">
+        <put-attribute name="header"  value="/common/header.jsp"/>
+        <put-attribute name="footer"  value="/common/footer.jsp"/>
+    </definition>
+    
+    
+     <definition name="responsivemain" template="/app_srv/foxmandal/gl/globals/MainLayout-Responsive.jsp">
+        <put-attribute name="header" value="/app_srv/foxmandal/gl/globals/responsive-header.jsp"/>
+        <put-attribute name="menu" value=""/>
+        <put-attribute name="Menu" value="/app_srv/foxmandal/gl/html/menu_proposer_responsive.jsp"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/app_srv/foxmandal/gl/globals/responsive-footer.jsp"/>
+    </definition>
+<!-- Main Layout Declaration  -->
+        <definition name="main" template="/app_srv/foxmandal/gl/jsp/mainLayout.jsp">
+        <put-attribute name="header" value="/app_srv/foxmandal/gl/html/header.htm"/>
+<!--        <put-attribute name="menu" value="/app_srv/foxmandal/gl/html/menu_new_dis.html"/>
+        <put-attribute name="PMenu" value="/app_srv/foxmandal/gl/html/menu_proposer.jsp"/>
+        <put-attribute name="AMenu" value="/app_srv/foxmandal/gl/html/menu_allocator.jsp"/>
+        <put-attribute name="SFAMenu" value="/app_srv/foxmandal/gl/html/menu_sfa.jsp"/>
+        <put-attribute name="EMenu" value="/app_srv/foxmandal/gl/html/menu_expert.jsp"/>
+        <put-attribute name="WMenu" value="/app_srv/foxmandal/gl/html/menu_workgroup.jsp"/>
+        <put-attribute name="Mmenu" value="/app_srv/foxmandal/gl/html/menu_multiple_profile.jsp"/>
+        <put-attribute name="RMenu" value="/app_srv/foxmandal/gl/html/menu_prsg.jsp"/>
+        <put-attribute name="Fmenu" value="/app_srv/foxmandal/gl/html/menu_finance.jsp"/>
+        <put-attribute name="AcMenu" value="/app_srv/foxmandal/gl/html/menu_ac_responsive.jsp"/>                
+                       
+        <put-attribute name="lmenu" value="/app_srv/foxmandal/gl/html/lmenu_main.html"/>
+         <put-attribute name="OPMenu" value="/app_srv/foxmandal/gl/html/menu_OP.jsp"/>
+         <put-attribute name="DHMenu" value="/app_srv/foxmandal/gl/html/menu_DH.jsp"/>
+        <put-attribute name="DGMenu" value="/app_srv/foxmandal/gl/html/menu_DG.jsp"/>
+        <put-attribute name="profile" value="/app_srv/foxmandal/gl/jsp/userProfile.jsp"/>-->
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/app_srv/foxmandal/gl/globals/responsive-footer.jsp"/>
+        <put-attribute name="title" value="Welcome to Fox Mandal"/>
+    </definition>
+    <definition name="homePage1"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/home.jsp"/>
+        <put-attribute name="title" value="Welcome to WBSL"/>
+    </definition>
+     <definition name="homePage" extends="main">
+        <put-attribute name="body" value="/app_srv/foxmandal/gl/jsp/quickpath.jsp"/>
+    </definition>
+    
+    <definition name="aboutUs"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/about_us.jsp"/>
+        <put-attribute name="title" value="WBSL | About Us"/>
+    </definition>
+    
+    <definition name="library"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/library.jsp"/>
+        <put-attribute name="title" value="WBSL | Library"/>
+    </definition>
+    
+    <definition name="gallery"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/gallery.jsp"/>
+        <put-attribute name="title" value="WBSL | Gallery"/>
+    </definition>
+    
+    <!-- Feedback -->
+    <definition name="showFeedbackForm"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/feedbackForm.jsp"/>
+        <put-attribute name="title" value="WBSL | Feedback"/>        
+    </definition>
+    <definition name="feedbackSuccess" extends="commonpage">
+        <put-attribute name="body" value="/pages/feedbackSuccess.jsp"/>
+        <put-attribute name="title" value="WBSL | Feedback"/>        
+    </definition>
+    <!-- Feedback -->
+    <!--Contact Us-->
+    <definition name="contactUs"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/contact_us.jsp"/>
+        <put-attribute name="title" value="WBSL | Contact Us"/>
+    </definition>
+    <!--Contact Us-->
+    <!--News-->
+    <definition name="news" extends="commonpage">
+        <put-attribute name="body" value="/pages/news.jsp"/>
+        <put-attribute name="title" value="News"/>        
+    </definition>
+    <!--News-->
+    
+    <!-- Requisition Form -->
+    <definition name="viewRequisitionForm"  extends="commonpage">
+        <put-attribute name="body"  value="/applicationPages/RequisitionForm.jsp"/>
+        <put-attribute name="title" value="WBSL | Requisition Form"/>
+    </definition>
+    <!-- Requisition Form -->
+    
+    <!-- Application Format -->
+    <definition name="viewApplicationFormat"  extends="commonpage">
+        <put-attribute name="body"  value="/applicationPages/ApplicationFormat.jsp"/>
+        <put-attribute name="title" value="WBSL | Application Format"/>
+    </definition>
+    <!-- Application Format -->
+        
+    <!--Disclaimer-->
+    <definition name="disclaimer"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/disclaimer.jsp"/>
+        <put-attribute name="title" value="Disclaimer"/>
+    </definition>
+    <!--Disclaimer-->
+    
+    <!-- eArchive -->
+<!--   sks <definition name="viewSearch"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/eArchive.jsp"/>
+        <put-attribute name="title" value="WBSL | Archive"/>
+    </definition>-->
+    
+    <definition name="viewSearch"  extends="responsivemain">
+        <put-attribute name="body"  value="/app_srv/foxmandal/mm01/jsp/sub_proposals.jsp"/>
+        <put-attribute name="title" value="Fox Mandal | Archive"/>
+    </definition>
+    
+    
+    <!-- eArchive -->
+    <!-- Advanced Search-->
+<!-- sks   <definition name="viewAdvancedSearch"  extends="commonpage">
+        <put-attribute name="body"  value="/pages/advancedSearch.jsp"/>
+        <put-attribute name="title" value="WBSL | Search"/>
+    </definition>-->
+     <definition name="viewAdvancedSearch"  extends="responsivemain">
+        <put-attribute name="body"  value="/app_srv/foxmandal/mm01/jsp/Advancedsearch.jsp"/>
+        <put-attribute name="title" value="Fox Mandal | Search"/>
+    </definition>
+    <!--Advanced Search-->
+    
+    <!--WBSL CMS-->
+    <definition name="login"  extends="commonpage">
+        <put-attribute name="body"  value="/cms/LoginPage.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Login"/>
+    </definition>
+    <!--WBSL CMS-->
+    
+    <!-- Login -->
+    <definition name="showLogin"  extends="commonpage">
+        <put-attribute name="body"  value="/cms/LoginPage.jsp"/>
+        <put-attribute name="title" value="Login"/>
+    </definition>
+     <!-- Login -->
+     
+     <!-- Registration -->
+    <definition name="showRegistration"  extends="commonpage">
+        <put-attribute name="body"  value="/authentication/Registration.jsp"/>
+        <put-attribute name="title" value="Registration"/>
+    </definition> 
+    <!--<definition name="submitRegistrationAction"  extends="commonpage">
+        <put-attribute name="body"  value="/authentication/RegistrationSuccess.jsp"/>
+        <put-attribute name="title" value="Registration"/>
+    </definition> --> 
+    <!-- Registration -->
+     
+    <!-- Change Password -->
+    <definition name="changePassword"  extends="commonpage">
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="body"  value="/authentication/ChangePassword.jsp"/>
+        <put-attribute name="title" value="Change Password"/>
+    </definition>
+    <!-- Change Password -->
+     
+    <!-- Wish List-->
+    <definition name="showWishList"  extends="commonpage">
+        <put-attribute name="body"  value="/wishlist/wish_list.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="Wish List"/>
+    </definition>
+     <!-- Wish List-->
+    
+    <!-- WBSL CMS Metadata -->
+<!--sks    <definition name="applicationGenIndex" extends="commonpage">
+        <put-attribute name="body" value="/metadata/commonPage/metadataBody.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="Welcome to WBSL CMS"/>
+    </definition>
+    -->
+    <definition name="applicationGenIndex" extends="responsivemain">
+        <put-attribute name="body" value="/app_srv/foxmandal/mm01/jsp/home_proposer.jsp"/>
+        <put-attribute name="title" value="Welcome to Dashboard"/>
+
+    </definition>
+    
+    
+    <definition name="metadataCreationForm" extends="commonpage">
+        <put-attribute name="body" value="/metadata/Forms/metadataCreation.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Metadata Creation"/>
+    </definition>
+    <definition name="metadataCreationSuccess" extends="commonpage">
+        <put-attribute name="body" value="/metadata/Forms/metadataCreationSuccess.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Metadata Creation"/>
+    </definition>
+    <definition name="metadataCreationError" extends="commonpage">
+        <put-attribute name="body" value="/metadata/Forms/metadataCreationError.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Metadata Creation"/>
+    </definition>
+    <definition name="metaDataVerifyShowTiles" extends="commonpage">      
+        <put-attribute name="body" value="/metadata/Forms/metaDataVerifyShow.jsp"/>        
+        <put-attribute name="title" value="WBSL CMS | Metadata Verification"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+    </definition>
+    <definition name="getMetadataDescription" extends="commonpage">      
+        <put-attribute name="body" value="/metadata/Forms/metadataUpdateForm.jsp"/>        
+        <put-attribute name="title" value="WBSL CMS | Metadata Verification"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+    </definition>
+    
+    <definition name="duplicateMetadataTiles" extends="commonpage">      
+        <put-attribute name="body" value="/metadata/Forms/duplicateMetadataShow.jsp"/>        
+        <put-attribute name="title" value="WBSL CMS | Duplicate Deletion"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+    </definition>
+<!-- sks   <definition name="importBatchMetadataForm" extends="commonpage">
+        <put-attribute name="body" value="/metadata/Forms/importBatchMetadataShow.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Batch Ingest"/>
+    </definition>-->
+    <definition name="importBatchMetadataForm" extends="responsivemain">
+        <put-attribute name="body" value="/app_srv/foxmandal/mm01/jsp/proposal_submission.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Batch Ingest"/>
+    </definition>
+    
+    <definition name="metaDataUpdateSearch" extends="commonpage">
+        <put-attribute name="body" value="/metadata/Forms/updateMetadataSearch.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Update Metadata"/>
+    </definition>
+    
+    <!-- CMS-Advanced Search-->
+    <definition name="viewSearchMetadata"  extends="commonpage">
+        <put-attribute name="body"  value="/metadata/Forms/eArchive.jsp"/>
+        <put-attribute name="header" value="/metadata/commonPage/header.jsp"/>
+        <put-attribute name="title" value="WBSL CMS | Update Metadata"/>
+    </definition>    
+    <!-- CMS-Advanced Search-->
+    
+    <!-- WBSL CMS Metadata -->
+    
+</tiles-definitions>

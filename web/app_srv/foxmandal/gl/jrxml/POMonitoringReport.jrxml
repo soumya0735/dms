@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="POMonitoringReport" pageWidth="840" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da507dba-f058-4e1b-adc9-cb758d0b0a69">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="POMonitoring" uuid="451aca0d-1fd4-4462-b4cb-02300345d1a9">
+		<parameter name="subFromDate" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="subToDate" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="thematicAreaId" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="maj_area" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[Select get_user_name(m) poname,get_themetic_area_name(m) poarea,sum(a) con_asgn,sum(b) con_eval,sum(c) det_asgn,sum(d) det_eval from(
+select str_assigned_to m,count(*)a ,0 b,0 c,0 d
+from tdc_po_proposal_tracker conc where  conc.dt_allotment_date
+between to_date(nvl($P{subFromDate},'01-01-2012'),'dd-mm-yyyy') and nvl(to_date($P{subToDate},'dd-mm-yyyy') ,sysdate)
+and conc.str_version_id like 'A%'
+and conc.str_status not in ('RV')
+and
+ (select NUM_TREMATIC_AREA_ID from tdc_proposal_master where NUM_PROPOSAL_ID = conc.NUM_PROPOSAL_ID ) like upper('%'||$P{thematicAreaId}||'%')
+group by str_assigned_to
+union
+select str_assigned_to,0,count(*) ,0,0
+from tdc_po_proposal_tracker conc where  conc.dt_allotment_date
+between to_date(nvl($P{subFromDate},'01-01-2012'),'dd-mm-yyyy') and nvl(to_date($P{subToDate},'dd-mm-yyyy') ,sysdate)
+and conc.str_version_id like 'A%'
+and conc.str_status not in ('RV','PE','DP','IO','FO')
+and
+ (select NUM_TREMATIC_AREA_ID from tdc_proposal_master where NUM_PROPOSAL_ID = conc.NUM_PROPOSAL_ID ) like upper('%'||$P{thematicAreaId}||'%')
+group by str_assigned_to
+union
+select str_assigned_to,0,0,count(*) ,0
+from tdc_po_proposal_tracker conc where conc.dt_allotment_date
+between to_date(nvl($P{subFromDate},'01-01-2012'),'dd-mm-yyyy') and nvl(to_date($P{subToDate},'dd-mm-yyyy') ,sysdate)
+and conc.str_version_id like 'F%'
+and conc.str_status not in ('RV')
+and
+ (select NUM_TREMATIC_AREA_ID from tdc_proposal_master where NUM_PROPOSAL_ID = conc.NUM_PROPOSAL_ID ) like upper('%'||$P{thematicAreaId}||'%')
+group by str_assigned_to
+union
+select str_assigned_to,0,0,0,count(*)
+from tdc_po_proposal_tracker conc where conc.dt_allotment_date
+between to_date(nvl($P{subFromDate},'01-01-2012'),'dd-mm-yyyy') and nvl(to_date($P{subToDate},'dd-mm-yyyy') ,sysdate)
+and conc.str_version_id like 'F%'
+and conc.str_status not in ('RV','PE','DP','IO','FO')
+and
+ (select NUM_TREMATIC_AREA_ID from tdc_proposal_master where NUM_PROPOSAL_ID = conc.NUM_PROPOSAL_ID ) like upper('%'||$P{thematicAreaId}||'%')
+group by str_assigned_to)
+
+group by m
+order by 1]]>
+		</queryString>
+		<field name="poname" class="java.lang.String"/>
+		<field name="poarea" class="java.lang.String"/>
+		<field name="con_asgn" class="java.math.BigDecimal"/>
+		<field name="con_eval" class="java.math.BigDecimal"/>
+		<field name="det_asgn" class="java.math.BigDecimal"/>
+		<field name="det_eval" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="subFromDate" class="java.lang.String"/>
+	<parameter name="subToDate" class="java.lang.String"/>
+	<parameter name="thematicAreaId" class="java.lang.String"/>
+	<parameter name="maj_area" class="java.lang.String"/>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="800" height="20" uuid="dd24557c-ab7e-4c9e-89ec-1b3d98278188"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PO Monitoring Report]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 6" style="table 6" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="20" width="800" height="50" uuid="39db6a18-7ad3-4390-8f14-b17f88383843"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="POMonitoring" uuid="c5566234-0630-4568-a22b-9a2cfc5cae92">
+						<datasetParameter name="subFromDate">
+							<datasetParameterExpression><![CDATA[$P{subFromDate}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="subToDate">
+							<datasetParameterExpression><![CDATA[$P{subToDate}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="thematicAreaId">
+							<datasetParameterExpression><![CDATA[$P{thematicAreaId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="maj_area">
+							<datasetParameterExpression><![CDATA[$P{maj_area}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="f77c3080-4c58-43c8-8f84-73a8b85f7050">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table 5_CH" positionType="Float" mode="Opaque" x="0" y="0" width="30" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="d06de896-c5dd-4e32-b798-2d0281ab160c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.No]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="2cf1fe35-facf-419c-953b-3e78acf7b3ca"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="32c6f522-5563-4c53-977f-b1e177439e41">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table 5_CH" positionType="Float" mode="Opaque" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="e08f74d4-6607-4cd8-97c6-040949be1d4c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PO Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="39745d13-3870-4ee4-a0dc-14b8d283753f"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{poname}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="220" uuid="9ac6fd89-3d4e-4d5e-8ff8-22a5a0ce32e8">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table 5_CH" positionType="Float" mode="Opaque" x="0" y="0" width="220" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="120b82cf-e419-453e-8741-607882f5d150"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="220" height="20" isPrintWhenDetailOverflows="true" uuid="c03e3fbb-419f-4e5f-ba94-d73f727001a2"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{poarea}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="200" uuid="20469b17-cb55-4496-b5f2-f8e36ced9c93">
+						<jr:column width="200" uuid="a20bdbdb-7a99-4c33-947c-0cb84a779fe6">
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="table 5_CH" positionType="Float" mode="Opaque" x="0" y="0" width="200" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="e94e03eb-8e88-4998-814e-2398f35d8ff9"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Concept]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="table_TD" positionType="Float" x="0" y="15" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="d5428c70-64f2-4f66-bea6-87e248e2b0e0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[ Assigned]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="table_TD" positionType="Float" x="100" y="15" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="3fb7ea44-7a42-4254-ad18-14d6c69f1a89"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Evaluated]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement style="table_TD" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="090b590c-1048-4706-9de5-d15eac454f2a"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{con_asgn}]]></textFieldExpression>
+								</textField>
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement style="table_TD" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="100" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="8a631c03-14fb-4bb3-a3bf-decc3477b120"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{con_eval}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+					<jr:column width="200" uuid="6c723040-60ed-4f52-897c-7b2572fab086">
+						<jr:columnHeader style="table 6_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table 5_CH" positionType="Float" mode="Opaque" x="0" y="0" width="200" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="8f5d00f3-d55d-4863-a313-df0665a1f4ef"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Detailed]]></text>
+							</staticText>
+							<staticText>
+								<reportElement style="table 5_TD" positionType="Float" mode="Opaque" x="0" y="15" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="9ea9f2b7-4e20-49f6-983d-8ee1d86f9879"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ Assigned]]></text>
+							</staticText>
+							<staticText>
+								<reportElement style="table 5_TD" positionType="Float" mode="Opaque" x="100" y="15" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#BFE1FF" uuid="a115ef57-5e54-4632-95d2-cd11ef4c94bb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Evaluated]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement style="table 5_TD" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="aa31bc65-9eb8-41a8-bf60-d162eae6ea8a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{det_asgn}]]></textFieldExpression>
+							</textField>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement style="table 5_TD" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="100" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="1450cb86-5fc4-4f49-8e8e-9a1707b4f3df"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{det_eval}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</title>
+</jasperReport>

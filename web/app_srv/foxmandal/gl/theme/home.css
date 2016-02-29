@@ -1,0 +1,536 @@
+/*!!!!!!!!!!! CSS for TDC Portal !!!!!!!!!!!!!*/
+
+#formattext{
+text-align:justify;
+line-height:1.5em;
+margin-right:15px;
+  }
+/*"""""""" General""""""""*/	
+
+body{
+font-size:11px;
+font-family:verdana,geneva,helvetica,arial,sans-serif; 
+color:black;
+margin: 0px; 
+text-align: center; 
+align: center;
+ width: 100%;
+ 
+/*height: 100%;
+width: 990px;*/
+background:url('../images/background.jpg') center top repeat;
+}
+.nobkgrnd {
+    background: none !important;
+}
+.filelinks
+{
+font-size:10px;	
+font-style: italic;
+text-decoration: underline;
+
+color:Blue;
+	cursor: pointer;
+}
+.hyplinks
+{
+font-size:13px;	
+text-decoration: underline;
+color:Blue;
+cursor: pointer;
+}
+
+
+/*""""""""Header""""""""*/
+
+.seachbutton
+{
+ float:right;
+}
+
+.searchboxdiv
+{
+
+ margin:0;
+ height:35px;
+ width:164px;
+ float:left;
+}
+.searchbox
+{ background:none;
+ margin-left:30px;
+ margin-top:0px;
+ border:0px;}
+
+
+/*"""""""" Main Menu""""""""*/	
+
+.links {
+font-family:Verdana, Arial, Helvetica, sans-serif;	
+display:table-cell; /*This Cover Full TD */	 
+height:27px; /*This Will Fix Size Link (Use Image height)*/	
+width:120px; /*This Will Fix Size Link (Use Image width)*/	
+line-height:25px;	
+text-align:center;	
+font-size:.9em;	
+color:black;
+text-decoration:none;
+}
+.links:hover
+ {	
+ background:url('../images/menu_hover.gif') center top no-repeat;
+ color:white;
+ }
+.links td{
+  width:30%;
+}
+
+/*"""""""" Tables""""""""*/	
+
+table {
+
+  border-collapse:collapse;
+}
+table.general {
+  
+width:500px;
+}
+table #general {
+  
+width:500px;
+}
+table.header {
+  
+width:100%;
+}
+table.data {
+  background-color:#FFFFFF;
+  width:98%;
+  border:1px solid #ccc;
+  margin:.1em;
+table-layout:auto;word-wrap:break-word;
+}
+
+.data td,th{
+padding: .2em; border: 1px #ccc solid; 
+font-size:11px;
+}
+.data th{
+color:white;
+}
+
+table.innerdata {
+  background-color:#FFFFFF;
+  width:98%;
+  border:1px solid #ccc;
+  margin:.1em;
+table-layout:auto;word-wrap:break-word;
+}
+table.blue thead tr th, table.blue thead tr td {
+  background: #1682a0;
+  color: white;
+}
+    
+.innerdata td,th{
+padding: .2em; border: 1px #ccc solid; 
+font-size:11px;
+}
+.innerdata th{
+color:white;
+}
+table.form {
+  background-color:#FFFFFF;
+  width:98%;
+    border-collapse:collapse;
+  text-align:left;
+  
+}
+
+table.form td
+{
+    padding-left:10px;
+}
+.form td,th{
+font-size:12px;
+}
+.form th{
+font-weight:bold;
+border:0px;
+}
+
+#space
+{
+  line-height: 2em;
+padding:10px; 
+}
+/* default one */
+/*td, th {
+  background-color:#FFF;
+  padding:.2em;
+}*/
+
+/* the border will be defined by the td tags */
+td.BlueBorder,th.BlueBorder {
+  background-color:#FFFFFF;
+  border:1px solid blue;
+ padding: .2em;;
+}
+
+
+td.GreyBorder,th.GreyBorder {
+  background-color:#FFFFFF;
+  border:1px solid #ccc;
+  padding: .2em;
+}
+td.highlightedtext
+{
+	background: #E6E6E6;
+	border:1px solid black;
+  	padding:.2em;
+}
+
+thead { background:#1682a0; } 
+/*""""""""Footer""""""""*/
+
+.footer
+{
+font-size:10px;
+color:white;
+top:20px;
+width:100%;
+background:url('../images/footer.jpg') repeat;
+}
+.footer
+a:link {
+font-size:10px;
+color:white;
+}
+
+/*"""""""" Home Page""""""""*/	
+.smalltext
+{
+font-size:10px;
+}
+.smalltext a:link
+{
+color:black;
+font-size:10px;
+}
+.smalltext a:hover
+{
+	color:blue;
+text-decoration:underline;
+}
+.smallgreytext{
+color:#666666;
+font-size:11px;
+width:84.3%;
+
+}
+.smallgreytext a:link{
+font-size:10px;
+text-decoration:underline;
+}
+.projectheading
+{
+font-size:12px;
+color:#0275CA;
+}
+.hyperlinkedtext a:link
+{
+
+}
+/*"""""""" For anchor tags""""""""*/	
+a:link 
+{
+text-decoration:none;
+}
+a:visited  
+{
+color:navy;
+
+}
+a:active 
+{
+color:#CC99FF;
+}
+a:hover 
+{
+text-decoration:underline;
+color:navy;
+}/*"""""""" Form labels""""""""*/
+
+.formheading
+{
+font-size:14px;
+font-weight:bold;
+color:black;
+}
+.formlabels
+{
+font-size:12px;	
+}
+.alerttext
+{
+	font-size:10px;
+	color:red;
+}
+
+.alerttextgreen
+{
+	font-size:14px;
+	color:#008000;
+}
+.alerttextgreenText
+{
+	font-size:10px;
+	color:#008000;
+}
+#highlightback
+{
+background:white;
+}
+
+/*"""""""" Page labels""""""""*/
+
+.pageheading
+{
+font-size:14px;
+font-weight:bold;
+color:blue;
+}
+.generaltext
+{
+font-size:12px;	
+line-height:1.5em;
+}
+
+.navigation{
+font-size:9px;
+background-color: #CCFFFF;
+}
+.logindetails{
+font-size:11px;
+}
+#highlight{
+font-weight:bold;
+color:navy;
+  }
+#highlightwhite{
+font-weight:bold;
+color:white;
+  }
+  #bigtext{
+font-size:12px;	
+  }
+
+/*"""""""" Text Boxes""""""""*/
+.smallTbox
+{
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:110px;
+	height:23px;
+	
+}
+.generalsmallTbox
+{
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:150px;
+	height:23px;
+	
+}
+.generalTbox
+{
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:210px;
+	height:23px;
+	
+}
+.smallmandatoryTbox
+{
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:90px;
+	height:23px;
+	background-color: #E1FFFF;
+}
+.mandatoryTbox{
+font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:150px;
+	height:23px;
+	background-color: #E1FFFF;
+	}
+.autoTbox{
+  font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:150px;
+	height:23px;
+	background-color: #F4F4F4;
+	}
+.transparentTbox{
+font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:210px;
+	height:23px;
+	border-style:solid; border-width:0; padding-left:4px; padding-right:4px; padding-top:1px; padding-bottom:1px;
+	}
+.doubleborderTbox {
+font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:210px;
+	height:23px;
+	border: 3px double #CCCCCC;
+	}
+.dottedTbox{
+font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+	width:210px;
+	height:23px;
+	border: 2px dashed #D1C7AC;
+	
+}
+
+/*""""""""Combo Boxes""""""""*/
+
+select.limited-width {    width: 200px;    position: static;font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+}
+select.expanded-width {    width: auto;    position: relative;font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+}
+
+.generalCombo{
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+        width: 200px;
+}
+
+#mediumCombo{
+	width: 210px;	
+}
+#largeCombo{
+	width: 500px;	
+}
+/*""""""""Text Area""""""""*/
+.mandatoryTArea{
+	height:40px;
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+  width: 125px;
+  background-color: #E1FFFF;
+  
+}
+.generalTarea{
+	height:70px;
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+  width: 230px;
+}
+#mediumTarea{
+	width: 250px;
+	
+}
+#largeTarea{
+	width: 500px;
+	}
+
+/*""""""""Buttons""""""""*/
+
+.generalButton
+{
+	height:25px;width:120px;
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+}
+.mediumButton
+{
+	height:25px;width:160px;
+	font-family:verdana,geneva,helvetica,arial,sans-serif;
+	font-size:12px;
+}
+#dottedButton
+{
+border-style: dotted;
+border-width: 1px;
+padding-left: 4px;
+padding-right: 4px;
+padding-top: 1px;
+padding-bottom: 1px;
+background-color: #E1FFFF;
+}
+
+#outsetButton{
+	border-style: outset;
+	border-width: 2px;
+	background-color: #E1FFFF;
+}
+
+
+fieldset {
+text-align:center;
+}
+.tableHeadingReport{
+    font-weight:bold;
+    font-size:12px;
+    background-color: #E1FFFF;
+}
+.TableRowLight{
+    background-color:Silver;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background:white;/* added */
+}
+.centered {
+  float: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.pad-right{
+padding-right:20px;
+}
+.row {
+  width: 100%;
+  clear:both;
+}
+.align-right {
+  text-align: right;
+}
+.align-left {
+  text-align: left;
+}
+.pad-left.double {
+  padding-left: 20px;
+}
+.pad-bottom {
+  padding-bottom: 10px;
+}
+.pad-bottom.double {
+  padding-bottom: 20px;
+}
+.pad-top
+{
+    padding-top:10px;
+}
+.one-half{
+width:48%;  
+}
+.pull-left{
+    float:left;
+}
+.pull-right
+{
+    float:right;
+}
+
+input[type=button].blue{
+    background: #198d98;
+  text-decoration: none;
+  color: white;
+  border: 1px solid #198d98;
+}

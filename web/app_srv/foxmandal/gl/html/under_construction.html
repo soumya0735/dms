@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css"><TITLE>Welcome to ICMR</TITLE>
+<link rel="stylesheet" type="text/css" href="/ICMR/app_srv/icmr/gl/theme/home.css">
+ <script>
+    var totmins;
+    setInterval(function(){
+    // set whatever future date / time you want here, together with
+    // your timezone setting...
+    var future = new Date("Apr 16 2014 17:30:00");
+    var now = new Date();
+	
+    var difference = Math.floor((future - now) / 1000);
+	var duration=12600000;
+
+    var seconds = fixIntegers(difference % 60);
+    difference = Math.floor(difference / 60);
+    totmins=difference; 
+
+    var minutes = fixIntegers(difference % 60);
+    difference = Math.floor(difference / 60);
+   
+    var hours = fixIntegers(difference % 24);
+    difference = Math.floor(difference / 24);
+    
+    var days = difference;
+	
+	//Calculation of Progress value in Percentage
+	var x=Math.round(((now-(future-duration))/duration)*100);
+    
+////////////Progress Bar START/////////////
+  $(function() {
+    $( "#progressbar" ).progressbar({
+      value: x
+    });
+$( "#progValue" ).html(x+" % Completed");
+  });
+////////////Progress Bar ENDS/////////////
+
+    $("#seconds").text(seconds + "s");
+    $("#minutes").text(minutes + "m");
+    $("#hours").text(hours + "h");
+    $("#days").text(days + "d");
+    $("#totmins").text(totmins + "m");
+}, 1000);
+
+function fixIntegers(integer)
+{
+    if (integer < 0)
+        integer = 0;
+    if (integer < 10)
+        return "0" + integer;
+    return "" + integer;
+}
+function fixTime()
+{
+	var tim1 = new Date("Apr 15 2014 14:00:00");
+	var tim2 = new Date("Apr 15 2014 17:30:00");
+	var d1=tim1.getTime();
+	var d2=tim2.getTime();
+	var d3=d2-d1;
+        alert(d3);
+
+}
+</script>
+<link rel="stylesheet" type="text/css" href="CSS/home.css">
+</HEAD>
+<body>
+<div align="center">
+<table border="1" class="general" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" align="center">
+<tr>
+   <td colspan="4"> 
+   <div align="center"> 
+      <table  class="header">
+	<tr>
+	    <td><img border="0" src="/ICMR/app_srv/icmr/gl/images/ICMRlogo5.gif" width="710" height="95"></td>
+	</tr>  
+</table>
+</div>
+</td>
+	</tr> 
+<tr>
+   <td colspan="4">
+   <table width="970px" border="0"  style="background:url('/ICMR/app_srv/icmr/gl/images/menu_bck.jpg')" height="25">
+	<tr>
+		<td align="left"></td>
+		<td align="left"></td>
+	</tr>
+</table>
+</td>
+	</tr>
+<tr>
+		
+		<td colspan="4"></td>
+	</tr>
+  <tr>   
+		<td width="64%" colspan="4" valign="top"><h3 align="center"><font color="green">
+<h2 align ="center">This Website is under Maintenance.</h2>
+We will get back in </font><font color="red"><h2 align ="center">
+<span id="hours"></span>
+<span id="minutes"></span>
+<span id="seconds"></span>
+</h2></font>
+<div align="center" id="progValue" ></div>
+<div id="progressbar" align="center"></div>
+<br>
+
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="4" align="center" > 
+<table class="footer" background="/ICMR/app_srv/icmr/gl/images/footer.jpg" style="background-repeat:repeat;" align="center" >
+	<tr>
+		<td valign="bottom" height="50%" >
+		</td>
+		<td valign="bottom" height="50%" >
+		<img border="0" src="/ICMR/app_srv/icmr/gl/images/ICMR.jpg" height="70"></td>
+		<td height="50%"  width="45%">
+     <font size="4">
+
+      ICMR 
+     </font><br>Indian Council of Medical Research<br>
+                Dept. of Health Research<br>
+                Ministry of Health and Family Welfare<br>
+                Govt. of India
+     
+     </td>
+		<td valign="bottom" height="50%" align="center" >&nbsp;
+		</td>
+
+		<td valign="bottom" height="50%" align="center" >
+		<div id="footer" align="center">
+	
+				<div align="center">
+				<img src="/ICMR/app_srv/icmr/gl/images/ver_line_short.gif" alt="line">
+					</div>
+			
+		</div>
+		</td>
+		<td valign="bottom" height="50%" align="center">
+					<img border="0" src="/ICMR/app_srv/icmr/gl/images/cdac-logo.gif" height="30">&nbsp;&nbsp;&nbsp;&nbsp; This site is developed and designed by C-DAC, Noida</td>
+
+	</tr>
+	
+	</table>
+</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>

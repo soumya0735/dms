@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConceptProposal" pageWidth="2500" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="2500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="29cdbccb-e1ee-4152-9812-58feadda5b0a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="a4175b28-44b2-40ac-a19f-4b18d58a8946">
+		<parameter name="decisionDateQuery" class="java.lang.String"/>
+		<parameter name="submissionFromDate" class="java.lang.String"/>
+		<parameter name="submissionToDate" class="java.lang.String"/>
+		<parameter name="thematicAreaId" class="java.lang.String"/>
+		<parameter name="stateId" class="java.lang.String"/>
+		<parameter name="cityId" class="java.lang.String"/>
+		<parameter name="instType" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select propMaster.num_proposal_id  Proposal_id,
+propMaster.str_proposal_title Title,
+get_user_name(absDtl.str_tr_user_id) PI_name,
+absDtl.str_tr_user_id userId ,
+STR_E_MAIL PI_EMAIL,
+get_state_name(num_state_id) State,
+get_city_name(num_city_id) City,
+GET_INSTITUTE_NAME(INSTITUTE_ID) Institute,
+TO_CHAR(absDtl.DT_VERSION_DATE,'DD-MM-YYYY') Submission_date,
+themetic_name_id(propMaster.NUM_TREMATIC_AREA_ID) Broad_area,
+get_discipline_desc(absDtl.STR_MAJOR_DISCIPLINE) MajorDisciplie,
+decode(adv_id,'null','-',(select adv_dtl||'( ' || to_char( adv_start_dt,'dd-mm-yyyy')||' To '|| to_char(adv_end_dt,'dd-mm-yyyy')||' )' from tdc_advertisement_master advDtl where advDtl.adv_id=propMaster.adv_id)) Advertisement,
+get_user_name(poPropTrack.str_assigned_to) PO_name,
+TO_CHAR(poPropTrack.dt_allotment_date,'DD-MM-YYYY') Assigned_on,
+TO_CHAR(poPropTrack.dt_decision_date,'DD-MM-YYYY') po_decision_dt,
+decode(absDtl.str_status,'N','New','IE','In-Process','RJ','Not Recommended in Present Form','AC','Recommended','NE','Not Evaluated') Status,
+to_char(absDtl.dt_decision_date,'dd-mm-yyyy') Final_decision_dt,
+absDtl.str_remarks
+from
+tdc_user_registration userReg,
+tdc_proposal_master propMaster,
+tdc_abstract_version_dtl absDtl,
+tdc_po_proposal_tracker poPropTrack
+	where
+
+$P!{decisionDateQuery}
+and
+userReg.str_user_id=absDtl.str_tr_user_id
+and propMaster.num_proposal_id=absDtl.num_proposal_id
+and absDtl.str_version_id='A1'
+and
+absDtl.num_proposal_id=poPropTrack.num_proposal_id(+)
+and
+absDtl.str_version_id=poPropTrack.str_version_id(+)
+and
+(
+ poPropTrack.dt_allotment_date=(select max(dt_allotment_date) from tdc_po_proposal_tracker where num_proposal_id=absDtl.num_proposal_id and str_version_id=absDtl.str_version_id)
+ or
+ poPropTrack.dt_allotment_date is null
+ )
+---and absDtl.dt_decision_date between to_date('01-01-2012','dd-mm-yyyy') AND SYSDATE
+and
+absDtl.DT_VERSION_DATE between
+to_date(nvl($P{submissionFromDate},'01-01-2012'),'dd-mm-yyyy') AND nvl(to_date($P{submissionToDate},'dd-mm-yyyy'),SYSDATE)
+and
+propMaster.NUM_TREMATIC_AREA_ID like $P{thematicAreaId}
+and
+	num_state_id like $P{stateId}
+and
+num_city_id like $P{cityId}
+and
+(select nvl(inst.num_inst_type_id,0) from tdc_institution_dtl inst where inst.institute_id=userReg.institute_id) in ($P!{instType})]]>
+		</queryString>
+		<field name="proposal_id" class="java.lang.String"/>
+		<field name="title" class="java.lang.String"/>
+		<field name="pi_name" class="java.lang.String"/>
+		<field name="userid" class="java.lang.String"/>
+		<field name="pi_email" class="java.lang.String"/>
+		<field name="state" class="java.lang.String"/>
+		<field name="city" class="java.lang.String"/>
+		<field name="institute" class="java.lang.String"/>
+		<field name="submission_date" class="java.lang.String"/>
+		<field name="broad_area" class="java.lang.String"/>
+		<field name="majordisciplie" class="java.lang.String"/>
+		<field name="advertisement" class="java.lang.String"/>
+		<field name="po_name" class="java.lang.String"/>
+		<field name="assigned_on" class="java.lang.String"/>
+		<field name="po_decision_dt" class="java.lang.String"/>
+		<field name="status" class="java.lang.String"/>
+		<field name="final_decision_dt" class="java.lang.String"/>
+		<field name="str_remarks" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="decisionDateQuery" class="java.lang.String"/>
+	<parameter name="submissionFromDate" class="java.lang.String"/>
+	<parameter name="submissionToDate" class="java.lang.String"/>
+	<parameter name="thematicAreaId" class="java.lang.String"/>
+	<parameter name="stateId" class="java.lang.String"/>
+	<parameter name="cityId" class="java.lang.String"/>
+	<parameter name="instType" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+propMaster.num_proposal_id||' / '|| fullProp.str_version_id  Proposal_id,
+propMaster.str_proposal_title Title,
+get_user_name(fullProp.str_tr_user_id) PI_name,
+fullProp.str_tr_user_id userId ,
+STR_E_MAIL PI_EMAIL,
+get_state_name(num_state_id) State,
+get_city_name(num_city_id) City,
+GET_INSTITUTE_NAME(INSTITUTE_ID) Institute,
+TO_CHAR(fullProp.DT_VERSION_DATE,'DD-MM-YYYY') Submission_date,
+themetic_name_id(propMaster.NUM_TREMATIC_AREA_ID) Broad_area,
+get_user_name(poPropTrack.str_assigned_to) PO_name,
+TO_CHAR(poPropTrack.dt_allotment_date,'DD-MM-YYYY') Assigned_on,
+TO_CHAR(poPropTrack.dt_decision_date,'DD-MM-YYYY') po_decision_dt,
+decode(fullProp.str_status,'N','New','IE','In-Process','RE','Resubmit','RJ','Not Recommended in Present Form','TA','Technically Approved','TC','Clarification Required','PW','PI Withdrawn','AC','Recommended',fullProp.str_status) Status,
+to_char(fullProp.decision_date,'dd-mm-yyyy') Final_decision_dt
+from
+tdc_user_registration userReg,
+tdc_proposal_master propMaster,
+tdc_full_proposal_version_dtl fullProp,
+tdc_po_proposal_tracker poPropTrack
+	where
+userReg.str_user_id=fullProp.str_tr_user_id
+and propMaster.num_proposal_id=fullProp.num_proposal_id
+and fullProp.str_version_id=(select max(str_version_id) from tdc_full_proposal_version_dtl where num_proposal_id=fullProp.num_proposal_id)
+and
+fullProp.num_proposal_id=poPropTrack.num_proposal_id(+)
+and
+fullProp.str_version_id=poPropTrack.str_version_id(+)
+and
+(
+ poPropTrack.dt_allotment_date=(select max(dt_allotment_date) from tdc_po_proposal_tracker where num_proposal_id=fullProp.num_proposal_id and str_version_id=fullProp.str_version_id)
+ or
+ poPropTrack.dt_allotment_date is null
+ )
+and fullProp.str_status not in ('CP')
+ ---and absDtl.dt_decision_date between to_date('01-01-2012','dd-mm-yyyy') AND SYSDATE
+and
+fullProp.DT_VERSION_DATE between   to_date('01-01-2012','dd-mm-yyyy') AND SYSDATE
+and
+propMaster.NUM_TREMATIC_AREA_ID like '%'
+and
+num_state_id like '%'
+and
+num_city_id like '%']]>
+	</queryString>
+	<field name="proposal_id" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="pi_name" class="java.lang.String"/>
+	<field name="userid" class="java.lang.String"/>
+	<field name="pi_email" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="institute" class="java.lang.String"/>
+	<field name="submission_date" class="java.lang.String"/>
+	<field name="broad_area" class="java.lang.String"/>
+	<field name="po_name" class="java.lang.String"/>
+	<field name="assigned_on" class="java.lang.String"/>
+	<field name="po_decision_dt" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="final_decision_dt" class="java.lang.String"/>
+	<title>
+		<band height="70" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="925" height="30" uuid="a8cea8db-845f-48e8-abdc-fc74bfc28c15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concept Proposals]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table" style="table" positionType="Float" x="0" y="30" width="2500" height="40" isRemoveLineWhenBlank="true" uuid="058ec8e3-c8c6-49ad-b481-c1365baf14d8"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="New Dataset 1" uuid="83c07fcd-28fd-419a-a785-274425300b77">
+						<datasetParameter name="decisionDateQuery">
+							<datasetParameterExpression><![CDATA[$P{decisionDateQuery}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="submissionFromDate">
+							<datasetParameterExpression><![CDATA[$P{submissionFromDate}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="submissionToDate">
+							<datasetParameterExpression><![CDATA[$P{submissionToDate}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="thematicAreaId">
+							<datasetParameterExpression><![CDATA[$P{thematicAreaId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="stateId">
+							<datasetParameterExpression><![CDATA[$P{stateId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="cityId">
+							<datasetParameterExpression><![CDATA[$P{cityId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="instType">
+							<datasetParameterExpression><![CDATA[$P{instType}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="75" uuid="4121fb0c-e951-4961-9fdb-3d02b5de0f5b">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="75" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="2f064be3-5353-44b8-ae0e-7b0d4eacde25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="SansSerif" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Proposal Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="20" isPrintWhenDetailOverflows="true" uuid="661703f5-7409-4535-8dfd-8033fbbad337"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{proposal_id}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="250" uuid="ebf91092-b0cb-4ae0-a766-c0ec9ead2ebf">
+						<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==0)]]></printWhenExpression>
+						<jr:tableFooter height="20" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="250" height="20" isRemoveLineWhenBlank="true" uuid="4e8d10a7-64a4-483a-9d4c-8bb0fe2cb4cb">
+									<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()==0)]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Justified" verticalAlignment="Middle">
+									<font fontName="SansSerif" size="8"/>
+								</textElement>
+								<text><![CDATA[No Details Found]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="250" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="a8f43836-3de5-4e46-85be-e5898ba352b3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Title]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="250" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="397c34cc-bb74-4686-a11b-603a135323bc"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="cd57b1a4-5977-4b82-965f-578da8b98ba9">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="3c881071-4806-4342-8610-f62734b7e24d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="85ac498f-aa29-43bd-a63b-0707c017a8ef"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{broad_area}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="a9b4cb34-f2f5-4b0f-b56f-aa5cfaa5a4b5">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="12f7daa0-477b-46a4-b69f-580f24d0e975"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Major Discipline]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="beee4859-0085-4b19-971f-d49bf1238ebe"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{majordisciplie}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="89a52fd4-a59e-4a9d-bd0b-ba4867ed24fe">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="015c341e-75d2-4b9a-8d20-82dea31764ea"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Advertisement]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="6ddac025-22ee-4009-9165-7bbc226b48e6"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{advertisement}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="6d4504c8-5267-47ce-be45-8232b604c355">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ca9c3784-270b-46c5-8eb5-a686e38f6695"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PI Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="020b2a73-399a-48cd-a524-5c3f8217c63d"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{pi_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="c82ae285-501a-4806-8f99-4972b995afb2">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="d7afa4f0-16c6-42be-a879-8bf001d262ee"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[User Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="9aa1e806-6839-4145-9707-254120330f9b"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{userid}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="59b6f71d-8366-4d1d-91d0-bfb77bfcc9ec">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="bd51202b-8dd5-4821-b364-c2ad4cc6c09f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Email Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="573d24e3-849e-43cb-959e-2957714e221c"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{pi_email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="250" uuid="4d9b42ed-26d1-49e8-98e5-a0f13230e9ea">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="250" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="04743064-988b-4917-bcd1-23c808c94621"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Institute Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="250" height="20" isPrintWhenDetailOverflows="true" uuid="d80c346c-10bd-45db-9ae9-e3ba80396a16"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{institute}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="978199ab-e9d5-4e39-86f5-8d3d64ab5084">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="2201db8e-767b-40c3-b95f-6f9aab36db62"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[City]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="91732e3b-b91a-478f-81ae-86b27c3d6b5f"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="484ae58d-9d78-4e44-b87c-bd9ceec14d81">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="05bf8870-f5a4-4408-a38f-79295176b48b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[State]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="85c9c962-7bf0-41c9-bae5-294824ce0888"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="15f760a2-4e49-4b8f-ade0-a1ff9a53416f">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="75" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="50646536-b14d-4d13-9fa9-6a962ff71537"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Submission Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="20" isPrintWhenDetailOverflows="true" uuid="6c06d17a-9c54-44b9-b5b2-bbb7774bf867"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{submission_date}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="107631dc-7739-448a-8d5f-3bcd14b7dcb9">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="8020d751-41bb-42b1-9d0f-ee96d00df2cf"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PO Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="4e25a68b-10e8-4b13-a01f-83de50848fd7"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{po_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="820874fd-1748-4236-8b49-2b860e88d1fa">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="75" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="4dd2490b-b2d2-4a7c-8835-4820632c4dd9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Assigned On]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="75" height="20" isPrintWhenDetailOverflows="true" uuid="154ebd3a-8d83-46ec-80ae-2c2d612a8931"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{assigned_on}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="423a608c-4d48-4d33-b972-cc02b2119c24">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="24d07b59-c98f-4bb3-8903-ca5aad5ab787"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PO Evaluation Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="b1fc8dec-608b-4d81-9688-77ada4fef179"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{po_decision_dt}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="e5cccb3e-ef54-4c98-a93b-ac0875d5c051">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="07a3d8ca-5256-4cab-ad0c-233a8097052f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Final Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="4f0eadeb-b1a6-48fb-ae68-b8b52d42df2a"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="80446cda-b7ed-485c-8e94-3afc1e08f7b0">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="91c601ce-393e-46de-ab4b-acbec8b63a06"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Final Decision Date ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="d012606f-71b8-4d28-950c-a864f6224913"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isItalic="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{final_decision_dt}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="325" uuid="3df2e7f5-5795-455c-950c-117325db0c7b">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="325" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e7cd61fb-3994-4ce3-a6d4-85e7ec0690fb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Final Remarks]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="325" height="20" isPrintWhenDetailOverflows="true" uuid="26a366a7-19fc-4323-bf8e-44cf6a07137e"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{str_remarks}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</title>
+</jasperReport>

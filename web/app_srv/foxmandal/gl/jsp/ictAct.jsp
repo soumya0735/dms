@@ -1,0 +1,5 @@
+<span class="pageheading">ICT ACT & POLICIES </span><br>
+<span class="generaltext" id="space">
+India has made great strides in recent time on national ICT policy. India is continually reforming to try to maintain the growth and success India has already achieved. India has taken major steps since 1988 when a World Market Policy was developed. India has continually focused on software development for export, telecommunications policy reform and the privatization of the phone companies. While many of their policies are enlightened and fostering environments that would allow for more ICT investment India still has many other problems with ICT readiness. <br>
+India has long been tied down by government regulation. Recent liberalization of key industries has let market forces take action and swift change has proceeded in the ICT landscape of India. Throughout the change there have been published policies on the national level. <ahref="#">read more</a>
+</span>

@@ -1,0 +1,291 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="visvabharati" extends="struts-default">
+        <result-types>
+            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+            <result-type name="imageResult" class="showImage.CustomImageBytesResult" />
+        </result-types>
+        
+        <!-- Login Interceptor -->
+        <interceptors>
+            <interceptor class="home.LoginInterceptor" name="loginInterceptor">
+            </interceptor>
+            <interceptor-stack name="loginStack">
+                <interceptor-ref name="loginInterceptor" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <!-- End Login Interceptor -->
+        <!--<default-interceptor-ref name="loginStack"/>-->
+        <!-- Global Redirect -->
+        <global-results>
+            <result name="SessionExpired" type="redirect">homePage.action</result>
+        </global-results>
+        <!-- End Global Redirect -->
+        
+        
+        <action name="homePage">
+            <result name="success" type="tiles">homePage</result>
+        </action>
+        <action name="homePage1">
+            <result name="success" type="tiles">homePage1</result>
+        </action>
+        <action name="aboutUs">
+            <result name="success" type="tiles">aboutUs</result>
+        </action>
+        <action name="library">
+            <result name="success" type="tiles">library</result>
+        </action>
+                
+        <!--Feedback-->
+        <action name="showFeedbackForm">
+            <result name="success" type="tiles">showFeedbackForm</result>
+        </action>
+        <action name="submitFeedbackAction" class="feedback.FeedbackAction" method="submitFeedback">
+            <result name="success" type="tiles">feedbackSuccess</result>
+            <result name="error" type="tiles">showFeedbackForm</result>
+        </action>  
+        <!--Feedback-->
+        <!--Contact Us-->
+        <action name="contactUs">
+            <result name="success" type="tiles">contactUs</result>
+        </action>
+        <!--Contact Us-->
+        <!--News-->
+        <action name="news" class="news.news">
+            <result name="success" type="tiles">news</result>
+        </action>
+        <action name="newsMatter" class="news.news">
+            <result name="success">/pages/news_matter.jsp</result>
+        </action>
+        <!--News-->
+        <!--Gallery-->       
+        <action name="gallery">
+            <result name="success" type="tiles">gallery</result>
+        </action>
+        <!--Gallery--> 
+        
+        <action name="disclaimer">
+            <result name="success" type="tiles">disclaimer</result>
+        </action>
+
+        <!-- eArchive -->
+        <action name="eArchive" class="archive.SearchArchive" method="execute">
+            <result name="success" type="tiles">viewSearch</result>
+        </action>
+        <action name="bookSearchResult" class="archive.SearchArchive" method="showBookMetadata">
+            <result name="success">/pages/itemDetailsPage.jsp</result>
+        </action>
+        
+        <action name="bookReader" class="archive.SearchArchive" method="showBookMetadata">
+            <result name="success">/pages/bookReader.jsp</result>
+        </action>  
+        <!-- eArchive -->
+        <!-- Advanced Search-->
+        <action name="getAdvancedSearch"  class="archive.GetAdvancedSearch">
+            <result name="success" type="tiles">viewAdvancedSearch</result>
+        </action>
+        <action name="advancedSearchSubmitAction"  class="archive.GetAdvancedSearch" method="search">
+            <result name="success" type="tiles">viewSearch</result>
+            <result name="input" type="tiles">viewAdvancedSearch</result>
+        </action>
+        <!-- Advanced Search-->
+        
+        <!-- Requisition Form -->
+        <action name="showRequisitionForm">
+            <result type="tiles">viewRequisitionForm</result>
+        </action>
+        <action name="submitRequisitionForm" class="application.SubmitRequisitionForm" method="SaveRequisitionForm">
+            <result name="success" type="tiles">viewRequisitionForm</result>
+            <result name="error" type="tiles">viewRequisitionForm</result>
+            <result name="input" type="tiles">viewRequisitionForm</result>
+        </action>
+        <!-- Requisition Form -->
+        
+        <!-- Application Format -->
+        <action name="showApplicationFormat">
+            <result type="tiles">viewApplicationFormat</result>
+        </action>
+        <action name="submitApplicationForm" class="application.SubmitApplicationFormat" method="SaveApplicationFormat">
+            <result name="success" type="tiles">viewApplicationFormat</result>
+            <result name="error" type="tiles">viewApplicationFormat</result>
+            <result name="input" type="tiles">viewApplicationFormat</result>
+        </action>
+        <!-- Application Format -->
+        
+        <!-- Registration -->
+        <action name="showRegistration">
+            <result name="success" type="tiles">showRegistration</result>
+            <result name="input" type="tiles">showRegistration</result>
+        </action>
+        <action name="submitRegistrationAction" class="registration.RegistrationAction" method="submitRegistration">
+            <result name="success" type="tiles">login</result>
+            <result name="error" type="tiles">showRegistration</result>
+        </action>   
+        <!--<action name="submitRegistrationAction" class="registration.RegistrationAction" method="submitRegistration">
+            <result name="success" type="tiles">showLoginPage</result>
+            <result name="error" type="tiles">showRegistration</result>           
+        </action>-->
+        
+        <action name="loginAction" class="registration.Login" method="authenticate">
+            <result name="success" type="tiles">showLoginPage</result>
+            <result name="error" type="tiles">showRegistration</result>           
+        </action>
+        
+        
+        <!-- Registration -->
+        
+        <!-- Change Password -->
+        <action name="changePassword">
+            <result name="success" type="tiles">changePassword</result>
+        </action>
+        <action name="submitChangePassword" class="authentication.PasswordAction" method="submitPassword">
+            <result name="success" type="tiles">changePassword</result>
+            <result name="error" type="tiles">changePassword</result>
+        </action>
+        <!-- Change Password -->
+                
+        <!--WBSL CMS-->
+        <action name="login">
+            <result name="success" type="tiles">login</result>
+        </action>
+        <action name="showLogin">
+            <result>/cms/LoginPage.jsp</result>
+        </action>
+        <!--WBSL CMS-->
+        
+        <!--CMS Section -->
+        <action name="logon" class="home.LogonAction">
+            <!--<interceptor-ref name="defaultStack" />-->            
+            <result name="success">login-ajax.jsp</result>
+            <result name="error" type="tiles">homePage</result>
+        </action>  
+        <action name="logout" class="home.LogonAction" method="logout">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="redirect">homePage.action</result>
+        </action>
+        <action name="applicationIndex"  class="metadata.showIndexAction">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">applicationGenIndex</result>
+            <result name="metadata" type="tiles">applicationGenIndex</result>
+        </action>
+        <action name="showInsertMetaData" class="metadata.MetadataAction" method="getSitesList">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">metadataCreationForm</result>
+            
+        </action>
+        <action name="metaDateInsert" class="metadata.MetadataAction" method="insertMetadata">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">metadataCreationSuccess</result>
+            <result name="error" type="tiles">metadataCreationError</result>
+            <!--<result name="input" type="tiles">metadataCreationForm</result>-->
+        </action>
+        <action name="metaDateVerifyShow" class="metadata.metadataVerifyAction" method="getMetadataListNonVerified">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">metaDataVerifyShowTiles</result>
+        </action>
+        <action name="getItemDetails" class="metadata.metadataVerifyAction" method="getItemDetails">
+            <interceptor-ref name="loginStack" />
+            <result name="success">/metadata/Forms/itemDetailsPage.jsp</result>            
+        </action>  
+        <action name="getMetadataDescription" class="metadata.MetadataAction"  method="getMetadataById">
+            <interceptor-ref name="loginStack" />
+            <!--<result name="success">/metadata/Forms/metadataUpdateForm.jsp</result>-->
+            <result name="success" type="tiles">getMetadataDescription</result>
+        </action>    
+        <action name="updateMetadata" class="metadata.MetadataAction"  method="updateMetadata">
+            <interceptor-ref name="loginStack" />
+            <!--<result name="success">/metadata/Forms/metadataUpdateForm.jsp</result>-->
+            <result name="success" type="tiles">getMetadataDescription</result> 
+            <result name="error" type="tiles">getMetadataDescription</result>    
+            <!--<result name="input">/metadata/Forms/metadataUpdateForm.jsp</result>-->
+        </action>
+        <action name="metaDateVerify" class="metadata.metadataVerifyAction">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="redirect">metaDateVerifyShow</result>            
+        </action>
+        <action name="DuplicateMetadataShow" class="metadata.DuplicateMetadataAction">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">duplicateMetadataTiles</result>
+        </action>
+        <action name="DeleteMetadataAction" class="metadata.DuplicateMetadataAction" method="deleteDuplicateData">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="redirect">DuplicateMetadataShow</result>
+        </action>
+
+        <action name="importMetaDataShow" class="metadata.ImportBatchMetadataShowAction">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">importBatchMetadataForm</result>
+            <result name="error" type="tiles">importBatchMetadataForm</result>
+        </action>
+        <action name="importMetaData" class="metadata.ImportBatchMetadataAction" method="importBatchMetadata">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">importBatchMetadataForm</result>
+        </action>
+        
+        <action name="metaDataUpdateSearch">
+            <interceptor-ref name="loginStack" />
+            <result name="success" type="tiles">metaDataUpdateSearch</result>            
+        </action>
+        
+        <!-- CMS-Advanced Search-->  
+        <action name="advancedSearchSubmitActionMetadata"  class="archive.GetAdvancedSearch" method="search">
+            <result name="success" type="tiles">viewSearchMetadata</result>
+            <result name="input" type="tiles">metaDataUpdateSearch</result>
+        </action>
+        <!-- CMS-Advanced Search-->
+        
+        <!-- Wish List -->
+        <action name="addToWishList" class="wishlist.AddToWishList" method="add">
+            <result name="showLogin" type="redirectAction">showLogin</result>
+            <result name="success" type="tiles">viewSearch</result>
+        </action>
+        <action name="deleteFromWishList" class="wishlist.AddToWishList" method="delete">
+            <result name="success" type="redirectAction">showWishList</result>
+        </action>
+        <action name="showWishList" class="wishlist.ShowWishList" method="show">
+            <result name="success" type="tiles">showWishList</result>
+            <result name="showLogin" type="tiles">showLogin</result>
+            <result name="input" type="tiles">showLogin</result>
+        </action>
+        <!-- Wish List -->
+        
+        <!--CMS Section--> 
+         
+    </package>
+    <package name="json" extends="json-default"> 
+        <result-types>
+            <result-type name="json" class="com.googlecode.jsonplugin.JSONResult"/>
+        </result-types>
+        <action name="SearchController_language" class="ajax.SearchController_language">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_creator" class="ajax.SearchController_creator">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_title" class="ajax.SearchController_title">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_subject" class="ajax.SearchController_subject">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_audiotitle" class="ajax.SearchController_audiotitle">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_audiocreator" class="ajax.SearchController_audiocreator">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_audiosubject" class="ajax.SearchController_audiosubject">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_audiolanguage" class="ajax.SearchController_audiolanguage">
+            <result type="json"></result>
+        </action>
+        <action name="SearchController_audiokeyword" class="ajax.SearchController_audiokeywords">
+            <result type="json"></result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,519 @@
+
+
+html {min-height: 100%;}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #005B9C;
+}
+
+a:hover {
+    color: #0B2444;
+}
+
+img {
+    border: 0;
+}
+
+body {
+    /*    background: #D8D3DC url(../images/background2.jpg) repeat-x left bottom;*/
+    background: rgb(233,236,236) url(../images/background2.jpg) repeat-x left bottom;
+    color: #333;
+    /*    font: normal 62.5% Tahoma,sans-serif;*/
+}
+
+p,ul {padding-bottom: 1.2em;}
+
+li {list-style: none;}
+
+h1 {
+    font: normal 1.8em Tahoma,sans-serif;
+    margin-bottom: 4px;
+    color: #005B9C;
+    margin: 0 0 7px 0;
+}
+
+h2 {
+    font: normal 1.3em Tahoma,sans-serif;
+    margin-bottom: 4px;
+    color: #005B9C;
+    margin: 0 0 7px 0;
+}
+
+
+.clearer {clear: both;}
+
+.left {float: left;}
+
+.right {float: right;}
+
+.container {
+    background-color: #FFF;
+    font-size: 1.2em;
+    margin: 0 auto;
+    padding: 0 8px 8px;
+    width:1000px;
+}
+
+
+.top {
+    padding: 8px 8px 0;
+}
+
+
+.header {
+    background-color: #fff;
+    font-size: 1.2em;
+    height: 105px;
+    margin: 0 auto;
+    padding: 8px 8px 5px;
+    width: 1000px;
+}
+.header .left, .header .right {
+    background-color: #000033;
+    color: #fff;
+    color: #FFF;
+    height: 105px;	
+
+}
+.header .left {
+    background: transparent url(../images/Top.jpg) top left repeat-x;
+    font: normal 2.8em "Trebuchet MS",sans-serif;
+    line-height: 105px;
+    width: 750px;
+    text-align: left;	
+
+}
+.header .right {
+    overflow: auto;
+    width: 250px;
+
+}
+
+.header .right div {
+    padding-left: 16px;
+    padding-top: 16px;
+    font: normal 1.6em "Trebuchet MS",sans-serif;
+}
+
+
+
+
+.navigation {	
+    background: #D9E1E5 url(../images/nav.jpg);
+    border: 1px solid #7795BD;
+    height: 23px;
+}
+.navigation a {
+    background: transparent url(../images/nav.jpg) left top repeat-x;
+    border-right: 1px solid #7795BD;
+    color: #fff;
+    display: block;
+    float: left;
+    font-size: 12px;
+    font-family: Arial;
+    font-weight: bold;
+    line-height: 23px;
+    text-decoration: none;
+    padding: 0 18px;
+}
+.navigation a:hover {
+    background: transparent url(../images/nav.jpg) left bottom; 
+    color: #f1f1f1;
+}
+
+
+.main {
+    border-top: 8px solid #FFF; 
+    background: url(../images/bgmain.jpg) repeat-y;
+}
+
+
+.sidenav {
+    float: left;
+    width: 205px;
+}
+.sidenav h2 {
+    color: #333300;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 0;
+    padding-left: 12px;
+}
+.sidenav ul {
+    padding: 0;
+    border-top: 1px solid #e4e4e4;
+}
+.sidenav li {border-bottom: 1px solid #e4e4e4;}
+.sidenav li a {
+    font-size: 1.1em;
+    color: #333300;
+    display: block;
+    padding: 8px 0 8px 5%;
+    text-decoration: none;
+    width: 95%;
+}
+.sidenav li a:hover {
+    background-color: #ebebeb;
+    color: #654;	
+}
+
+/* content */
+.content {
+    float: right;
+    margin: 10px 0;
+    padding: 0 16px;
+    width: 400px;
+}
+.content {
+    color: #666;
+    font-size: 1.0em;
+    margin-bottom: 6px;
+}
+
+
+.content .imgright {
+    padding: 5px;
+    border: 1px solid #666;
+    margin-left: 4px;
+    float: right;
+}
+
+
+
+.footer {
+    background: url(../images/bluefooter.jpg) repeat-x;
+    color: #FFF;
+    font: bold 1em sans-serif;
+    line-height: 39px;
+    text-align: center;
+
+}
+.footer a,.footer a:hover {color: #FFF;}
+
+
+
+
+
+/*#menu {position:absolute;  top:125px; width:1200px;  z-index:12; overflow:visible; }
+
+
+#nav{list-style: none ! important;}
+
+#nav ul {
+     padding: 0 ! important;
+     margin:0 ! important;
+     list-style: none ! important;
+     width:8em ! important;
+     z-index:99 ! important;
+     position:relative ! important;
+     overflow:visible ! important;
+     background:url(../images/menu6.gif) repeat-x;
+}
+
+#nav li {
+     margin:0 ! important;
+     position: relative ! important;
+     float:left ! important;
+     width: 8em;
+     background-color:#0277fa ! important;
+     background:url(../images/menu6.gif) repeat-x;
+     text-align:center;
+     border-right:solid 1px rgb(51, 51, 51) ! important;
+     
+     
+     
+     display:block ! important;
+     height:auto ! important;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 16px;
+    color: #d3e6fb;
+    font-weight: bold;
+    background-color: #999999;
+}
+
+#nav ul li{ border-width:1px 1px 0 0 ! important; }
+
+#nav ul ul li{ border-width:1px 1px 0 1px ! important; width: 10em;}
+
+#nav ul ul li a{ width:10em ! important;}
+
+#nav ul ul li:last-child{border-bottom:1px solid rgb(51, 51, 51) ! important;}
+
+#nav a {
+     text-decoration:none ! important;
+     display:block ! important;
+     padding: 0.1em ! important;
+     margin:0.2em 0 0.2em 0.1em ! important;
+     width:8.3em ! important;
+     height:1em ! important;
+     color:#ffffff;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 16px;
+     
+    font-weight: bold;
+    
+}
+
+#nav a:hover, #nav li:hover{
+     background-color:#07c7f5 ! important;
+}
+#nav ul li:hover, #nav ul li a:hover{
+     background-color:#07c7f5 ! important;
+}
+
+
+
+#nav ul{
+     display:none ! important;
+}
+
+all see this 
+#nav ul ul{
+     display:none ! important;
+     position:absolute ! important;
+     margin-top:-1.8em ! important;
+     margin-left:8.65em ! important;
+}
+
+ non-IE browsers see this 
+#nav ul li>ul, #nav ul ul li>ul{
+     margin-top:-1.4em ! important;
+}
+
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul, #nav li:hover ul ul ul ul ul{
+     display:none ! important;
+}
+
+#nav li:hover ul, #nav ul li:hover ul, #nav ul ul li:hover ul, #nav ul ul ul li:hover ul, #nav ul ul ul ul li:hover ul{
+     display:block ! important;
+}
+
+li>ul {
+     top: auto ! important;
+     left: auto ! important;
+} */
+
+.bluetextbig {
+    color:#095CC2;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    /* background-color: #0076be;
+     padding-top:3px;
+     padding-bottom:3px;*/
+}
+
+.bluetextbig2 {
+    color:#FFFFFF; /*#095CC2;*/
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #0076be;
+    padding-top:3px;
+    padding-bottom:3px;
+}
+
+
+.bluetextbig1 {
+    color:#000000; /*#095CC2;*/
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #9bd0f0;
+}
+
+.Tabtext2 {
+    background-color: #095CC2;
+    color: #FFFFFF;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 1px 2px;
+    text-decoration: none;
+    width:150%;
+    padding-top:4px;
+    padding-bottom:4px;
+}
+
+
+
+
+/*.dataTable {
+        background-color: white;
+        border: 1px solid #000066;
+        font-size :	9pt;
+        margin:	5px;
+        width:130%;
+}
+
+.dataTable th {
+        border-right: 1px solid #c8c8ff;
+        padding-left: 2px;
+        padding-right:14px;
+         padding-top:4px;
+         padding-bottom:4px;
+        font-family: arial, helvetica, sans-serif;
+        font-weight: bold;
+        color: white;
+        background-color: #43aceb;#68C185;
+        margin-right: 10px;
+        white-space: nowrap;
+    font-size: 12pt;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #000000;
+}
+
+.dataTable  td {
+        font-family: verdana, arial, helvetica, sans-serif;
+        padding-left: 2px;
+         padding-top:3px;
+         padding-bottom:3px;
+        
+}
+
+.dataTable tr.total td {
+        white-space: nowrap;
+        vertical-align: top;
+        font-weight: bold;
+        border-top: 1px solid black;
+        padding-bottom: 10px;
+}
+
+.dataTable tr.total td.customer {
+        visibility: hidden;
+}
+
+.dataTable td.hidden {
+        display: none;
+}
+
+.dataTable th.hidden {
+        display: none;
+}
+
+.dataTable th.r {
+        text-align: right;
+        padding-right: 10px;
+}
+
+.dataTable th.c {
+        text-align: center;
+}
+
+.dataTable td.r {
+        text-align: right;
+        padding-right: 10px;
+}
+
+.dataTable td.c {
+        text-align: center;
+}
+
+.dataTable  tr.odd {
+        background-color: #e1e8f6;
+          color:#000000;
+          font-weight: bold;
+}
+
+.dataTable tr.even {
+        background-color: #9397d5;
+        background-color: #7291C0;
+          color:#FFFFFF;
+          font-weight: bold;
+         
+}
+
+.dataTable th a   ,.dataTable th a:visited {
+        text-align: left;
+        color: white;
+}
+
+.dataTable th a:hover {
+        color: #ffcc00;
+        background-color: transparent;
+}
+
+.dataTable .order1 {
+        background-position: right;
+        background-image: url(../images/arrow_up.gif);
+        background-repeat: no-repeat;
+}
+
+.dataTable .order2 {
+        background-position: right;
+        background-image: url(../images/arrow_down.gif);
+        background-repeat: no-repeat;
+}
+
+.pagelinks {
+        color: #999999;
+        margin: 5px;
+}
+
+.pagelinks img {
+        vertical-align: middle;
+}
+
+span.export {
+        padding: 0 4px 1px 20px;
+        font-size: x-small;
+        text-align: center;
+}
+
+span.excel {
+        background-image: url(../images/ico_file_excel.png);
+        background-repeat: no-repeat;
+        width: 16px;
+}
+
+span.csv {
+        background-image: url(../images/ico_file_csv.png);
+        background-repeat: no-repeat;
+        width: 16px;
+}
+
+span.xml {
+        background-image: url(../images/ico_file_xml.png);
+        background-repeat: no-repeat;
+        width: 16px;
+}
+
+span.pdf {
+        background-image: url(../images/ico_file_pdf.png);
+        background-repeat: no-repeat;
+        width: 16px;
+}
+
+span.rtf {
+        background-image: url(../images/ico_file_rtf.png);
+        background-repeat: no-repeat;
+        width: 16px;
+}
+
+.dataTable tr.rowMouseOver {
+        background-image: url(../images/selected.gif);
+        background-repeat: repeat-x;
+        background-color: #ffff99;
+}
+
+.bluetextmainhead1 {
+        PADDING-LEFT: 7px; 
+        FONT-WEIGHT: bold; 
+        FONT-SIZE: 12px;
+        background-color:#a1cafb;
+        COLOR: #000000;
+        FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+        TEXT-DECORATION: none;
+}
+*/
+

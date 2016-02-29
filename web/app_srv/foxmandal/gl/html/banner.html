@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252"></meta>
+    <title>untitled2</title>
+  
+  <SCRIPT type="text/javascript">
+<!-- Begin
+
+//3-way slideshow- by Suzanne Arnold (http://jandr.com/, suzanne@mail.jandr.com)
+//Script featured on JavaScript Kit (http://javascriptkit.com)
+//Credit must stay intact
+
+var Onerotate_delay = 5000; // delay in milliseconds (5000 = 5 secs)
+Onecurrent = 0;
+var OneLinks = new Array(3);
+OneLinks[0] = "http://www.eeps.cdacnoida.in/";
+OneLinks[1] = "http://www.eeps.cdacnoida.in/";
+OneLinks[2] = "http://www.eeps.cdacnoida.in/";
+
+
+function Onenext() {
+if (document.Oneslideform.Oneslide[Onecurrent+1]) {
+document.images.Oneshow.src = document.Oneslideform.Oneslide[Onecurrent+1].value;
+document.Oneslideform.Oneslide.selectedIndex = ++Onecurrent;
+   }
+else Onefirst();
+}
+function Oneprevious() {
+if (Onecurrent-1 >= 0) {
+document.images.Oneshow.src = document.Oneslideform.Oneslide[Onecurrent-1].value;
+document.Oneslideform.Oneslide.selectedIndex = --Onecurrent;
+   }
+else Onelast();
+}
+function Onefirst() {
+Onecurrent = 0;
+document.images.Oneshow.src = document.Oneslideform.Oneslide[0].value;
+document.Oneslideform.Oneslide.selectedIndex = 0;
+}
+function Onelast() {
+Onecurrent = document.Oneslideform.Oneslide.length-1;
+document.images.Oneshow.src = document.Oneslideform.Oneslide[Onecurrent].value;
+document.Oneslideform.Oneslide.selectedIndex = Onecurrent;
+}
+function Oneap(text) {
+
+//alert(document.getElementById("Oneslidebutton").style.backgroundImage);
+//document.Oneslideform.Oneslidebutton.value = (text == "p") ? "r" : "p";
+document.getElementById("Oneslidebutton").style.backgroundImage =(document.getElementById("Oneslidebutton").style.backgroundImage== "url(/ICMR/app_srv/icmr/gl/images/pause_button.jpg)") ? "url(images/play_button.jpg)" : "url(images/pause_button.jpg)";
+
+//var MyAltText=(text == "Stop") ? "Start" : "Stop";
+//document.Oneslidebutton.setAttribute=("alt", MyAltText)
+//document.Oneslidebutton.src ='images/pause_button.jpg';
+Onerotate();
+}
+function Onechange() {
+Onecurrent = document.Oneslideform.Oneslide.selectedIndex;
+document.images.Oneshow.src = document.Oneslideform.Oneslide[Onecurrent].value;
+}
+function Onerotate() {
+//if (document.Oneslideform.Oneslidebutton.value == "p") {
+if (document.getElementById("Oneslidebutton").style.backgroundImage=="url(images/pause_button.jpg)") {
+Onecurrent = (Onecurrent == document.Oneslideform.Oneslide.length-1) ? 0 : Onecurrent+1;
+document.images.Oneshow.src = document.Oneslideform.Oneslide[Onecurrent].value;
+document.Oneslideform.Oneslide.selectedIndex = Onecurrent;
+window.setTimeout("Onerotate()", Onerotate_delay);
+}
+}
+function Onetransport(){
+window.location=OneLinks[Onecurrent]
+}
+
+
+//  End -->
+
+
+
+</SCRIPT>
+</head>
+  <body onLoad="Oneap('Start')" >
+   
+   <form name="Oneslideform" id="home" method="post">
+  <table>
+  <tr>
+		<td  style="border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px;">
+<div style="z-index:0;position:relative;" >
+	<A href="javascript:Onetransport()">
+  <IMG alt="image" src="/ICMR/app_srv/icmr/gl/images/epps_banner1.jpg"  width="972" name="Oneshow" border="0">
+  </A>
+             
+       <DIV align="left" style="z-index:1;position:absolute;left:0px;top:120px;">
+                     <input type=button   style="background-image:url(/ICMR/app_srv/icmr/gl/images/previous.gif);width:24px;border:0px;height:15px" onClick="Oneprevious();" value="" title="Previous">
+                 <input type=button   style="background-image:url(/ICMR/app_srv/icmr/gl/images/play_button.jpg);width:15px;border:0px;height:15px" name="Oneslidebutton" id="Oneslidebutton" onClick="Oneap(this.value);" value="" title="AutoPlay">
+                  <input type=button   style="background-image:url(/ICMR/app_srv/icmr/gl/images/next.gif);width:24px;border:0px;height:15px" onClick="Onenext();" value="" title="Next">
+          </DIV> 
+                         <DIV align="left" style="z-index:1;position:absolute;top:60px;">
+                  <SELECT name="Oneslide" onChange="Onechange();" style="display:none">
+                    <OPTION value="/ICMR/app_srv/icmr/gl/images/epps_banner2.jpg"  selected>Image 1</OPTION>
+                    <OPTION value="/ICMR/app_srv/icmr/gl/images/epps_banner3.jpg">Image 2</OPTION>
+                    <OPTION value="/ICMR/app_srv/icmr/gl/images/epps_banner1.jpg">Image 3</OPTION>
+                   
+                  </SELECT>
+      </DIV>
+
+	</div>
+	
+	
+	</td>
+	</tr>
+  </table>
+</form>
+  </body>
+</html>

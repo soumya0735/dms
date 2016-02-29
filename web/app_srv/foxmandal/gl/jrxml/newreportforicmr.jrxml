@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="800" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#008B8B">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#008B8B">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1">
+		<parameter name="userID" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select rownum slno,a,b,c,d,e,f,g,h,i,j,k,l,m from (select DISTINCT THEMETIC_NAME_ID(p.NUM_TREMATIC_AREA_ID) a,initcap(p.STR_PROPOSAL_TITLE) b,dy.STR_DOC_TYPE_NAME c,
+to_char( (pt.DT_ALLOTMENT_DATE+ pt.NUM_ALLOTED_DAYS),'dd-mm-yyyy' ) d,dl.STR_DOC_NAME e, p.NUM_PROPOSAL_ID f,pt.STR_VERSION_ID g,
+pt.STR_VERSION_ID h,get_user_name(p.STR_PROPOSER_ID) i,GET_DISCIPLINE_DESC(get_major_disc_id_from_prop(p.NUM_PROPOSAL_ID)) j,
+to_char(pt.DT_ALLOTMENT_DATE,'dd-mm-yy') k,nvl(trim(get_status(trim(pt.STR_STATUS))),'-') l,pt.STR_STATUS m from
+TDC_PROPOSAL_MASTER p ,TDC_PROPOSAL_TRACKER pt ,TDC_DOC_TYPE_MASTER dy,TDC_DOC_DTL dl where p.NUM_PROPOSAL_ID=pt.NUM_PROPOSAL_ID
+and dl.NUM_PROPSAL_ID=p.NUM_PROPOSAL_ID  and dl.NUM_DOC_TYPE_ID=dy.NUM_DOC_TYPE_ID  and dl.STR_VERSION_ID=pt.STR_VERSION_ID
+AND dl.NUM_DOC_TYPE_ID=2 and pt.STR_ASSIGNED_TO=$P{userID} and pt.STR_STATUS  in('IE','FE','DF')
+order by pt.STR_STATUS) order by slno]]>
+		</queryString>
+		<field name="SLNO" class="java.math.BigDecimal"/>
+		<field name="A" class="java.lang.String"/>
+		<field name="B" class="java.lang.String"/>
+		<field name="C" class="java.lang.String"/>
+		<field name="D" class="java.lang.String"/>
+		<field name="E" class="java.lang.String"/>
+		<field name="F" class="java.lang.String"/>
+		<field name="G" class="java.lang.String"/>
+		<field name="H" class="java.lang.String"/>
+		<field name="I" class="java.lang.String"/>
+		<field name="J" class="java.lang.String"/>
+		<field name="K" class="java.lang.String"/>
+		<field name="L" class="java.lang.String"/>
+		<field name="M" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="New Dataset 2" whenResourceMissingType="Empty">
+		<parameter name="userID" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select rownum slno,a,b,c,d,e,f,g,h,i,j,k,l,m from (select DISTINCT THEMETIC_NAME_ID(p.NUM_TREMATIC_AREA_ID) a,initcap(p.STR_PROPOSAL_TITLE) b,dy.STR_DOC_TYPE_NAME c,
+to_char( (pt.DT_ALLOTMENT_DATE+ pt.NUM_ALLOTED_DAYS),'dd-mm-yyyy' ) d,dl.STR_DOC_NAME e, p.NUM_PROPOSAL_ID f,pt.STR_VERSION_ID g,
+pt.STR_VERSION_ID h,get_user_name(p.STR_PROPOSER_ID) i,GET_DISCIPLINE_DESC(get_major_disc_id_from_prop(p.NUM_PROPOSAL_ID)) j,
+to_char(pt.DT_ALLOTMENT_DATE,'dd-mm-yy') k,nvl(trim(get_status(trim(pt.STR_STATUS))),'-') l,pt.STR_STATUS m from
+TDC_PROPOSAL_MASTER p ,TDC_PROPOSAL_TRACKER pt ,TDC_DOC_TYPE_MASTER dy,TDC_DOC_DTL dl where p.NUM_PROPOSAL_ID=pt.NUM_PROPOSAL_ID
+and dl.NUM_PROPSAL_ID=p.NUM_PROPOSAL_ID  and dl.NUM_DOC_TYPE_ID=dy.NUM_DOC_TYPE_ID  and dl.STR_VERSION_ID=pt.STR_VERSION_ID
+AND dl.NUM_DOC_TYPE_ID=2 and pt.STR_ASSIGNED_TO=$P{userID} and pt.STR_STATUS not  in('IE','FE','DF')
+order by pt.STR_STATUS) order by slno]]>
+		</queryString>
+		<field name="SLNO" class="java.math.BigDecimal"/>
+		<field name="A" class="java.lang.String"/>
+		<field name="B" class="java.lang.String"/>
+		<field name="C" class="java.lang.String"/>
+		<field name="D" class="java.lang.String"/>
+		<field name="E" class="java.lang.String"/>
+		<field name="F" class="java.lang.String"/>
+		<field name="G" class="java.lang.String"/>
+		<field name="H" class="java.lang.String"/>
+		<field name="I" class="java.lang.String"/>
+		<field name="J" class="java.lang.String"/>
+		<field name="K" class="java.lang.String"/>
+		<field name="L" class="java.lang.String"/>
+		<field name="M" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="userID" class="java.lang.String"/>
+	<parameter name="imagePath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select GET_USER_NAME($P{userID}) as name
+from TDC_USER_REGISTRATION where STR_USER_ID=$P{userID}]]>
+	</queryString>
+	<field name="NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-16" width="760" height="95"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="17" width="134" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expert Name:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="16" width="782" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="175" y="16" width="142" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="108">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="32" width="760" height="50" isPrintWhenDetailOverflows="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 1">
+						<datasetParameter name="userID">
+							<datasetParameterExpression><![CDATA[$P{userID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="52">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="47" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Sl.No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField>
+								<reportElement x="7" y="12" width="40" height="20"/>
+								<textElement/>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SLNO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Proposal Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="12" width="65" height="20"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{F}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="49" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Version]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="12" width="49" height="20"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{G}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="123">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="123" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[P.I]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="12" width="123" height="32" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{I}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="152">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="152" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Title]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="12" width="152" height="32" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{B}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="128">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="128" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="12" width="128" height="32" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{A}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="93">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Major Dicipline]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="3" y="12" width="90" height="32"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{J}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="98">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="48" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="16" width="90" height="32" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{L}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="0" width="205" height="25"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[List of Active Proposals:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="121" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 3" style="table 3" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="51" width="760" height="50" isPrintWhenDetailOverflows="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 2">
+						<datasetParameter name="userID">
+							<datasetParameterExpression><![CDATA[$P{userID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="59">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="58" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Sl.No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField>
+								<reportElement x="1" y="13" width="58" height="20"/>
+								<textElement/>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SLNO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Proposal Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="13" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{F}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="57">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="53" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Version]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="13" width="53" height="20"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{G}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="99">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="99" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[P.I]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="13" width="99" height="33"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{I}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="164">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="164" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Title]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="13" width="164" height="33" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{B}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="105">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="105" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="13" width="105" height="33" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{A}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="75" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Major Dicipline]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="13" width="90" height="33" isPrintWhenDetailOverflows="true"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{J}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="104">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="53" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="13" width="90" height="33"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{L}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="14" width="205" height="24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[List of Archive Proposals:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,82 @@
+<html>
+
+<head>
+<script>
+ function logout()
+  {
+  var log=confirm("Do you really want to Logout");
+  if(log==true)
+     window.location.href="/ICMR/app_srv/icmr/gl/jsp/logout.jsp";
+     
+   }
+</script>
+
+<title>New Page 1</title>
+<script type='text/javascript' src="/ICMR/app_srv/icmr/gl/jssrc/quickmenu.js"></script>
+<link rel='stylesheet' type='text/css' href="/ICMR/app_srv/icmr/gl/theme/quickmenu_styles.css"/>
+</head>
+
+<body>
+
+<ul id="qm0" class="qmmc">
+
+	<li><a href="/ICMR/allocatorPage.do">User Home</a></li>
+	<li><a class="qmparent" href="javascript:void(0)">Add/Edit</a>
+
+		<ul>
+		<li><a href="/ICMR/MasterForm.do?formName=themetic_area_master">Thematic Area</a></li>
+		<li><a href="/ICMR/MasterForm.do?formName=state_master">States</a></li>
+		<li><a href="/ICMR/MasterForm.do?formName=city_master">Cities</a></li>
+		<li><a href="/ICMR/MasterForm.do?formName=document_type_master">Type of Document</a></li>
+    <li><a href="/ICMR/addParameterAction.do">Evaluation Parameter</a></li>
+  
+
+		</ul></li>
+
+	<li><a class="qmparent" href="javascript:void(0)">User Management</a>
+
+		<ul>
+		<li><a href="/ICMR/registrationAction.do">Register User</a></li>
+		<li><a href="/ICMR/allocatorverification.do" title="Verify Self Registered Users">Verify Expert</a></li>
+    <li><a href="/ICMR/expertConfirmation.do" title="Confirm If Undertaking Received From Experts">Confirm Expert</a></li>
+		<li><a href="/ICMR/changeExpertArea.do">Change Expert Area</a></li>
+    <li><a href="/ICMR/PDFReportXMLParser?reportName=expert_list&reportView=LANDSCAPE" target='_blank' onclick="window.open(this.href);return false">Expert List</a></li>
+    <li><a href="/ICMR/PDFReportXMLParser?reportName=work_group_member&reportView=LANDSCAPE" target='_blank' onclick="window.open(this.href);return false">Work Group Member List</a></li>
+		</ul></li>
+
+	<li><a class="qmparent" href="/ICMR/allocSubmittedAbstract.do">Preliminary Proposals</a></li>
+
+	<li><a class="qmparent" href="javascript:void(0);">Proposal</a>
+
+		<ul>
+		<li><a href="/ICMR/NewProposalList.do">New Proposal</a></li>
+		<li><a href="/ICMR/ReviewedPropList.do">Reviewed proposals</a></li>
+		<li><a href="javascript:void(0);">Minutes of Meeting</a></li>
+		</ul></li>
+
+	<li><a class="qmparent" href="javascript:void(0);">Working Group</a>
+
+		<ul>
+   <li><a href="/ICMR/MasterForm.do?formName=work_group_master"> Add Work Group</a></li>
+	<li><a href="/ICMR/WorkGroupList.do">Work Group List</a></li>
+		<li><a href="/ICMR/assignWrkGroupAction.do">Assign Proposals</a></li>
+    <li><a href="/ICMR/setWorkGroupMeet.do"> Work Group Meeting Date</a></li>
+		<li><a href="/ICMR/addMOMAction.do">Add MOM</a></li>
+		</ul></li>
+
+	<li><a class="qmparent" href="javascript:void(0);">Project</a>
+
+		<ul>
+		<li><a href="/ICMR/OnGoinglist.do">View Ongoing</a></li>
+		<li><a href="javascript:void(0);">View Completed</a></li>
+		</ul></li>
+
+	<li><a href="/ICMR/registrationAction.do?hmode=query">Update Profile</a></li>
+	<li><a href="javascript:logout();">Logout</a></li>
+<li class="qmclear">&nbsp;</li></ul>
+
+<!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
+<script type="text/javascript">qm_create(0,false,0,500,false,false,false,false,false);</script>
+</body>
+
+</html>

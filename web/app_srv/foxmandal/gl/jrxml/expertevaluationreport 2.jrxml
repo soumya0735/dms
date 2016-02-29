@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report7" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="120"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="expertid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="proposalid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="versionid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select catmst.num_cat_id,catmst.num_cat_name,fed.sub_cat_value,decode(evalmst.ADEQUATE_EXPERTISE,'Y','Yes','NO') ADEQUATE_EXPERTISE,
+decode(evalmst.ADEQUATE_FACILITIES,'Y','Yes','NO') ADEQUATE_FACILITIES,evalmst.DETAILED_COMMENTS,get_status(evalmst.STR_STATUS) STR_STATUS,
+evalmst.REJECTION_REASON
+from tdc_full_proposal_eval_dtl fed,tdc_subcategory_mst subcat,tdc_category_mst catmst,tdc_full_proposal_evaluation evalmst
+where  subcat.num_cat_id=fed.num_cat_id
+and subcat.num_subcategory_id=fed.sub_cat_id and subcat.num_cat_id=catmst.num_cat_id and
+fed.num_cat_id=catmst.num_cat_id and evalmst.num_eval_id=fed.num_eval_id and fed.num_eval_id in
+ (select fe.num_eval_id from tdc_full_proposal_evaluation fe where fe.num_expert_id=$P{expertid}
+ and fe.num_proposal_id=$P{proposalid} and fe.str_version_id=$P{versionid})]]>
+	</queryString>
+	<field name="NUM_CAT_ID" class="java.math.BigDecimal"/>
+	<field name="NUM_CAT_NAME" class="java.lang.String"/>
+	<field name="SUB_CAT_VALUE" class="java.lang.String"/>
+	<field name="ADEQUATE_EXPERTISE" class="java.lang.String"/>
+	<field name="ADEQUATE_FACILITIES" class="java.lang.String"/>
+	<field name="DETAILED_COMMENTS" class="java.lang.String"/>
+	<field name="STR_STATUS" class="java.lang.String"/>
+	<field name="REJECTION_REASON" class="java.lang.String"/>
+	<group name="as">
+		<groupExpression><![CDATA[$F{NUM_CAT_NAME}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<textField>
+					<reportElement isPrintRepeatedValues="false" x="17" y="0" width="180" height="20"/>
+					<textElement>
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{NUM_CAT_NAME}]]></textFieldExpression>
+				</textField>
+				<line direction="BottomUp">
+					<reportElement style="Detail" x="4" y="22" width="551" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" printWhenGroupChanges="as"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-25" width="553" height="95"/>
+				<imageExpression class="java.lang.String"><![CDATA["/home/chandrikagautam/jdeveloper/mywork/ICMR/public_html/app_srv/icmr/gl/images/ICMRlogo5.gif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="176" y="0" width="263" height="33" forecolor="#282A71"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="18" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Expert Evaluation report]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Prevent">
+			<textField>
+				<reportElement x="83" y="0" width="168" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUB_CAT_VALUE}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="58" y="0" width="20" height="10"/>
+				<imageExpression class="java.lang.String"><![CDATA["/home/chandrikagautam/Desktop/bullet_blue.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<summary>
+		<band height="228" splitType="Prevent">
+			<textField>
+				<reportElement x="384" y="136" width="100" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{STR_STATUS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="130" width="265" height="44"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Recommendation]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="44" width="100" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADEQUATE_FACILITIES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="88" width="265" height="44"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Any other remarks with detailed comments]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="5" width="265" height="44"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Investigator possess adequate expertise to accomplish th work/any preliminary work]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="3" width="121" height="34"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADEQUATE_EXPERTISE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="92" width="100" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DETAILED_COMMENTS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="175" width="100" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REJECTION_REASON}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="177" width="265" height="44"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Reasons for above]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="44" width="265" height="44"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Institute has adequate facilities to support the project]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement style="Detail" x="14" y="37" width="539" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" printWhenGroupChanges="as"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement style="Detail" x="11" y="75" width="542" height="2" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" printWhenGroupChanges="as"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement style="Detail" x="14" y="126" width="539" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" printWhenGroupChanges="as"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement style="Detail" x="14" y="171" width="539" height="1" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" printWhenGroupChanges="as"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

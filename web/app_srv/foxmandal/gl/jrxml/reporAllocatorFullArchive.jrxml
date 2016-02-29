@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporAllocatorFullArchive" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="92125bae-0d7d-46a6-86fa-e09ea606447b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" whenResourceMissingType="Empty" uuid="4e415d3d-9c1a-41ab-bcb8-389a51d74119">
+		<parameter name="propID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{propID}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="verID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{verID}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select b,a from(SELECT  nvl(ev.STR_REMARKS,'-') a    , (select get_status(str_status) b from TDC_FULL_PROPOSAL_VERSION_DTL where    NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID}   ) b FROM TDC_PROPOSAL_EVALUATION ev
+ where   NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID} and    STR_USER_TYPE='A' order by dt_tr_date desc  ) where rownum=1
+
+  union
+				 select  'Not Reviewed', 'No Comments' from dual where 1>(select count(*) from TDC_PROPOSAL_EVALUATION
+                  where  NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID} and    STR_USER_TYPE='A' )]]>
+		</queryString>
+		<field name="B" class="java.lang.String"/>
+		<field name="A" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="datasetPo" uuid="5aec923c-eb6b-4f0f-9e2c-9ef64a384cea">
+		<parameter name="propID" class="java.lang.String"/>
+		<parameter name="verID" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select a,c,b from
+(
+SELECT get_user_name(pt.str_assigned_to) a,decode(get_status(str_status),'Recommended','Reviewed',get_status(str_status)) c, nvl(pt.str_summ_remarks,'-') b FROM TDC_PO_PROPOSAL_TRACKER pt
+ where NUM_PROPOSAL_ID=$P{propID} and  STR_VERSION_ID=$P{verID} and str_status<>'RV'
+
+  union
+				 select 'None','Not Reviewed','No Comments' from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where NUM_PROPOSAL_ID=$P{propID} and STR_VERSION_ID=$P{verID} and str_status<>'RV')
+
+    )]]>
+		</queryString>
+		<field name="A" class="java.lang.String"/>
+		<field name="C" class="java.lang.String"/>
+		<field name="B" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="datasetexpert" uuid="21e7a3d2-09d9-4c67-a71e-b8185e52a556">
+		<parameter name="propID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{propID}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="verID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{verID}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select catmst.num_cat_id,catmst.num_cat_name,fed.sub_cat_value,decode(evalmst.ADEQUATE_EXPERTISE,'Y','Yes','NO') ADEQUATE_EXPERTISE,
+decode(evalmst.ADEQUATE_FACILITIES,'Y','Yes','NO') ADEQUATE_FACILITIES,evalmst.DETAILED_COMMENTS,get_status(evalmst.STR_STATUS) STR_STATUS,
+evalmst.REJECTION_REASON
+from tdc_full_proposal_eval_dtl fed,tdc_subcategory_mst subcat,tdc_category_mst catmst,tdc_full_proposal_evaluation evalmst
+where  subcat.num_cat_id=fed.num_cat_id
+and subcat.num_subcategory_id=fed.sub_cat_id and subcat.num_cat_id=catmst.num_cat_id and
+fed.num_cat_id=catmst.num_cat_id and evalmst.num_eval_id=fed.num_eval_id and fed.num_eval_id in
+ (select fe.num_eval_id from tdc_full_proposal_evaluation fe where
+ fe.num_proposal_id=$P{propID} and fe.str_version_id=$P{verID})]]>
+		</queryString>
+		<field name="NUM_CAT_ID" class="java.math.BigDecimal"/>
+		<field name="NUM_CAT_NAME" class="java.lang.String"/>
+		<field name="SUB_CAT_VALUE" class="java.lang.String"/>
+		<field name="ADEQUATE_EXPERTISE" class="java.lang.String"/>
+		<field name="ADEQUATE_FACILITIES" class="java.lang.String"/>
+		<field name="DETAILED_COMMENTS" class="java.lang.String"/>
+		<field name="STR_STATUS" class="java.lang.String"/>
+		<field name="REJECTION_REASON" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="propID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{propID}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="verID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{verID}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagePath" class="java.lang.String"/>
+	<parameter name="imagePath1" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select b,a,c from(SELECT  nvl(ev.STR_REMARKS,'-') a    , (select get_status(str_status) b from TDC_FULL_PROPOSAL_VERSION_DTL where    NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID}   ) b,
+(select nvl(to_char(decision_date,'Mon dd, yyyy'),'') c from TDC_FULL_PROPOSAL_VERSION_DTL where    NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID}   ) c
+
+ FROM TDC_PROPOSAL_EVALUATION ev
+ where  NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID} and    STR_USER_TYPE='A')
+
+  union
+				 select  'Not Reviewed', 'No Comments','' from dual where 1>(select count(*) from TDC_PROPOSAL_EVALUATION
+                  where  NUM_PROPOSAL_ID =$P{propID} and STR_VERSION_ID=$P{verID} and    STR_USER_TYPE='A' )]]>
+	</queryString>
+	<field name="b" class="java.lang.String"/>
+	<field name="a" class="java.lang.String"/>
+	<field name="c" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="145" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-16" width="531" height="73" uuid="57530655-844e-44c8-912a-c8b0498f622e"/>
+				<imageExpression><![CDATA[$P{imagePath}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="158" y="62" width="209" height="20" uuid="dc86a31a-176b-4d75-881a-8029c82fd6b8"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Over All  Evaluation Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="96" width="93" height="20" uuid="3c2debff-b503-4985-a83c-28983daac9eb"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proposal Id:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="96" width="100" height="20" uuid="27b3e284-1833-4be5-a0b4-b643e4f977b7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{propID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="291" y="96" width="113" height="20" uuid="78d5a21c-2f69-400d-8ca3-b2e98bf403d7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Version Id        :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="449" y="96" width="100" height="20" uuid="8c287a64-c899-43b0-8591-a77999ae6dab"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{verID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="291" y="120" width="113" height="20" uuid="075606a4-ee9b-477b-a745-44db8cfe8624"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Decision Date  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="449" y="122" width="100" height="20" uuid="5085e9cf-7de5-49c4-a85d-bc3519839ff6"/>
+				<textFieldExpression><![CDATA[$F{c}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="148" height="20" uuid="fcbed919-e668-4e01-8d25-5aa486c9bc6c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRC  Remarks:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" positionType="Float" stretchType="RelativeToBandHeight" x="10" y="33" width="545" height="50" isRemoveLineWhenBlank="true" uuid="00893241-b41d-4610-949a-e6f3e538356c"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="c574daf6-a6a0-4acc-bf5f-ad480c50a58b">
+						<datasetParameter name="propID">
+							<datasetParameterExpression><![CDATA[$P{propID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="verID">
+							<datasetParameterExpression><![CDATA[$P{verID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="157" uuid="88d954e2-31c1-4db6-9e3d-f62953335fef">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="157" height="30" uuid="9525b98c-239d-4538-8db4-0b9f0b37fc6e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRC Decision]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="43" rowSpan="1">
+							<textField>
+								<reportElement x="12" y="14" width="145" height="25" uuid="e8090ec1-447d-40e9-88c8-2ad9c8b4a966"/>
+								<textFieldExpression><![CDATA[$F{B}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="368" uuid="b2658a75-f1d9-4f18-bb8c-f08b96826158">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="56" y="0" width="154" height="30" uuid="7f34c703-597e-4f67-bf30-cd93f632288e"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRC Remarks]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="43" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="17" y="5" width="351" height="34" uuid="d973991f-c0d8-4d33-acd0-909e6c0aba6e"/>
+								<textFieldExpression><![CDATA[$F{A}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="102">
+			<componentElement>
+				<reportElement key="table 2" style="table 2" positionType="Float" stretchType="RelativeToBandHeight" x="10" y="36" width="545" height="50" uuid="af75b1a3-2ca2-4b17-baa7-cd4594ae13e4"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="datasetPo" uuid="bee5f701-2f3c-411c-8425-2773e1a3a70a">
+						<datasetParameter name="propID">
+							<datasetParameterExpression><![CDATA[$P{propID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="verID">
+							<datasetParameterExpression><![CDATA[$P{verID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="131" uuid="2c5ed187-6ce4-4803-be56-395fa37e2e91">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="13" y="0" width="108" height="30" uuid="9795b6a7-2b22-4e38-91a1-23a7841f7928"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Program Officer]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="48" rowSpan="1">
+							<textField>
+								<reportElement x="13" y="7" width="108" height="20" uuid="94b6e70a-a59e-4059-a2b2-726677ec3d92"/>
+								<textFieldExpression><![CDATA[$F{A}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="122" uuid="7106df5f-4f34-4731-a115-986213898ec7">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="19" y="0" width="103" height="30" uuid="ff5a5065-3e95-47e4-9758-364df92b5ff7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="48" rowSpan="1">
+							<textField>
+								<reportElement x="19" y="9" width="103" height="27" uuid="600ee4de-07c7-4e6f-b94e-59bfc79465f5"/>
+								<textFieldExpression><![CDATA[$F{C}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="265" uuid="f166a9a0-cc2c-46ef-82ec-30a100cc2fe3">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="25" y="0" width="157" height="30" uuid="71bc7883-a8fe-4a10-97be-234f6662c8c0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Remarks]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="48" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" x="0" y="0" width="260" height="41" isPrintWhenDetailOverflows="true" uuid="a6722cbe-3f6c-4074-aa17-ad41ea0c012c"/>
+								<textFieldExpression><![CDATA[$F{B}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="10" y="0" width="148" height="20" uuid="9569cfc6-2f60-451c-9063-9c13033643b3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Program Officer Remarks:]]></text>
+			</staticText>
+		</band>
+		<band height="122">
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="10" y="11" width="545" height="100" isPrintWhenDetailOverflows="true" uuid="f939aa13-7b4f-47a1-a9ec-32ca5fed2031"/>
+				<subreportParameter name="propID">
+					<subreportParameterExpression><![CDATA[$P{propID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="verID">
+					<subreportParameterExpression><![CDATA[$P{verID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imagePath">
+					<subreportParameterExpression><![CDATA[$P{imagePath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imagePath1">
+					<subreportParameterExpression><![CDATA[$P{imagePath1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="443" y="20" width="80" height="20" uuid="61ec824c-c1c1-4383-b7f7-ec6b7bb1d0b4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="523" y="20" width="32" height="20" uuid="b941b969-a232-46a7-8257-2b68cf869acc"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

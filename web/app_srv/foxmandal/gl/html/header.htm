@@ -1,0 +1,132 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>New Page 1</title>
+<script type="text/javascript" language="JavaScript">
+<!-- Copyright 2002 Bontrager Connection, LLC
+
+function getCalendarDate()
+{
+   var months = new Array(13);
+   months[0]  = "January";
+   months[1]  = "February";
+   months[2]  = "March";
+   months[3]  = "April";
+   months[4]  = "May";
+   months[5]  = "June";
+   months[6]  = "July";
+   months[7]  = "August";
+   months[8]  = "September";
+   months[9]  = "October";
+   months[10] = "November";
+   months[11] = "December";
+   var now         = new Date();
+   var monthnumber = now.getMonth();
+   var monthname   = months[monthnumber];
+   var monthday    = now.getDate();
+   var year        = now.getYear();
+   if(year < 2000) { year = year + 1900; }
+   var dateString = monthname +
+                    ' ' +
+                    monthday +
+                    ', ' +
+                    year;
+   return dateString;
+} // function getCalendarDate()
+
+function getClockTime()
+{
+   var now    = new Date();
+   var hour   = now.getHours();
+   var minute = now.getMinutes();
+   var second = now.getSeconds();
+   var ap = "AM";
+   if (hour   > 11) { ap = "PM";             }
+   if (hour   > 12) { hour = hour - 12;      }
+   if (hour   == 0) { hour = 12;             }
+   if (hour   < 10) { hour   = "0" + hour;   }
+   if (minute < 10) { minute = "0" + minute; }
+   if (second < 10) { second = "0" + second; }
+   var timeString = hour +
+                    ':' +
+                    minute +
+                    ':' +
+                    second +
+                    " " +
+                    ap;
+   return timeString;
+} // function getClockTime()
+
+//-->
+
+
+function searchGoogle()
+{
+var searchValue=document.getElementById("strSearch").value;
+
+//alert(searchValue);
+  if(document.getElementById("strSearch").value=='Search...' || document.getElementById("strSearch").value=='') 
+  {
+  alert('Enter the key word'); 
+  return false;
+  }
+  else
+  {
+    
+    window.open("http://www.google.com/search?q="+searchValue);
+    //    document.forms[0].submit();
+  }
+}
+
+
+
+
+
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="CSS/home.css">
+</head>
+
+<body>
+
+<div align="center"> 
+
+	<table  class="header">
+		<tr>
+			<td><img border="0" src="/Fox_Mandal/app_srv/foxmandal/gl/images/ICMRlogo5.gif" width="710" height="95"></td>
+			
+     
+			<!-- <table><tr><td><div class="searchboxdiv" style=" background:url('/ICMR/app_srv/icmr/gl/images/search.gif'); width:151px; height:22px;float:right;">  	
+       <INPUT id="strSearch" class="searchbox" name="strSearch" onFocus="if(this.value=='Search...') this.value='';" onblur="if(this.value=='') this.value='Search...';" value="Search..." maxLength="255" size="16"></div></td>
+      <td><INPUT type="button" value="Go" onClick="searchGoogle();" onBlur="if(strSearch.value=='Search...' || strSearch.value==''){ strSearch.focus(); return false;}">
+      <INPUT type="hidden" CHECKED value="cdacnoida.in" name="sitesearch" >
+      </td></tr></table> -->
+		 
+
+	
+							</td>
+		</tr>  
+		<!--<tr>
+			<td width="137" align="right"><font style="font-size:9px;"><script type="text/javascript" language="JavaScript"><!--
+var calendarDate = getCalendarDate();
+
+document.write(calendarDate);
+
+
+</script></font></td>
+			<td width="40">
+			<p align="center">
+			<img border="0" src="/ICMR/app_srv/icmr/gl/images/clock.gif" width="23" height="24"></td> 
+			<td width="79"><font style="font-size:9px;"><script type="text/javascript" language="JavaScript"><!--
+var clockTime = getClockTime();
+document.write(clockTime);</script></font></td>
+		</tr>  -->
+		</table>
+ 
+</div>
+
+</body>
+
+</html>

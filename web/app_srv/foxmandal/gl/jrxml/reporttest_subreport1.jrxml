@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="expertproposalsreport" pageWidth="900" pageHeight="721" whenNoDataType="AllSectionsNoDetail" columnWidth="900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="userID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagePath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select rownum slno,a,b,c,d,e,f,g,h,i,j,k,l,m from (select DISTINCT THEMETIC_NAME_ID(p.NUM_TREMATIC_AREA_ID) a,initcap(p.STR_PROPOSAL_TITLE) b,dy.STR_DOC_TYPE_NAME c,
+to_char( (pt.DT_ALLOTMENT_DATE+ pt.NUM_ALLOTED_DAYS),'dd-mm-yyyy' ) d,dl.STR_DOC_NAME e, p.NUM_PROPOSAL_ID f,pt.STR_VERSION_ID g,
+pt.STR_VERSION_ID h,get_user_name(p.STR_PROPOSER_ID) i,GET_DISCIPLINE_DESC(get_major_disc_id_from_prop(p.NUM_PROPOSAL_ID)) j,
+to_char(pt.DT_ALLOTMENT_DATE,'dd-mm-yy') k,nvl(trim(get_status(trim(pt.STR_STATUS))),'-') l,pt.STR_STATUS m from
+TDC_PROPOSAL_MASTER p ,TDC_PROPOSAL_TRACKER pt ,TDC_DOC_TYPE_MASTER dy,TDC_DOC_DTL dl where p.NUM_PROPOSAL_ID=pt.NUM_PROPOSAL_ID
+and dl.NUM_PROPSAL_ID=p.NUM_PROPOSAL_ID  and dl.NUM_DOC_TYPE_ID=dy.NUM_DOC_TYPE_ID  and dl.STR_VERSION_ID=pt.STR_VERSION_ID
+AND dl.NUM_DOC_TYPE_ID=2 and pt.STR_ASSIGNED_TO=$P{userID} and pt.STR_STATUS not in('IE','FE','DF')
+order by pt.STR_STATUS) order by slno]]>
+	</queryString>
+	<field name="SLNO" class="java.math.BigDecimal"/>
+	<field name="A" class="java.lang.String"/>
+	<field name="B" class="java.lang.String"/>
+	<field name="C" class="java.lang.String"/>
+	<field name="D" class="java.lang.String"/>
+	<field name="E" class="java.lang.String"/>
+	<field name="F" class="java.lang.String"/>
+	<field name="G" class="java.lang.String"/>
+	<field name="H" class="java.lang.String"/>
+	<field name="I" class="java.lang.String"/>
+	<field name="J" class="java.lang.String"/>
+	<field name="K" class="java.lang.String"/>
+	<field name="L" class="java.lang.String"/>
+	<field name="M" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="209" y="0" width="334" height="35"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Archive Proposals with Expert]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="72" y="10" width="78" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proposal Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="10" width="56" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Version Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="10" width="23" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="10" width="46" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="10" width="64" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Broad Area]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="543" y="10" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Major Discipline]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="669" y="10" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="10" width="50" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sl. No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30">
+			<textField>
+				<reportElement x="72" y="4" width="106" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{F}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="4" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{G}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="4" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SLNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="4" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{I}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="4" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{B}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="4" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{A}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="543" y="4" width="126" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{J}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="669" y="4" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{L}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Prevent"/>
+	</pageFooter>
+</jasperReport>

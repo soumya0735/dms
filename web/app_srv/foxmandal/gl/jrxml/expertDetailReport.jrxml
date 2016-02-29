@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="expertDetailReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="319"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#5F9EA0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFFDFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFFEFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#20B2AA">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFFFFC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 2">
+		<parameter name="userid" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select STR_DURATION duration,STR_INSTITUTE_NAME name, STR_WORK_DTL work  from TDC_USER_EXPERIENCE_DTL where
+     str_user_id=$P{userid}]]>
+		</queryString>
+		<field name="DURATION" class="java.lang.String"/>
+		<field name="NAME" class="java.lang.String"/>
+		<field name="WORK" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/prabha/icmr/ICMR/public_html/app_srv/icmr/gl/jrxml/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="userid" class="java.lang.String"/>
+	<parameter name="imagePath" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select STR_USER_ID a,get_user_name(STR_USER_ID) b,nvl(STR_DESIGNATION,'NA') c,nvl(STR_DEPARTMENT,'NA') d,nvl(to_char(DT_DOB,'dd-Mon-yyyy'),'-') e ,
+ get_themetic_area_name(STR_USER_ID)f,get_dis_for_user(STR_USER_ID) g ,nvl(STR_SUB_DISC,'NA') h  , nvl(str_address1,'NA')||':'||nvl(c.str_city_name,'NA')||':'||nvl(s.str_state_name,'NA')||':'||nvl(num_zip,0) j,nvl(str_fax,'NA') k,
+ NVL(TO_CHAR(NUM_MOBILE_NO),'NA') l,nvl(NUM_STD_CODE,0)||'-'||nvl(NUM_CONTACT_NO,0)||'-'||nvl(NUM_EXT_NO,0) m,
+ nvl(num_home_std,0)||'-'||nvl(num_home_contact_no,0) n,nvl(STR_E_MAIL,'NA') o,
+ nvl(other_degree,'NA') p,GET_DEGREE_EXPERT(STR_USER_ID)q,NVL(STR_RESEARCH_SPL,'NA') r
+ from TDC_USER_REGISTRATION ureg,TDC_CITIES c,tdc_states s where str_user_id=$P{userid} and c.num_city_id(+)=ureg.num_city_id and  s.num_state_id(+)=ureg.num_state_id]]>
+	</queryString>
+	<field name="A" class="java.lang.String"/>
+	<field name="B" class="java.lang.String"/>
+	<field name="C" class="java.lang.String"/>
+	<field name="D" class="java.lang.String"/>
+	<field name="E" class="java.lang.String"/>
+	<field name="F" class="java.lang.String"/>
+	<field name="G" class="java.lang.String"/>
+	<field name="H" class="java.lang.String"/>
+	<field name="J" class="java.lang.String"/>
+	<field name="K" class="java.lang.String"/>
+	<field name="L" class="java.lang.String"/>
+	<field name="M" class="java.lang.String"/>
+	<field name="N" class="java.lang.String"/>
+	<field name="O" class="java.lang.String"/>
+	<field name="P" class="java.lang.String"/>
+	<field name="Q" class="java.lang.String"/>
+	<field name="R" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="57"/>
+				<imageExpression class="java.lang.String"><![CDATA["/home/prabha/icmr/ICMR/public_html/app_srv/icmr/gl/jrxml/ICMRlogo5.gif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="21" width="555" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="156" y="0" width="247" height="29" forecolor="#A32323"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expert Registration Details]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="29" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="552" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Expert  Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Devision/Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Broad Area]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Major Discipline]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Sub Disicipline]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="248" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Phone Number]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="195" y="0" width="226" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{B}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="20" width="226" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{C}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="40" width="226" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="60" width="223" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{E}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="80" width="360" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{F}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="171" width="145" height="20"/>
+				<textElement/>
+				<text><![CDATA[Correspondence Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="268" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[E-Mail Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="328" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Degree Obtain]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="460" width="168" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Professional Experience]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="374" width="135" height="20"/>
+				<textElement/>
+				<text><![CDATA[Reasearch Specialization]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="199" y="171" width="345" height="77"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{J}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="248" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{M}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="268" width="189" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{O}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="328" width="185" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Q}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="368" width="324" height="92"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{R}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="151" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{H}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="100" width="360" height="51"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{G}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="308" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fax No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="203" y="308" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{K}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="288" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Mobile Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="348" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Other Degree]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="203" y="288" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{L}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="348" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{P}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<componentElement>
+					<reportElement key="table 3" style="table 3" x="0" y="480" width="544" height="69"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="New Dataset 2">
+							<datasetParameter name="userid">
+								<datasetParameterExpression><![CDATA[$P{userid}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="68">
+							<jr:columnHeader style="table 3_CH" height="34" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="60" height="30"/>
+									<textElement/>
+									<text><![CDATA[DURATION]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 3_TD" height="50" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="4" width="60" height="46"/>
+									<textElement/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{DURATION}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="189">
+							<jr:columnHeader style="table 3_CH" height="34" rowSpan="1">
+								<staticText>
+									<reportElement x="44" y="0" width="90" height="30"/>
+									<textElement/>
+									<text><![CDATA[NAME]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 3_TD" height="50" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="189" height="46"/>
+									<textElement/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="293">
+							<jr:columnHeader style="table 3_CH" height="34" rowSpan="1">
+								<staticText>
+									<reportElement x="81" y="0" width="90" height="19"/>
+									<textElement/>
+									<text><![CDATA[WORK]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 3_TD" height="50" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="293" height="46"/>
+									<textElement/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{WORK}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</elementGroup>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

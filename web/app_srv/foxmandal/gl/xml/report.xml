@@ -1,0 +1,1581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<REPORTLIST>
+<REPORT HEADING="Expert List" NAME="expert_list">
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+        <HEADERCELL LEVEL="0" SIZE="3" ALIGN="RIGHT">S.No</HEADERCELL>  
+        <HEADERCELL LEVEL="1" SIZE="7" ALIGN="LEFT">User ID</HEADERCELL> 
+        <HEADERCELL LEVEL="2" SIZE="20" ALIGN="LEFT">Name</HEADERCELL>
+        <HEADERCELL LEVEL="3" SIZE="7"  ALIGN="LEFT">Email Id</HEADERCELL> 
+        <HEADERCELL LEVEL="4" SIZE="20" ALIGN="LEFT">Organization</HEADERCELL>
+        <HEADERCELL LEVEL="5" SIZE="7" ALIGN="LEFT">Department</HEADERCELL> 
+        <HEADERCELL LEVEL="6" SIZE="20" ALIGN="LEFT">Designation</HEADERCELL>
+        <HEADERCELL LEVEL="7" SIZE="20" ALIGN="RIGHT">Mob No.</HEADERCELL>
+        <HEADERCELL LEVEL="8" SIZE="20" ALIGN="LEFT">Broad Area</HEADERCELL>
+</HEADER>
+<QUERY>
+	select rownum,a,b,c,d,e,f,g,h from(
+          select distinct STR_USER_ID a, 
+           STR_FNAME||' '||STR_MNAME||' '||STR_LNAME b, nvl(STR_E_MAIL,'NA') c, nvl(STR_ORGANISATION,'NA') d,nvl(STR_DEPARTMENT,'NA') e, nvl(STR_DESIGNATION,'NA') f, nvl(NUM_MOBILE_NO,0) g,
+           get_themetic_area_name(e.STR_EXPERT_ID) h from TDC_USER_REGISTRATION r,TDC_EXPERT_MASTER e where r.STR_USER_ID=e.STR_EXPERT_ID and str_user_type like '%E%' and STR_UNDERTAKING_RECEIVED='Y' and e.NUM_THEMATIC_AREA_ID like #0
+           ) 
+</QUERY> 
+</SECTION>
+</REPORT> 
+
+<REPORT HEADING="Work Group Member List" NAME="work_group_member">
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="3" ALIGN="RIGHT">S.No</HEADERCELL>  
+        <HEADERCELL LEVEL="1" SIZE="7" ALIGN="LEFT">User ID</HEADERCELL> 
+        <HEADERCELL LEVEL="2" SIZE="20" ALIGN="LEFT">Name</HEADERCELL>
+         <HEADERCELL LEVEL="3" SIZE="7" ALIGN="LEFT">Email Id</HEADERCELL> 
+        <HEADERCELL LEVEL="4" SIZE="20" ALIGN="LEFT">Organisation</HEADERCELL>
+         <HEADERCELL LEVEL="5" SIZE="7" ALIGN="LEFT">Department</HEADERCELL> 
+        <HEADERCELL LEVEL="6" SIZE="20" ALIGN="LEFT">Designation</HEADERCELL>
+        <HEADERCELL LEVEL="7" SIZE="20" ALIGN="RIGHT">Mob No.</HEADERCELL>
+       
+
+
+</HEADER>
+<QUERY>
+	select rownum,a,b,c,d,e,f,g from(
+          select STR_USER_ID a, 
+           STR_FNAME||' '||STR_MNAME||' '||STR_LNAME b, nvl(STR_E_MAIL,'NA') c, nvl(STR_ORGANISATION,'NA') d,nvl(STR_DEPARTMENT,'NA') e, nvl(STR_DESIGNATION,'NA') f, nvl(NUM_MOBILE_NO,0) g
+           from TDC_USER_REGISTRATION r where  str_user_type like '%W%'
+              
+     
+ )
+</QUERY> 
+</SECTION>
+</REPORT> 
+
+<REPORT HEADING="View Comments" NAME="view_comments">
+<SECTION TYPE="VERTICAL">
+
+
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Parameter</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Score </HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+</HEADER>
+
+<QUERY>
+
+select a,c,b from(SELECT pt.STR_PARAMETER_NAME a, ev.NUM_VALUE c,ev.STR_REMARKS b FROM TDC_EXPERT_PARAMETER_EVAL ev ,TDC_THEMATIC_PARAMETER_DETAILS pt
+ where pt.num_parameter_id=ev.num_parameter_id  and STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0 )
+union
+ SELECT 'Total',sum(ev.NUM_VALUE),' ' FROM TDC_EXPERT_PARAMETER_EVAL ev ,TDC_THEMATIC_PARAMETER_DETAILS pt
+ where pt.num_parameter_id=ev.num_parameter_id  and STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0 
+
+ 
+ 
+  union
+				 select 'Not Reviewed',0 ,'No Comments' from dual where 1>(select count(*) from TDC_EXPERT_PARAMETER_EVAL
+                 where STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0  )
+
+
+</QUERY> 
+</SECTION>
+	<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Comments</HEADERCELL> 
+
+
+</HEADER>
+<QUERY>
+
+select STR_EXPERT_ID,nvl(to_char(NUM_PAGE_NO),'-'),nvl(STR_REF_TEXT,'-'),nvl(STR_REMARKS,'-') from TDC_proposal_evaluation 
+                where   STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and STR_EXPERT_ID like #0
+                 
+                and decode(instr(STR_FLAG_USER_COMM,'O'),0,'','true') is not null
+				 union
+				 select 'Not Reviewed','-','Not Given','No Comments' from dual where 1>(select count(*) from TDC_proposal_evaluation 
+                 where  STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and STR_EXPERT_ID like #0)
+                 
+ 
+</QUERY> 
+</SECTION>
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select a,b from(SELECT pt.str_assigned_to a, nvl(pt.str_summ_remarks,'-') b FROM TDC_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and str_assigned_to like #0 )
+
+  union
+				 select 'Not Reviewed','No Comments' from dual where 1>(select count(*) from TDC_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and str_assigned_to like #0 )
+
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+
+<REPORT HEADING="Regret and Cancel Proposals" NAME="regret_cancel_propasal">
+	<SECTION HEADING="Isuue" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="3" ALIGN="CENTER">S.No</HEADERCELL>  
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert  name</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="7" ALIGN="LEFT">Title</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="7" ALIGN="LEFT">Broad Area</HEADERCELL> 
+
+</HEADER>
+<QUERY>
+ select rownum,a,b,c from
+ ( select a.STR_ASSIGNED_TO a,m.STR_PROPOSAL_TITLE b, themetic_name_id(m.NUM_TREMATIC_AREA_ID) c 
+                  from TDC_PROPOSAL_MASTER m,TDC_proposal_tracker a 
+                 where m.NUM_PROPOSAL_ID=a.NUM_PROPOSAL_ID and m.NUM_PROPOSAL_ID like #0
+                 and a.STR_VERSION_ID like #1
+                  and a.str_status='CE'
+                  
+                  
+ )
+   union
+    select rownum,'No Record Found','-','-' from dual where 1>(select count(*) 
+    from TDC_PROPOSAL_MASTER m,TDC_proposal_tracker a 
+                 where m.NUM_PROPOSAL_ID=a.NUM_PROPOSAL_ID and m.NUM_PROPOSAL_ID like #0
+                 and a.STR_VERSION_ID like #1
+                  and a.str_status='CE')
+ 
+ 
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+
+
+<REPORT HEADING="View All Comments" NAME="view_abstract_comments">
+
+
+
+
+
+
+
+
+
+<SECTION TITLE="Pagewise Rating"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="CENTER">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Comments</HEADERCELL> 
+</HEADER>
+<QUERY>
+
+select 'Expert',nvl(to_char(NUM_PAGE_NO),'-'),nvl(STR_REF_TEXT,'-'),nvl(STR_REMARKS,'-') from TDC_proposal_evaluation 
+                where   STR_VERSION_ID like #0 and NUM_PROPOSAL_ID like #1 and STR_USER_TYPE='O'
+                 
+                and decode(instr(STR_FLAG_USER_COMM,'P'),0,'','true') is not null
+				 union
+				 select 'None','-','Not Given','No Comments' from dual where 1>(select count(*) from TDC_proposal_evaluation 
+                 where  STR_VERSION_ID like #0 and  NUM_PROPOSAL_ID like #1 and STR_USER_TYPE='O')
+				</QUERY> 
+
+
+
+
+</SECTION>
+
+
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Overall Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select a from(SELECT  nvl(ev.STR_REMARKS,'-') a FROM TDC_PROPOSAL_EVALUATION ev
+ where STR_VERSION_ID like #0 and  NUM_PROPOSAL_ID like #1 and  STR_USER_TYPE='A')
+
+  union
+				 select 'No Comments' from dual where 1>(select count(*) from TDC_PROPOSAL_EVALUATION
+                  where STR_VERSION_ID like #0 and  NUM_PROPOSAL_ID like #1)
+
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+
+
+
+<REPORT HEADING="View  Comments" NAME="view_all_version_comments">
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Program Officer Remarks</HEADERCELL> 
+
+
+
+
+</HEADER>
+<QUERY>
+
+select b from(SELECT  nvl(pt.str_summ_remarks,'-') b FROM TDC_PO_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #0 and  NUM_PROPOSAL_ID like #1 )
+
+  union
+				 select 'No Comments' from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #0 and  NUM_PROPOSAL_ID like #1 )
+
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+	<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Comments</HEADERCELL> 
+
+
+</HEADER>
+<QUERY>
+
+select STR_EXPERT_ID,nvl(to_char(NUM_PAGE_NO),'-'),nvl(STR_REF_TEXT,'-'),nvl(STR_REMARKS,'-') from TDC_proposal_evaluation 
+                where   STR_VERSION_ID like #0 and NUM_PROPOSAL_ID like #1 
+                 
+                and decode(instr(STR_FLAG_USER_COMM,'P'),0,'','true') is not null
+				 union
+				 select 'Not Reviewed','-','Not Given','No Comments' from dual where 1>(select count(*) from TDC_proposal_evaluation 
+                 where  STR_VERSION_ID like #0 and  NUM_PROPOSAL_ID like #1 )
+                 
+ 
+</QUERY> 
+
+
+
+
+</SECTION>
+
+
+</REPORT>
+
+
+
+
+
+
+
+
+
+<REPORT HEADING="View Full Comments" NAME="view_Full_Proposal_comments">
+
+<SECTION TYPE="VERTICAL">
+
+
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Parameters</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+
+
+</HEADER>
+
+<QUERY>
+
+select a,b from(SELECT pt.STR_PARAMETER_NAME a, ev.STR_REMARKS b FROM TDC_EXPERT_PARAMETER_EVAL ev ,TDC_THEMATIC_PARAMETER_DETAILS pt
+ where pt.num_parameter_id=ev.num_parameter_id    and STR_VERSION_ID=#2 and NUM_PROPOSAL_ID like #1 and  ev.NUM_EXPERT_ID like #0)
+
+  union
+				 select 'Not Reviewed','No Comments' from dual where 1>(select count(*) from TDC_EXPERT_PARAMETER_EVAL
+                 where STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0)
+
+
+</QUERY> 
+
+</SECTION>
+
+
+	<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Comments</HEADERCELL> 
+
+</HEADER>
+
+<QUERY>
+             select STR_EXPERT_ID,nvl(to_char(NUM_PAGE_NO),'-'),STR_REF_TEXT,STR_REMARKS from TDC_proposal_evaluation 
+                where STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and STR_EXPERT_ID like #0 
+               
+             and decode(instr(STR_FLAG_USER_COMM,'O'),0,'','true') is not null
+                
+                
+                union
+				 select 'Not Reviewed','-','Not Given','No Comments' from dual where 1>
+                                 (select count(*) from TDC_proposal_evaluation 
+                 where NUM_PROPOSAL_ID like #1 and STR_VERSION_ID like #2 and STR_EXPERT_ID like #0) 
+</QUERY> 
+
+</SECTION>
+  
+  
+  
+  
+  
+ 
+</REPORT>
+
+<REPORT HEADING="Advertisement Details" NAME="advertDetails">
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Advertisement Id</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Title</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Call Start Date</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Call End Date</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Broad Area</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Major Discipline</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Concern Program Officer</HEADERCELL> 
+</HEADER>
+
+<QUERY>
+select ADV_ID,nvl(ADV_DTL,'NA'),to_char(ADV_START_DT,'dd-mm-yyyy'),to_char(ADV_END_DT,'dd-mm-yyyy'),themetic_name_id(ADV_BROAD_AREA),
+GET_DISCIPLINE_DESC(ADV_MAJOR_DISC),get_user_name(ADV_PO_ID) from TDC_ADVERTISEMENT_MASTER
+where ADV_ID=#0
+</QUERY> 
+</SECTION>
+</REPORT>
+
+<REPORT HEADING="View User Details" NAME="User_Profile">
+
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Name</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Email Id</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Oragnisation</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Deparment</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Mobile Number</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">DOB</HEADERCELL> 
+ <HEADERCELL LEVEL="7" SIZE="4" ALIGN="LEFT">Last Degree Type</HEADERCELL> 
+ <HEADERCELL LEVEL="8" SIZE="4" ALIGN="LEFT">Last Degree Details</HEADERCELL> 
+ <HEADERCELL LEVEL="9" SIZE="4" ALIGN="LEFT">Correspondence   Address</HEADERCELL> 
+ <HEADERCELL LEVEL="10" SIZE="4" ALIGN="LEFT">City</HEADERCELL> 
+<HEADERCELL LEVEL="11" SIZE="4" ALIGN="LEFT">State </HEADERCELL> 
+<HEADERCELL LEVEL="12" SIZE="4" ALIGN="LEFT">Zip Code</HEADERCELL> 
+<HEADERCELL LEVEL="13" SIZE="4" ALIGN="LEFT">Organisation No</HEADERCELL> 
+
+</HEADER>
+
+<QUERY>
+
+
+select a,b,c,d,e,f,g,h,j,l,m,n,o,p from(
+          select   
+           u.STR_FNAME||' '||u.STR_MNAME||' '||u.STR_LNAME a, nvl(u.STR_E_MAIL,'NA') b, nvl(u.STR_ORGANISATION,'NA') c,nvl(u.STR_DEPARTMENT,'NA') e, nvl(u.STR_DESIGNATION,'NA') d, nvl(u.NUM_MOBILE_NO,0) f,to_char(u.DT_DOB,'dd-Mon-yyyy') g,
+            u. num_last_degree_year h,u.str_last_degree_type||':'||u.str_stream||':'||u.str_university  j,u.str_address1 l ,s.str_state_name n,c.str_city_name m,u.num_zip o,u.num_contact_no p from TDC_USER_REGISTRATION u,TDC_CITIES c,tdc_states s where u.str_user_id=#0
+            and u.num_city_id=c.num_city_id and u.num_state_id=s.num_state_id 
+           )   
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+<REPORT HEADING="Proposal Details" NAME="Proposal_Details">
+
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">User Id</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">User Name</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Proposal ID</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Proposal Submission Date</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Title</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Broad Area</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Major Area</HEADERCELL> 
+<HEADERCELL LEVEL="7" SIZE="4" ALIGN="LEFT">Related Discipline</HEADERCELL> 
+ <HEADERCELL LEVEL="8" SIZE="4" ALIGN="LEFT">Budget(in Lakhs)</HEADERCELL> 
+ <HEADERCELL LEVEL="9" SIZE="4" ALIGN="LEFT">Duration for collecting the data</HEADERCELL> 
+ <HEADERCELL LEVEL="10" SIZE="4" ALIGN="LEFT">Duration for analyzing the data</HEADERCELL> 
+<HEADERCELL LEVEL="11" SIZE="4" ALIGN="LEFT">Objective of the study </HEADERCELL> 
+<HEADERCELL LEVEL="12" SIZE="4" ALIGN="LEFT">Expected Outcome</HEADERCELL> 
+
+
+</HEADER>
+
+<QUERY>
+          select m.STR_PROPOSER_ID,initcap(b.STR_FNAME) ||' '||trim(initcap(nvl(b.STR_MNAME,' ')))||' '||initcap(b.STR_LNAME),m.NUM_PROPOSAL_ID,to_char(m.DT_PROPOSAL_SUBMIT_DATE,'dd-mm-yyyy'),
+            initcap(m.STR_PROPOSAL_TITLE), 
+            themetic_name_id(m.NUM_TREMATIC_AREA_ID),
+            bc.STR_DESCRIPTION, (select nvl(get_dis_desc_fm_prop_ver(a.NUM_PROPOSAL_ID,a.STR_VERSION_ID),' ' ) from dual ) disp,
+            a.num_total_cost,a.num_duration_collect_data || ' Month(s)',a.num_duration_analyze_data ||' Month(s)',nvl(a.str_objective,' '),nvl(a.str_expected_outcome ,' ')
+            from TDC_PROPOSAL_MASTER m,TDC_ABSTRACT_VERSION_DTL a ,TDC_BROAD_DISCIPLINE_DTL bc,TDC_USER_REGISTRATION b
+            where m.NUM_PROPOSAL_ID=a.NUM_PROPOSAL_ID 
+            and m.str_proposer_id=b.str_user_id
+            and a.STR_MAJOR_DISCIPLINE=bc.num_discipline_id
+            and m.NUM_PROPOSAL_ID=#0 
+            and a.STR_VERSION_ID=#1
+</QUERY> 
+</SECTION>
+
+<SECTION TITLE="Publication Details" TYPE="VERTICAL">
+<HEADER>
+        <HEADERCELL LEVEL="0" SIZE="3" ALIGN="LEFT">S.No.</HEADERCELL> 
+        <HEADERCELL LEVEL="1" SIZE="20" ALIGN="CENTER">Author</HEADERCELL> 
+        <HEADERCELL LEVEL="2" SIZE="20" ALIGN="CENTER">Title</HEADERCELL>
+        <HEADERCELL LEVEL="3" SIZE="50" ALIGN="CENTER">Journal Details</HEADERCELL> 
+        <HEADERCELL LEVEL="4" SIZE="5" ALIGN="CENTER">Year</HEADERCELL>
+</HEADER>
+<QUERY>
+	 select a,b,c,d,e from(
+        select SERIAL_NUM a,AUTHOR b,TITLE c,JOURNAL_DETAILS d,YEAR e  from TDC_PROP_PUBLISHING where 
+        PROP_ID=#0 and VER_ID=#1 
+          
+           union
+	
+        select rownum a,'-' b,'-' c,'-' d,'-' e from dual where 1>(select count(*) from TDC_PROP_PUBLISHING where 
+        PROP_ID=#0 and VER_ID=#1 )) order by a asc
+</QUERY> 
+</SECTION>
+
+</REPORT>
+
+
+<REPORT HEADING="Review Report" NAME="view_comments_allocator_archive">
+
+<SECTION TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Program officer </HEADERCELL> 
+
+</HEADER>
+<QUERY>
+select get_user_name(str_assigned_to) as name  FROM TDC_PO_PROPOSAL_TRACKER where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1 and str_status not in ('RV','PE')
+union 
+select 'Not Reviewed by any Program officer' from dual where 1 > (select get_user_name(str_assigned_to)  FROM TDC_PO_PROPOSAL_TRACKER where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1  and str_status not in ('RV','PE')) 
+</QUERY> 
+</SECTION>
+
+
+
+<SECTION TITLE="Proposal Current2 Rating" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="1" SIZE="8" ALIGN="LEFT">Parameters </HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">PO Score</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">PO Remarks</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Final Score</HEADERCELL> 
+</HEADER>
+<QUERY>
+select  STR_PARAMETER_NAME,num_value,str_remarks,allocScore from (
+select STR_PARAMETER_NAME, nvl(to_char(num_value),'-') num_value, nvl(str_remarks,'-') str_remarks ,
+substr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),1,instr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),'#@#')-1) allocScore
+ from
+TDC_EXPERT_PARAMETER_EVAL a , tdc_thematic_parameter_details b
+where a.NUM_PARAMETER_ID(+)=b.NUM_PARAMETER_ID
+and a.NUM_PROPOSAL_ID (+)=#0
+and str_version_id(+)=#1
+and str_user_type(+)='O' and 1 &lt;= (select count(*) from TDC_EXPERT_PARAMETER_EVAL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+UNION 
+SELECT 'Total',nvl(to_char(sum( num_value)),'-'),' ',nvl(to_char(sum(
+decode(
+substr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),1,instr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),'#@#')-1),'NA','0',substr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),1,instr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),'#@#')-1))
+)),'-')
+from
+TDC_EXPERT_PARAMETER_EVAL a , tdc_thematic_parameter_details b
+where a.NUM_PARAMETER_ID(+)=b.NUM_PARAMETER_ID
+and a.NUM_PROPOSAL_ID (+)=#0
+and str_version_id(+)=#1
+and str_user_type(+)='O' and 1 &lt;= (select count(*) from TDC_EXPERT_PARAMETER_EVAL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+UNION
+select 'Not Reviewed','-','No Comments','-' from dual where 0 = (select count(*) from TDC_EXPERT_PARAMETER_EVAL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+)
+where num_vALUE IS NOT NULL order by STR_PARAMETER_NAME
+
+
+</QUERY> 
+</SECTION>
+
+<SECTION TITLE="Pagewise Evaluation by Program Officer"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="1" SIZE="3" ALIGN="LEFT">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="3" ALIGN="LEFT">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="3" ALIGN="LEFT">Comments</HEADERCELL> 
+</HEADER>
+<QUERY>
+select b,c,d from(
+select get_user_name(STR_EXPERT_ID) a,nvl(to_char(NUM_PAGE_NO),'-') b,nvl(STR_REF_TEXT,'-') c,nvl(STR_REMARKS,'-') d from TDC_proposal_evaluation 
+                where   STR_VERSION_ID like #1 and NUM_PROPOSAL_ID like #0 and STR_USER_TYPE='O' 
+  	 union
+                    select 'None' a,'-' b,'-' c,'No Comments' d from dual where 1>(select count(*) from TDC_proposal_evaluation 
+                 where  STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and STR_USER_TYPE='O')
+                 )order by a
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Summary Remarks by Program Officer</HEADERCELL> 
+</HEADER>
+<QUERY>
+
+select b from
+(
+SELECT  nvl(pt.str_summ_remarks,'-') b FROM TDC_PO_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 
+
+  union
+				 select 'No Comments' from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0)
+
+    )
+            
+ 
+</QUERY> 
+</SECTION>
+
+
+<SECTION TITLE="Remarks by Coordinator"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Coordinator Decision</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Coordinator Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select b,a from(SELECT  nvl(ev.STR_REMARKS,'-') a    , (select get_status(str_status) from TDC_ABSTRACT_VERSION_DTL where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 ) b FROM TDC_PROPOSAL_EVALUATION ev
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and  STR_USER_TYPE='A')
+
+  union
+				 select  'Not Reviewed', 'No Comments' from dual where 1>(select count(*) from TDC_PROPOSAL_EVALUATION
+                  where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and  STR_USER_TYPE='A' )
+
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+
+
+<REPORT HEADING="Review Report" NAME="view_FP_comments_PO">
+
+<SECTION TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="CENTER">Proposal ID</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="CENTER">Version ID</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="CENTER">Report Generation Date </HEADERCELL> 
+</HEADER>
+<QUERY>
+select #0,#1,to_char(sysdate,'dd-mm-yyyy') from dual </QUERY> 
+</SECTION>
+
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+
+<HEADERCELL LEVEL="1" SIZE="10" ALIGN="LEFT">Remarks by Program Officer</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="2" ALIGN="LEFT">Date</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="2" ALIGN="LEFT">PO Decision </HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="2" ALIGN="LEFT">Reviewed by </HEADERCELL> 
+</HEADER>
+<QUERY>
+
+select b, c,d, e from
+(
+SELECT  nvl(pt.str_summ_remarks,'-') b, nvl(to_char(pt.dt_decision_date,'dd-mm-yyyy'),'-') c,nvl(get_status(str_status),'-') d, nvl(get_user_name(str_assigned_to),'-') e FROM TDC_PO_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 
+
+  union
+  
+SELECT nvl(pe.str_remarks,'-') b, nvl(to_char(pe.dt_tr_date,'dd-mm-yyyy'),'-') c,nvl(get_status(str_status),'-'),nvl(get_user_name(str_expert_id),'-') e FROM TDC_PROPOSAL_EVALUATION pe
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and str_user_type='O'
+ 
+ union
+select 'No Comments given' b,'-' c,'-' d,'-' e from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0) 
+    )
+            
+ 
+</QUERY> 
+</SECTION>
+
+</REPORT>
+
+<REPORT HEADING="Review Report" NAME="view_overall_comments_allocator_archive">
+
+<SECTION TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Program officer </HEADERCELL> 
+
+</HEADER>
+<QUERY>
+select get_user_name(str_assigned_to) as poname  FROM TDC_PO_PROPOSAL_TRACKER where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1 and str_status not in ('RV','PE')
+union 
+select 'Not Reviewed by any Program officer' from dual where 1 > (select get_user_name(str_assigned_to)  FROM TDC_PO_PROPOSAL_TRACKER where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1  and str_status not in ('RV','PE')) 
+</QUERY> 
+</SECTION>
+
+
+
+<SECTION TITLE="Proposal Rating" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="1" SIZE="8" ALIGN="LEFT">Parameters </HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">PO Score</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">PO Remarks</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Final Score</HEADERCELL> 
+</HEADER>
+<QUERY>
+select  STR_PARAMETER_NAME,num_value,str_remarks,allocScore from (
+select STR_PARAMETER_NAME, nvl(to_char(num_value),'-') num_value, nvl(str_remarks,'-') str_remarks ,
+substr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),1,instr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),'#@#')-1) allocScore
+ from
+TDC_EXPERT_PARAMETER_EVAL a , tdc_thematic_parameter_details b
+where a.NUM_PARAMETER_ID(+)=b.NUM_PARAMETER_ID
+and a.NUM_PROPOSAL_ID (+)=#0
+and str_version_id(+)=#1
+and str_user_type(+)='O' and 1 &lt;= (select count(*) from TDC_EXPERT_PARAMETER_EVAL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+UNION 
+SELECT 'Total',nvl(to_char(sum( num_value)),'-'),' ',nvl(to_char(sum(
+decode(
+substr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),1,instr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),'#@#')-1),'NA','0',substr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),1,instr(get_proposal_eval(#0,#1,b.NUM_PARAMETER_ID),'#@#')-1))
+)),'-')
+from
+TDC_EXPERT_PARAMETER_EVAL a , tdc_thematic_parameter_details b
+where a.NUM_PARAMETER_ID(+)=b.NUM_PARAMETER_ID
+and a.NUM_PROPOSAL_ID (+)=#0
+and str_version_id(+)=#1
+and str_user_type(+)='O' and 1 &lt;= (select count(*) from TDC_EXPERT_PARAMETER_EVAL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+UNION
+select 'Not Reviewed','-','No Comments','-' from dual where 0 = (select count(*) from TDC_EXPERT_PARAMETER_EVAL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+)
+where num_vALUE IS NOT NULL order by STR_PARAMETER_NAME
+</QUERY> 
+</SECTION>
+
+<SECTION TITLE="Pagewise Evaluation"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="1" SIZE="3" ALIGN="LEFT">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="3" ALIGN="LEFT">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="3" ALIGN="LEFT">Comments</HEADERCELL> 
+</HEADER>
+<QUERY>
+select b,c,d from(
+select get_user_name(STR_EXPERT_ID) a,nvl(to_char(NUM_PAGE_NO),'-') b,nvl(STR_REF_TEXT,'-') c,nvl(STR_REMARKS,'-') d from TDC_proposal_evaluation 
+                where   STR_VERSION_ID like #1 and NUM_PROPOSAL_ID like #0 and STR_USER_TYPE='O' 
+  	 union
+                    select 'None' a,'-' b,'-' c,'No Comments' d from dual where 1>(select count(*) from TDC_proposal_evaluation 
+                 where  STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and STR_USER_TYPE='O')
+                 )order by a
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+<SECTION TITLE="Summary Remarks"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Program Officer</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="10" ALIGN="LEFT">Decision</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+</HEADER>
+<QUERY>
+
+select a,c,b from
+(
+SELECT get_user_name(pt.str_assigned_to) a,decode(get_status(str_status),'Recommended','Evaluated','Evaluated') c, nvl(pt.str_summ_remarks,'-') b FROM TDC_PO_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and str_status not in('RV','FO','IO')
+
+  union
+				 select 'None','Not Reviewed','No Comments' from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and str_status not in('RV','FO','IO'))
+
+    )
+            
+ 
+</QUERY> 
+</SECTION>
+
+
+<SECTION  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Coordinator Decision</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Coordinator Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select b,a from(SELECT  nvl(ev.STR_REMARKS,'-') a    , (select get_status(str_status) from TDC_ABSTRACT_VERSION_DTL where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 ) b FROM TDC_PROPOSAL_EVALUATION ev
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and  STR_USER_TYPE='A')
+
+  union
+				 select  'Not Reviewed', 'No Comments' from dual where 1>(select count(*) from TDC_PROPOSAL_EVALUATION
+                  where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and  STR_USER_TYPE='A' )
+
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+</REPORT>
+
+<REPORT HEADING="PRC Comments" NAME="allocator_remarks">
+
+<SECTION  TITLE="Remarks"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">PRC Decision</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">PRC Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select b,a from(SELECT  nvl(ev.STR_REMARKS,'-') a    , (select get_status(str_status) from TDC_FULL_PROPOSAL_VERSION_DTL where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 ) b FROM TDC_PROPOSAL_EVALUATION ev
+ where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and  STR_USER_TYPE='A')
+
+  union
+				 select  'Not Reviewed', 'No Comments' from dual where 1>(select count(*) from TDC_PROPOSAL_EVALUATION
+                  where STR_VERSION_ID like #1 and  NUM_PROPOSAL_ID like #0 and  STR_USER_TYPE='A' )
+
+                 
+ 
+</QUERY> 
+</SECTION>
+</REPORT>
+
+
+
+
+<REPORT HEADING="View Comments" NAME="view_comments_allocator">
+<SECTION TITLE="Proposal Rating"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Program Officer</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="5" ALIGN="LEFT">Parameters </HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="3" ALIGN="LEFT">Score</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+</HEADER>
+
+<QUERY>
+select c,a,d,b  from(
+select c,a,d,b,e,f from(
+SELECT get_user_name(NUM_EXPERT_ID) c,pt.STR_PARAMETER_NAME a, ev.STR_REMARKS b,to_char(ev.NUM_VALUE) d,pt.num_parameter_id f,1 e FROM TDC_EXPERT_PARAMETER_EVAL ev ,TDC_THEMATIC_PARAMETER_DETAILS pt
+ where pt.num_parameter_id=ev.num_parameter_id  and STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0 and ev.STR_USER_TYPE='O' and pt.num_parameter_id=1
+union
+SELECT ' ' c,pt.STR_PARAMETER_NAME a, ev.STR_REMARKS b,to_char(ev.NUM_VALUE) d,pt.num_parameter_id f, 2 e FROM TDC_EXPERT_PARAMETER_EVAL ev ,TDC_THEMATIC_PARAMETER_DETAILS pt
+ where pt.num_parameter_id=ev.num_parameter_id  and STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0 and ev.STR_USER_TYPE='O' and pt.num_parameter_id > 1
+  union
+ SELECT ' ','Total',' ',to_char(nvl(sum(ev.NUM_VALUE),'0')),0 f, 3 e FROM TDC_EXPERT_PARAMETER_EVAL ev ,TDC_THEMATIC_PARAMETER_DETAILS pt
+ where pt.num_parameter_id=ev.num_parameter_id  and STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0 and  ev.STR_USER_TYPE='O'
+ union
+	 select 'None' c,'No Comments','No Comments','No Comments',0 f, 1 e from dual where 1>(select count(*) from TDC_EXPERT_PARAMETER_EVAL
+                 where STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and NUM_EXPERT_ID like #0 and STR_USER_TYPE='O' )
+                 )
+                 order by d,e,f
+                 )
+
+
+</QUERY> 
+</SECTION>
+
+<SECTION  TITLE="Pagewise Evaluation"  TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Program Officer</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="3" ALIGN="CENTER">Page No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="3" ALIGN="CENTER">Ref Text</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Comments</HEADERCELL> 
+
+
+</HEADER>
+<QUERY>
+select a,b,c,d from(
+select get_user_name(STR_EXPERT_ID) a,nvl(to_char(NUM_PAGE_NO),'-') b,nvl(STR_REF_TEXT,'-') c,nvl(STR_REMARKS,'-') d from TDC_proposal_evaluation 
+                where   STR_VERSION_ID like #2 and NUM_PROPOSAL_ID like #1 and STR_EXPERT_ID like #0 and STR_USER_TYPE='O'  
+  	 union
+                    select 'None' a,'-' b,'-' c,'No Comments' d from dual where 1>(select count(*) from TDC_proposal_evaluation 
+                 where  STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and  STR_EXPERT_ID like #0 and STR_USER_TYPE='O')
+                 )order by a
+                 
+ 
+</QUERY> 
+</SECTION>
+
+
+<SECTION   TITLE="Summary Remarks" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Program Officer</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Decision</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select a,c,b from(SELECT get_user_name(pt.str_assigned_to) a,decode(get_status(str_status),'Recommended','Reviewed',get_status(str_status)) c , nvl(pt.str_summ_remarks,'-') b FROM TDC_PO_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1  and STR_ASSIGNED_TO like #0)
+
+  union
+				 select 'Not Given','Not Reviewed','No Comments' from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and STR_ASSIGNED_TO like #0)
+
+                 
+ 
+</QUERY> 
+</SECTION>
+
+</REPORT>
+
+
+<REPORT HEADING="P.O. Registration Details" NAME="poProfile">
+
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">PO Id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Broad Area</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Major Discipline(s)</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Email Id</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Office Telephone Number</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Mobile No</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">DOB</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Department</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Research Specialization(Major scientific fields of interest)</HEADERCELL> 
+</HEADER>
+
+<QUERY>
+      select STR_USER_ID,get_user_name(STR_USER_ID),get_themetic_area_name(STR_USER_ID),
+      get_dis_for_user(STR_USER_ID),nvl(STR_E_MAIL,'NA'),NUM_STD_CODE||'-'||NUM_CONTACT_NO||'-'||NUM_EXT_NO,
+      NVL(TO_CHAR(NUM_MOBILE_NO),'NA'),to_char(DT_DOB,'dd-Mon-yyyy') ,
+            nvl(STR_DESIGNATION,'NA') ,nvl(STR_DEPARTMENT,'NA'), 
+            NVL(STR_RESEARCH_SPL,'NA')
+             from TDC_USER_REGISTRATION where str_user_id=#0
+           
+           </QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="Expert Registration Details" NAME="expertProfile">
+
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Expert Id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Name</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Department</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">DOB</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Broad Area</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Major Discipline(s)</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Sub Discipline(s)</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Fax No.</HEADERCELL>
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Email Id</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Mobile No</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Name of Institute</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Institute Contact Number</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Correspondence Address</HEADERCELL>
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">City/State/ZipCode</HEADERCELL>
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Residence Telephone Number</HEADERCELL>
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Degree Obtained</HEADERCELL>
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Other Degree </HEADERCELL>
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Research Specialization(Major scientific fields of interest)</HEADERCELL> 
+
+</HEADER>
+
+<QUERY>
+      select STR_USER_ID,get_user_name(STR_USER_ID),nvl(STR_DESIGNATION,'NA') ,nvl(STR_DEPARTMENT,'NA'),nvl(to_char(DT_DOB,'dd-Mon-yyyy'),'-') ,
+ get_themetic_area_name(STR_USER_ID),get_dis_for_user(STR_USER_ID),nvl(STR_SUB_DISC,'NA'),nvl(str_fax,'NA'),nvl(STR_E_MAIL,'NA'), 
+ NVL(TO_CHAR(NUM_MOBILE_NO),'NA'),get_institute_name(ureg.institute_id),nvl(NUM_STD_CODE,0)||'-'||nvl(NUM_CONTACT_NO,0)||'-'||nvl(NUM_EXT_NO,0),nvl(str_address1,'NA'),nvl(c.str_city_name,'NA')||':'||nvl(s.str_state_name,'NA')||':'||nvl(num_zip,0),
+ nvl(num_home_std,0)||'-'||nvl(num_home_contact_no,0),nvl(other_degree,'NA'),GET_DEGREE_EXPERT(STR_USER_ID),NVL(STR_RESEARCH_SPL,'NA')
+ from TDC_USER_REGISTRATION ureg,TDC_CITIES c,tdc_states s where str_user_id=#0 and c.num_city_id(+)=ureg.num_city_id and  s.num_state_id(+)=ureg.num_state_id
+           
+           </QUERY> 
+</SECTION>
+<SECTION TITLE="Research Training Experience" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Duration(Years)</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Institute</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Particulars of Work Done</HEADERCELL>
+</HEADER>
+<QUERY>
+select STR_DURATION,STR_INSTITUTE_NAME,STR_WORK_DTL from
+             TDC_USER_EXPERIENCE_DTL where STR_USER_ID=#0
+             
+                          </QUERY> 
+
+</SECTION>
+</REPORT>
+
+<REPORT HEADING="P.I. Details" NAME="piProfile">
+
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">User Id</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Name</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Email Id</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Mobile No</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Date of Birth</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Research Specialization</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Designation</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Department</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Institute</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Institute Contact Number</HEADERCELL> 
+</HEADER>
+
+<QUERY>
+      select A.STR_USER_ID,STR_SALUTATION ||'  '||initcap(A.STR_FNAME)||' '|| TRIM(nvl(initcap(A.STR_MNAME),' '))||' '||initcap(trim(NVL(A.STR_LNAME,' '))),
+            nvl(A.STR_E_MAIL,'NA') ,NVL(TO_CHAR(A.NUM_MOBILE_NO),'NA'),to_char(A.DT_DOB,'dd-Mon-yyyy') ,A.str_address1||' ,'||c.str_city_name||'-'||NUM_ZIP||' ,'||s.str_state_name ,
+            NVL(A.STR_RESEARCH_SPL,'NA'),nvl(A.STR_DESIGNATION,'NA') ,nvl(A.STR_DEPARTMENT,'NA'), 
+            get_institute_name(A.institute_id),NUM_STD_CODE||'-'||NUM_CONTACT_NO||'-'||NUM_EXT_NO
+             from TDC_USER_REGISTRATION A,
+             TDC_CITIES c,
+             tdc_states s , TDC_SALUTATIONS_MST T where A.str_user_id=#0
+            and A.num_city_id=c.num_city_id and A.num_state_id=s.num_state_id 
+            AND A.NUM_SALUTATION_ID =T.NUM_SALUTATION_ID
+            
+            
+      <!--      select A.STR_USER_ID,STR_SALUTATION ||'  '||initcap(A.STR_FNAME)||' '|| TRIM(nvl(initcap(A.STR_MNAME),' '))||' '||initcap(trim(NVL(A.STR_LNAME,' '))),
+            nvl(A.STR_E_MAIL,null) ,NVL(TO_CHAR(A.NUM_MOBILE_NO),null),to_char(A.DT_DOB,'dd-Mon-yyyy') ,A.str_address1||' ,'||c.str_city_name||'-'||NUM_ZIP||' ,'||s.str_state_name ,
+            NVL(A.STR_RESEARCH_SPL,null),nvl(A.STR_DESIGNATION,null) ,nvl(A.STR_DEPARTMENT,null), 
+            NVL(A.STR_INSTITUTE,'NA'),NUM_STD_CODE||'-'||NUM_CONTACT_NO||'-'||NUM_EXT_NO
+             from TDC_USER_REGISTRATION A,
+             TDC_CITIES c,
+             tdc_states s , TDC_SALUTATIONS_MST T where A.str_user_id=#0
+            and A.num_city_id=c.num_city_id and A.num_state_id=s.num_state_id 
+            AND A.NUM_SALUTATION_ID =T.NUM_SALUTATION_ID-->
+           
+           </QUERY> 
+</SECTION>
+
+<SECTION TITLE="Educational Qualification: Degree Obtained" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">Degree</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="5" ALIGN="LEFT">Institute</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="5" ALIGN="LEFT">Field(s)</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="5" ALIGN="LEFT">Year</HEADERCELL> 
+</HEADER>
+
+<QUERY>
+             select  STR_DEGREE_NAME,nvl(STR_INSTITUTE_NAME,'na'),nvl(STR_FIELD,'na'),NUM_YEAR from 
+             TDC_USER_EDUCATION_DTL a , TDC_DEGREE_MASTER b where  STR_USER_ID=#0
+             and a.NUM_DEGREE_ID=b.NUM_DEGREE_ID
+             </QUERY> 
+
+</SECTION>
+
+<SECTION TITLE="Research Training Experience" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">Duration(Years)</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Institute</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Particulars of Work Done</HEADERCELL>
+</HEADER>
+<QUERY>
+select STR_DURATION,STR_INSTITUTE_NAME,STR_WORK_DTL from
+             TDC_USER_EXPERIENCE_DTL where STR_USER_ID=#0
+             
+ </QUERY> 
+
+</SECTION>
+
+</REPORT>
+
+<REPORT HEADING="Full Proposal Details" NAME="full_Proposal_Details">
+
+<SECTION TYPE="HORIZONTAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="4" ALIGN="LEFT">PI Id</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">PI Name</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Email Id</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Proposal ID</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="4" ALIGN="LEFT">Version Id</HEADERCELL> 
+<HEADERCELL LEVEL="3" SIZE="4" ALIGN="LEFT">Submission Date</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="4" ALIGN="LEFT">Title</HEADERCELL> 
+<HEADERCELL LEVEL="5" SIZE="4" ALIGN="LEFT">Broad Area</HEADERCELL> 
+<HEADERCELL LEVEL="6" SIZE="4" ALIGN="LEFT">Major Discipline</HEADERCELL> 
+<HEADERCELL LEVEL="7" SIZE="4" ALIGN="LEFT">Related Discipline</HEADERCELL> 
+<HEADERCELL LEVEL="7" SIZE="4" ALIGN="LEFT">Total Cost</HEADERCELL> 
+<HEADERCELL LEVEL="9" SIZE="4" ALIGN="LEFT">Duration for collecting the data</HEADERCELL> 
+<HEADERCELL LEVEL="10" SIZE="4" ALIGN="LEFT">Duration for analyzing the data</HEADERCELL> 
+<HEADERCELL LEVEL="11" SIZE="4" ALIGN="LEFT">Project Type</HEADERCELL> 
+<HEADERCELL LEVEL="12" SIZE="4" ALIGN="LEFT">Number of Participating Agency(s)</HEADERCELL> 
+</HEADER>
+<QUERY>
+          select m.STR_PROPOSER_ID,GET_USER_NAME(m.STR_PROPOSER_ID), nvl(b.STR_E_MAIL,'NA'),
+          m.NUM_PROPOSAL_ID,a.STR_VERSION_ID ,to_char(a.DT_VERSION_DATE,'dd-mm-yyyy'),
+            initcap(m.STR_PROPOSAL_TITLE), 
+            themetic_name_id(m.NUM_TREMATIC_AREA_ID),
+            GET_DISCIPLINE_DESC(get_major_disc_id_from_prop(m.NUM_PROPOSAL_ID)),
+            nvl(get_dis_desc_fm_prop_ver(a.NUM_PROPOSAL_ID,'A1'),'NA'),
+            nvl((select sum(NUM_AMOUNT)||' Lakh(s)'  from TDC_COLLABORATING_COST_DTL where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1),'0'),
+            a.NUM_DURATION_COLLECT_DATA || ' Month(s)',a.NUM_DURATION_ANALYZE_DATA ||' Month(s)',
+            decode(a.STR_PROPOSER_TYPE,'C','Collaboration Project','Independent Project'),
+            (select count(*) from TDC_COLLABORATING_AGENCY where NUM_PROPOSAL_ID=#0 and STR_VERSION_ID=#1)
+             from TDC_PROPOSAL_MASTER m,
+            TDC_FULL_PROPOSAL_VERSION_DTL a ,
+            TDC_USER_REGISTRATION b
+            where m.NUM_PROPOSAL_ID=a.NUM_PROPOSAL_ID 
+            and m.str_proposer_id=b.str_user_id
+            and m.NUM_PROPOSAL_ID=#0 
+            and a.STR_VERSION_ID=#1 
+</QUERY> 
+</SECTION>
+
+<SECTION TITLE="Institution Responsible for the Research Project" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">Name</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="5" ALIGN="LEFT">Address</HEADERCELL> 
+<HEADERCELL LEVEL="2" SIZE="5" ALIGN="LEFT">Telephone</HEADERCELL>
+<HEADERCELL LEVEL="3" SIZE="5" ALIGN="LEFT">Email</HEADERCELL> 
+<HEADERCELL LEVEL="4" SIZE="5" ALIGN="LEFT">Fax No</HEADERCELL> 
+</HEADER>
+<QUERY>
+select  nvl(STR_INST_NAME,'NA'),nvl(STR_ADDRESS,'NA'),nvl(NUM_CONTACT_NO,0),nvl(STR_EMAIL,'NA'),nvl(NUM_FAX_NO,0)
+from TDC_INSTITUTION_DTL where  
+   NUM_PROPOSAL_ID=#0 and
+   STR_VERSION_ID=#1 
+   
+   
+     union
+select 'NA','NA',0,'NA',0 from dual where 1>(select count(*) from TDC_INSTITUTION_DTL where  
+   NUM_PROPOSAL_ID=#0 and
+   STR_VERSION_ID=#1 )
+
+</QUERY> 
+</SECTION>
+
+<SECTION TITLE="PI and Co-Investigator Details" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">PI Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">PI Designation</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">PI Email</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="5" ALIGN="LEFT">Institute</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">Co-Investigator Name</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">Co-Investigator Designation</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="5" ALIGN="LEFT">Co-Investigator Email</HEADERCELL> 
+</HEADER>
+<QUERY>
+
+ select  GET_USER_NAME(b.str_user_id),a.STR_DESIGNATION , a.STR_E_MAIL,
+get_institute_name(a.institute_id),
+nvl(initcap(COINVST_NAME),'-'),nvl(initcap(COINVST_DESIG),'-') , nvl(COINVST_EMAIL,'-') 
+from TDC_USER_REGISTRATION a , TDC_COLLABORATING_AGENCY b ,
+TDC_PROPOSAL_COINVST_DTL c  
+where a.str_user_id=b.str_user_id(+)
+ and b.str_user_id=c.PI_USER_ID(+)
+ and b.NUM_PROPOSAL_ID=c.NUM_PROPOSAL_ID(+)
+ and b.STR_VERSION_ID=c.STR_VERSION_ID(+)
+and b.NUM_PROPOSAL_ID=#0
+ and b.STR_VERSION_ID=#1
+ 
+ 
+ 
+ 
+</QUERY> 
+</SECTION>
+<SECTION TITLE="Publication Details" TYPE="VERTICAL">
+<HEADER>
+        <HEADERCELL LEVEL="0" SIZE="3" ALIGN="LEFT">S.No.</HEADERCELL> 
+        <HEADERCELL LEVEL="1" SIZE="20" ALIGN="CENTER">Author</HEADERCELL> 
+        <HEADERCELL LEVEL="2" SIZE="20" ALIGN="CENTER">Title</HEADERCELL>
+        <HEADERCELL LEVEL="3" SIZE="50" ALIGN="CENTER">Journal Details</HEADERCELL> 
+        <HEADERCELL LEVEL="4" SIZE="5" ALIGN="CENTER">Year</HEADERCELL>
+</HEADER>
+<QUERY>
+	 select a,b,c,d,e from(
+        select SERIAL_NUM a,AUTHOR b,TITLE c,JOURNAL_DETAILS d,YEAR e  from TDC_PROP_PUBLISHING where 
+        PROP_ID=#0
+          
+           union
+	
+        select rownum a,'-' b,'-' c,'-' d,'-' e from dual where 1>(select count(*) from TDC_PROP_PUBLISHING where 
+        PROP_ID=#0)) order by a asc
+</QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="Program Officer's Remarks on Full Proposal" NAME="full_Proposal_Details_po">
+<SECTION   TITLE="Program Officer's Remarks" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Program Officer</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="10" ALIGN="LEFT">Decision</HEADERCELL> 
+<HEADERCELL LEVEL="1" SIZE="4" ALIGN="LEFT">Remarks</HEADERCELL> 
+
+
+
+</HEADER>
+<QUERY>
+
+select a,c,b from(SELECT get_user_name(pt.str_assigned_to) a,decode(get_status(str_status),'Recommended','Reviewed',get_status(str_status)) c , nvl(pt.str_summ_remarks,'-') b FROM TDC_PO_PROPOSAL_TRACKER pt
+ where STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1  and STR_ASSIGNED_TO like #0)
+
+  union
+				 select 'Not Given','Not Reviewed','No Comments' from dual where 1>(select count(*) from TDC_PO_PROPOSAL_TRACKER
+                  where STR_VERSION_ID like #2 and  NUM_PROPOSAL_ID like #1 and STR_ASSIGNED_TO like #0)
+
+                 
+ 
+</QUERY> 
+</SECTION>
+</REPORT>
+<!--********************report added to get list of registered experts*******-******-->
+<REPORT HEADING="Registered Experts" NAME="expertsList">
+<SECTION HEADING="Experts List" TYPE="VERTICAL">
+<HEADER>
+           
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Name</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="20"  ALIGN="LEFT">Email Id</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Organization</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Department</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Designation</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Mob No.</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Broad Area</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">Major Discipline</HEADERCELL>
+</HEADER>
+<QUERY>
+select b,c,d,e,f,g,h, i from(
+  select 
+   STR_FNAME||' '||STR_MNAME||' '||STR_LNAME b, nvl(STR_E_MAIL,'NA') c, nvl(STR_ORGANISATION,'NA') d,nvl(STR_DEPARTMENT,'NA') e, nvl(STR_DESIGNATION,'NA') f, nvl(NUM_MOBILE_NO,0) g,
+   get_themetic_area_name(r.str_user_id) h, GET_DIS_FOR_USER(r.str_user_id) i from TDC_USER_REGISTRATION r
+   where r.str_user_type like '%E%' and r.STR_UNDERTAKING_RECEIVED='Y'
+   and upper(get_themetic_area_name(r.str_user_id)) like upper('%'||#0||'%') 
+   and upper(get_major_discipline(r.str_user_id)) like upper('%'||#1||'%') 
+   ) 
+</QUERY> 
+</SECTION>
+
+
+<SECTION HEADING="Broad Areawise Experts Count" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Broad Area</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number</HEADERCELL> 
+</HEADER>
+<QUERY>
+select get_themetic_area_name(r.str_user_id), count(*) from TDC_USER_REGISTRATION r
+where r.str_user_type like '%E%' and r.STR_UNDERTAKING_RECEIVED='Y'
+   and upper(get_themetic_area_name(r.str_user_id)) like upper('%'||#0||'%') 
+   and upper(get_major_discipline(r.str_user_id)) like upper('%'||#1||'%') 
+   group by get_themetic_area_name(r.str_user_id)
+   order by get_themetic_area_name(r.str_user_id)
+</QUERY>
+</SECTION>
+
+<SECTION HEADING="Broad Area and Major Discipline wise Experts Count" TYPE="VERTICAL">
+<HEADER>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Broad Area</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Major Discipline</HEADERCELL> 
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Number</HEADERCELL> 
+</HEADER>
+<QUERY>
+select get_themetic_area_name(r.str_user_id),GET_DIS_FOR_USER(r.str_user_id), count(*) from TDC_USER_REGISTRATION r
+where r.str_user_type like '%E%' and r.STR_UNDERTAKING_RECEIVED='Y'
+   and upper(get_themetic_area_name(r.str_user_id)) like upper('%'||#0||'%') 
+   and upper(get_major_discipline(r.str_user_id)) like upper('%'||#1||'%') 
+   group by get_themetic_area_name(r.str_user_id),GET_DIS_FOR_USER(r.str_user_id)
+   order by get_themetic_area_name(r.str_user_id),GET_DIS_FOR_USER(r.str_user_id)
+</QUERY>
+</SECTION>
+</REPORT>
+
+<!--******************Queries for State/City wise Proposal List*****************-->
+
+<REPORT HEADING="List of Pre-Proposals" NAME="stateProposalList">
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">From Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">To Date</HEADERCELL>
+</HEADER>
+<QUERY>
+select #0, #1 FROM DUAL
+</QUERY>
+</SECTION>
+<SECTION HEADING="State wise Pre-Proposal List" TYPE="VERTICAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">State</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Accepted</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Rejected</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Not Evaluated</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">In Process</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">New</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY> 
+select statename, Accepted, Rejected, Not_Evaluated,In_Review,New,total from (select statename,Accepted,Rejected,Not_Evaluated,In_Review,New,total,cnm from (select s.str_state_name statename, 0 cnm,count(decode(b.str_status,'AC', 0)) as Accepted ,count(decode(b.str_status,'RJ', 0)) as Rejected,
+count(decode(b.str_status,'NE', 0)) as Not_Evaluated,count(decode(b.str_status,'IE',0,'RE',0)) as In_Review,count(decode(b.str_status,'N', 0)) as New,
+count(b.str_status) as total  from TDC_USER_REGISTRATION a RIGHT OUTER JOIN TDC_STATES s ON
+a.num_state_id=s.num_state_id   
+LEFT OUTER JOIN TDC_ABSTRACT_VERSION_DTL b ON 
+(a.str_user_id = b.str_tr_user_id AND (b.DT_VERSION_DATE between to_date(#0, 'dd-mm-yyyy') AND to_date(#1, 'dd-mm-yyyy')))
+group by s.str_state_name) order by cnm,statename)
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Proposal Status</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY> 
+SELECT 
+CASE 
+when b.STR_STATUS LIKE 'AC' then 'Accepted'
+when b.STR_STATUS LIKE  'RJ' then 'Rejected'
+when b.STR_STATUS LIKE 'NE' then 'Not Evaluated'
+when b.STR_STATUS LIKE 'IE' then 'In Process'
+when b.STR_STATUS LIKE  'N'  then 'New'
+else 'N/A' end, count(b.str_status)
+from TDC_ABSTRACT_VERSION_DTL b 
+where b.DT_VERSION_DATE between to_date(#0, 'dd-mm-yyyy') AND to_date(#1, 'dd-mm-yyyy')
+group by b.STR_STATUS
+ORDER BY b.STR_STATUS
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="HORIZONTAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total proposals</HEADERCELL>
+</HEADER>
+<QUERY> 
+select  count(b.STR_STATUS)  from TDC_ABSTRACT_VERSION_DTL b
+where b.DT_VERSION_DATE between to_date(#0, 'dd-mm-yyyy') AND to_date(#1, 'dd-mm-yyyy')
+</QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="List of Pre-Proposals" NAME="cityProposalList">
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">From Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">To Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">State</HEADERCELL>
+</HEADER>
+<QUERY>
+select #1, #2, GET_STATE_NAME(#0) FROM DUAL
+</QUERY>
+</SECTION>
+<SECTION HEADING="City wise Pre-Proposal List" TYPE="VERTICAL">
+<HEADER>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">City</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Accepted</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Rejected</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Not Evaluated</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">In Process</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">New</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY>
+select str_city_name,Accepted,Rejected,Not_Evaluated,In_Review,New,total from (select str_city_name,Accepted,Rejected,Not_Evaluated,In_Review,New,total
+from (select c.str_city_name as str_city_name,0 cnm,count(decode(b.str_status,'AC', 0)) as Accepted ,count(decode(b.str_status,'RJ', 0)) as Rejected,
+count(decode(b.str_status,'NE', 0)) as Not_Evaluated,count(decode(b.str_status,'IE',0,'RE',0)) as In_Review,count(decode(b.str_status,'N', 0)) as New
+,count(b.str_status) as total  from TDC_USER_REGISTRATION a RIGHT OUTER JOIN TDC_CITIES c ON
+a.num_city_id=c.num_city_id
+LEFT OUTER JOIN TDC_ABSTRACT_VERSION_DTL b ON
+((a.str_user_id = b.str_tr_user_id) AND (b.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')))
+where c.num_state_id like #0
+group by c.str_city_name)) order by str_city_name
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Proposal Status</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY> 
+select decode(b.STR_STATUS, 'AC','Accepted', 'RJ','Rejected', 'IE','In Process','NE','Not Evaluated','N','New','In Process'), count(b.str_status)
+from TDC_ABSTRACT_VERSION_DTL b, TDC_USER_REGISTRATION ur, TDC_CITIES c 
+where b.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')
+and c.num_state_id like #0
+and b.STR_TR_USER_ID=ur.STR_USER_ID
+and c.num_state_id=ur.NUM_STATE_ID
+and ur.num_city_id=c.num_city_id
+group by b.STR_STATUS
+ORDER BY b.STR_STATUS
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="HORIZONTAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total proposals</HEADERCELL>
+</HEADER>
+<QUERY> 
+select  count(b.STR_STATUS)  from TDC_ABSTRACT_VERSION_DTL b, TDC_USER_REGISTRATION ur, TDC_CITIES c 
+where b.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')
+and c.num_state_id like #0
+and b.STR_TR_USER_ID=ur.STR_USER_ID
+and c.num_state_id=ur.NUM_STATE_ID
+and ur.num_city_id=c.num_city_id
+</QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="List of Pre-Proposals" NAME="DetailProposalList">
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">From Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">To Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">State</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">City</HEADERCELL>
+</HEADER>
+<QUERY>
+select #1, #2,decode(GET_STATE_NAME(#5),'Not Available','All States',GET_STATE_NAME(#5)),decode(GET_CITY_NAME(#4),'Not Available','All Cities',GET_CITY_NAME(#4)) FROM DUAL
+</QUERY>
+</SECTION>
+<SECTION HEADING="Details of Pre-Proposal" TYPE="VERTICAL">
+<HEADER>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Proposal ID</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Title</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">PI Name</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Institute Name</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Broad Area</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Major Descipline</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Submission Date</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Status</HEADERCELL> 
+</HEADER>
+<QUERY>
+select av.NUM_PROPOSAL_ID as Proposal_ID,pm.STR_PROPOSAL_TITLE as Title,  ur.STR_FNAME||' '||ur.STR_MNAME||' '||ur.STR_LNAME as PI_Name,nvl(ur.STR_ORGANISATION, 'Not Available') as Institute_Name,THEMETIC_NAME_ID(pm.NUM_TREMATIC_AREA_ID) Broad_Area,GET_DISCIPLINE_DESC(av.STR_MAJOR_DISCIPLINE) Major_Decipline, to_char(av.DT_VERSION_DATE, 'dd-mm-yyyy') Submission_Date,
+decode(av.STR_STATUS, 'AC','Accepted', 'RJ','Rejected', 'IE','In Process', 'NE','Not Evaluated', 'N','New', 'In Process' ) Status
+from TDC_USER_REGISTRATION ur, TDC_ABSTRACT_VERSION_DTL av, TDC_PROPOSAL_MASTER pm 
+where 
+ur.str_user_id = av.str_tr_user_id
+and pm.NUM_PROPOSAL_ID=av.NUM_PROPOSAL_ID
+and ur.num_state_id like #0
+and ur.NUM_CITY_ID like #3
+and av.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')
+order by av.NUM_PROPOSAL_ID 
+</QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="List of Submitted Full-Proposals" NAME="stateFullProposalList">
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">From Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">To Date</HEADERCELL>
+</HEADER>
+<QUERY>
+select #0 , #1 FROM DUAL
+</QUERY>
+</SECTION>
+<SECTION HEADING="State-wise Submitted Full-Proposal List" TYPE="VERTICAL">
+<HEADER> 
+        <HEADERCELL LEVEL="0" SIZE="20" ALIGN="LEFT">State</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">New</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">In Process</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Clarification Required</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Technically Approved</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Accepted</HEADERCELL>                 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Re-Submit</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Rejected</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">PI Withdrawn</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">1st Installment Released</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Project Started</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="8" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY>
+select statename,New,In_Review,TC,TA,Accepted,Re_Submit,Rejected,PW,FR,SP,total from 
+(
+select statename,Accepted,TA,TC,Rejected,Re_Submit,In_Review,New,PW,FR,SP,total,cnm from 
+(
+select s.str_state_name statename, 0 cnm,
+count(decode(b.str_status,'AC', 0)) as Accepted ,
+count(decode(b.str_status,'TA', 0)) as TA ,
+count(decode(b.str_status,'TC', 0)) as TC ,
+count(decode(b.str_status,'RJ', 0)) as Rejected,
+count(decode(b.str_status,'RE', 0)) as Re_Submit,
+count(decode(b.str_status,'IE',0)) as In_Review,
+count(decode(b.str_status,'N', 0)) as New,
+count(decode(b.str_status,'PW', 0)) as PW,
+count(decode(b.str_status,'FR',0)) as FR,
+count(decode(b.str_status,'SP',0)) as SP,
+count(b.str_status) as total  from  TDC_USER_REGISTRATION a 
+RIGHT OUTER JOIN 
+TDC_STATES s ON
+a.num_state_id=s.num_state_id   
+LEFT OUTER JOIN TDC_FULL_PROPOSAL_VERSION_DTL b ON 
+(a.str_user_id = b.str_tr_user_id
+and b.STR_STATUS not in ('CP')
+AND (b.DT_VERSION_DATE between to_date(#0, 'dd-mm-yyyy') AND to_date(#1, 'dd-mm-yyyy')) AND b.str_version_id=
+(select max(fp.str_version_id) from TDC_FULL_PROPOSAL_VERSION_DTL fp where fp.num_proposal_id=b.num_proposal_id))
+group by s.str_state_name) order by statename)
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Proposal Status</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY> 
+select decode(b.STR_STATUS, 'AC','Accepted', 'RJ','Rejected', 'IE','In Process','RE','Re Submit','N','New','TA','Technically Approved','TC','Clarification Required','PW','PI Withdrawn','FR','1st Installment Released','SP','Project Started','In Process'), count(b.str_status)
+from TDC_FULL_PROPOSAL_VERSION_DTL b
+where b.DT_VERSION_DATE between to_date(#0, 'dd-mm-yyyy') AND to_date(#1, 'dd-mm-yyyy') 
+and b.str_version_id=
+(select max(fp.str_version_id) from TDC_FULL_PROPOSAL_VERSION_DTL fp where fp.num_proposal_id=b.num_proposal_id)
+and b.STR_STATUS not in ('CP')
+group by b.STR_STATUS
+ORDER BY b.STR_STATUS
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="HORIZONTAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total proposals</HEADERCELL>
+        
+</HEADER>
+<QUERY> 
+select count(b.STR_STATUS)  from TDC_FULL_PROPOSAL_VERSION_DTL b
+where b.DT_VERSION_DATE between to_date(#0, 'dd-mm-yyyy') AND to_date(#1, 'dd-mm-yyyy') 
+and b.str_version_id=
+(select max(fp.str_version_id) from TDC_FULL_PROPOSAL_VERSION_DTL fp where fp.num_proposal_id=b.num_proposal_id)
+AND b.STR_STATUS NOT IN ('CP')
+</QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="List of Submitted Full-Proposals" NAME="cityFullProposalList">
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">From Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">To Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">State</HEADERCELL>
+</HEADER>
+<QUERY>
+select #1, #2, GET_STATE_NAME(#0) FROM DUAL
+</QUERY>
+</SECTION>
+<SECTION HEADING="City-wise Submitted Full-Proposal List" TYPE="VERTICAL">
+<HEADER>
+           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">City</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">New</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">In Process</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Clarification Required</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Technically Approved</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Accepted</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Re-Submit</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Rejected</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">PI Withdrawn</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">1st Installment Released</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Project Started</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY>
+select str_city_name,New,In_Review,TC,TA,Accepted,Re_Submit,Rejected,PW,FR,SP,total from (select str_city_name,Accepted,TA,TC,Rejected,Re_Submit,PW,New,In_Review,FR,SP,total
+from (select c.str_city_name as str_city_name,0 cnm,count(decode(b.str_status,'AC', 0)) as Accepted,
+count(decode(b.str_status,'TA', 0)) as TA ,
+count(decode(b.str_status,'TC', 0)) as TC ,
+count(decode(b.str_status,'RJ', 0)) as Rejected,
+count(decode(b.str_status,'RE', 0)) as Re_Submit,
+count(decode(b.str_status,'IE',0)) as In_Review,
+count(decode(b.str_status,'N', 0)) as New,
+count(decode(b.str_status,'PW', 0)) as PW,
+count(decode(b.str_status,'FR',0)) as FR,
+count(decode(b.str_status,'SP',0)) as SP,
+count(b.str_status) as total  
+from TDC_USER_REGISTRATION a RIGHT OUTER JOIN TDC_CITIES c ON
+a.num_city_id=c.num_city_id
+LEFT OUTER JOIN TDC_FULL_PROPOSAL_VERSION_DTL b ON
+((a.str_user_id = b.str_tr_user_id)
+and (b.STR_STATUS not in ('CP'))
+AND (b.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy'))
+AND b.str_version_id=
+(select max(fp.str_version_id) from TDC_FULL_PROPOSAL_VERSION_DTL fp where fp.num_proposal_id=b.num_proposal_id))
+where c.num_state_id like #0
+group by c.str_city_name)) order by str_city_name
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Proposal Status</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total</HEADERCELL> 
+</HEADER>
+<QUERY> 
+
+select decode(b.STR_STATUS, 'AC','Accepted', 'RJ','Rejected', 'IE','In Process','RE','Re Submit','N','New','TA','Technically Approved','TC','Clarification Required','PW','PI Withdrawn','FR','1st Installment Released','SP','Project Started','In Process'), count(b.str_status)
+from TDC_FULL_PROPOSAL_VERSION_DTL b, TDC_USER_REGISTRATION ur, TDC_CITIES c 
+where b.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')
+and c.num_state_id like #0
+and b.STR_TR_USER_ID=ur.STR_USER_ID
+and c.num_state_id=ur.NUM_STATE_ID
+and ur.num_city_id=c.num_city_id
+and b.str_version_id=
+(select max(fp.str_version_id) from TDC_FULL_PROPOSAL_VERSION_DTL fp where fp.num_proposal_id=b.num_proposal_id)
+and b.STR_STATUS not in ('CP')
+group by b.STR_STATUS
+ORDER BY b.STR_STATUS
+
+</QUERY> 
+</SECTION>
+<SECTION HEADING="" TYPE="HORIZONTAL">
+<HEADER>           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Total proposals</HEADERCELL>
+        
+</HEADER>
+<QUERY> 
+select  count(b.STR_STATUS)  from TDC_FULL_PROPOSAL_VERSION_DTL b, TDC_USER_REGISTRATION ur, TDC_CITIES c 
+where b.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')
+and c.num_state_id like #0
+and b.STR_TR_USER_ID=ur.STR_USER_ID
+and c.num_state_id=ur.NUM_STATE_ID
+and ur.num_city_id=c.num_city_id
+and b.str_version_id=
+(select max(fp.str_version_id) from TDC_FULL_PROPOSAL_VERSION_DTL fp where fp.num_proposal_id=b.num_proposal_id)
+and b.STR_STATUS not in ('CP')
+</QUERY> 
+</SECTION>
+</REPORT>
+<REPORT HEADING="List of Submitted Full-Proposals" NAME="DetailFullProposalList">
+<SECTION HEADING="" TYPE="VERTICAL">
+<HEADER>           
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">From Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">To Date</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">State</HEADERCELL>
+<HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">City</HEADERCELL>
+</HEADER>
+<QUERY>
+select #1, #2,decode(GET_STATE_NAME(#5),'Not Available','All States',GET_STATE_NAME(#5)),decode(GET_CITY_NAME(#4),'Not Available','All Cities',GET_CITY_NAME(#4)) FROM DUAL
+</QUERY>
+</SECTION>
+<SECTION HEADING="Detailed Submitted Full-Proposals List" TYPE="VERTICAL">
+<HEADER>
+           
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Proposal ID</HEADERCELL>
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Title</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">PI Name</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Institute Name</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Broad Area</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Major Descipline</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Submission Date</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Status</HEADERCELL> 
+        <HEADERCELL LEVEL="0" SIZE="1" ALIGN="LEFT">Version ID</HEADERCELL>
+</HEADER>
+<QUERY>
+select distinct fp.NUM_PROPOSAL_ID as Proposal_ID,pm.STR_PROPOSAL_TITLE as Title,  ur.STR_FNAME||' '||ur.STR_MNAME||' '||ur.STR_LNAME as PI_Name,nvl(ur.STR_ORGANISATION, 'Not fpailable')  as Institute_Name,THEMETIC_NAME_ID(pm.NUM_TREMATIC_AREA_ID) Broad_Area,GET_DISCIPLINE_DESC(b.STR_MAJOR_DISCIPLINE) Major_Decipline, to_char(fp.DT_VERSION_DATE, 'dd-mm-yyyy') Submission_Date,
+decode(fp.STR_STATUS, 'AC','Accepted', 'RJ','Rejected', 'IE','In Process', 'RE','Re Submit', 'N','New','TA','Technically Approved','TC','Clarification Required','PW','PI Withdrawn','NA' ) Status, nvl(fp.STR_VERSION_ID, 'Not Available') VersionID
+from TDC_USER_REGISTRATION ur, TDC_FULL_PROPOSAL_VERSION_DTL fp, TDC_PROPOSAL_MASTER pm, TDC_CITIES c, TDC_ABSTRACT_VERSION_DTL b 
+where 
+ur.num_city_id=c.num_city_id
+and ur.num_state_id=c.num_state_id
+and ur.str_user_id = fp.str_tr_user_id
+and pm.NUM_PROPOSAL_ID=fp.NUM_PROPOSAL_ID
+and c.num_state_id like #0
+and c.NUM_CITY_ID like #3
+and pm.STR_STATUS like 'FP'
+and b.STR_TR_USER_ID=fp.STR_TR_USER_ID
+and b.NUM_PROPOSAL_ID=fp.NUM_PROPOSAL_ID
+and fp.DT_VERSION_DATE between to_date(#1, 'dd-mm-yyyy') AND to_date(#2, 'dd-mm-yyyy')
+and fp.STR_STATUS not in ('CP')
+order by fp.NUM_PROPOSAL_ID, VersionID 
+</QUERY> 
+</SECTION>
+</REPORT>
+</REPORTLIST>

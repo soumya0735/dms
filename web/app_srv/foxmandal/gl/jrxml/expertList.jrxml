@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="expertList" pageWidth="1500" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="1500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="da507dba-f058-4e1b-adc9-cb758d0b0a69">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#ADD8E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="expertsList" uuid="8a48626f-e8f8-4271-a1d5-ac0ebe7dbfaa">
+		<parameter name="thematic_area_name" class="java.lang.String"/>
+		<parameter name="disp_name" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select rownum s_no,
+   get_user_name(r.str_user_id) username, nvl(STR_E_MAIL,'NA') email, nvl(STR_ORGANISATION,'NA') org,nvl(STR_DEPARTMENT,'NA') dept, nvl(STR_DESIGNATION,'NA') desg, nvl(NUM_MOBILE_NO,0) mob,
+   get_themetic_area_name(r.str_user_id) th_ar_name, GET_DIS_FOR_USER(r.str_user_id) disp from TDC_USER_REGISTRATION r
+   where r.str_user_type like '%E%' and r.STR_UNDERTAKING_RECEIVED='Y'
+   and upper(get_themetic_area_name(r.str_user_id)) like '%'||upper($P{thematic_area_name})||'%'
+   and trim(upper(get_major_discipline(r.str_user_id))) like '%'||upper($P{disp_name})||'%']]>
+		</queryString>
+		<field name="s_no" class="java.lang.Long"/>
+		<field name="username" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<field name="org" class="java.lang.String"/>
+		<field name="dept" class="java.lang.String"/>
+		<field name="desg" class="java.lang.String"/>
+		<field name="mob" class="java.math.BigDecimal"/>
+		<field name="th_ar_name" class="java.lang.String"/>
+		<field name="disp" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="expertCount" uuid="1515d29c-5bfa-4670-9f78-e5fbb2a8e4d4">
+		<parameter name="thematic_area_name" class="java.lang.String"/>
+		<parameter name="disp_name" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select get_themetic_area_name(r.str_user_id), count(*) from TDC_USER_REGISTRATION r
+where r.str_user_type like '%E%' and r.STR_UNDERTAKING_RECEIVED='Y'
+   and upper(get_themetic_area_name(r.str_user_id)) like '%'||upper($P{thematic_area_name})||'%'
+   and upper(get_major_discipline(r.str_user_id)) like '%'||upper($P{disp_name})||'%'
+   group by get_themetic_area_name(r.str_user_id)
+   order by get_themetic_area_name(r.str_user_id)]]>
+		</queryString>
+		<field name="get_themetic_area_name" class="java.lang.String"/>
+		<field name="count" class="java.lang.Long"/>
+	</subDataset>
+	<subDataset name="majorDisCount" uuid="5def6440-6604-405e-8f5f-8b8dfd4a6ce5">
+		<parameter name="thematic_area_name" class="java.lang.String"/>
+		<parameter name="disp_name" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select get_themetic_area_name(r.str_user_id),GET_DIS_FOR_USER(r.str_user_id), count(*) from TDC_USER_REGISTRATION r
+where r.str_user_type like '%E%' and r.STR_UNDERTAKING_RECEIVED='Y'
+   and upper(get_themetic_area_name(r.str_user_id)) like '%'||upper($P{thematic_area_name})||'%'
+   and upper(get_major_discipline(r.str_user_id)) like '%'||upper($P{disp_name})||'%'
+   group by get_themetic_area_name(r.str_user_id),GET_DIS_FOR_USER(r.str_user_id)
+   order by get_themetic_area_name(r.str_user_id),GET_DIS_FOR_USER(r.str_user_id)]]>
+		</queryString>
+		<field name="get_themetic_area_name" class="java.lang.String"/>
+		<field name="get_dis_for_user" class="java.lang.String"/>
+		<field name="count" class="java.lang.Long"/>
+	</subDataset>
+	<parameter name="thematic_area_name" class="java.lang.String"/>
+	<parameter name="disp_name" class="java.lang.String"/>
+	<title>
+		<band height="200" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="20" width="580" height="20" uuid="f60d9a4a-c587-4606-a26d-ced70a3dc306"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expert List]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="1200" height="20" uuid="dd24557c-ab7e-4c9e-89ec-1b3d98278188"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Registered Experts]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" positionType="Float" x="0" y="40" width="1500" height="40" uuid="ee0958f9-fcd3-4af5-8fb4-673548b25f5f"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="expertsList" uuid="fd1085de-9eee-4893-b5e6-1e7429833f01">
+						<datasetParameter name="thematic_area_name">
+							<datasetParameterExpression><![CDATA[$P{thematic_area_name}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="disp_name">
+							<datasetParameterExpression><![CDATA[$P{disp_name}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="468555c9-1662-4dd6-abaa-bd63a4e5b4a1">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="30" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="3e99ac3c-eeba-4e96-bd8b-b298b904030d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.No]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="a604c451-b0d4-47eb-b8fb-5ecfacc334b4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{s_no}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="d2af8d0d-6dbe-4d43-bd49-8d8900d11d87">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="d6a66ef8-6efe-4645-a6a3-9209a178c742"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="46da1dcf-7ae1-4330-b2ef-9618550e000e"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="244a8259-3dfa-452a-aa6a-1754c75a3142">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="94c813bb-ac30-4022-a319-fd2652354316"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Email Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="bb0c0b0f-5c27-4cdb-83fe-6cce69b0bbd7"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="9ca78213-e7e4-4352-9bd4-2e1bbdf59140">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="150" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="91e325ce-6a78-4eb6-bd00-d7b56afde023"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Organization]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="150" height="20" isPrintWhenDetailOverflows="true" uuid="36710a9a-6306-449f-9627-5257b3be86a5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{org}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="598bae74-f455-481b-b974-38885e0c0c71">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="9bb0536c-c7c3-4d4a-aee1-c8ecc05bbd22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Department]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="2078ae95-2d5b-4517-ba5e-9c76869ca91b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{dept}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="b7c5b5cd-9911-4d22-869f-d1dd7b01a4d9">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="6542e261-b4c7-4436-a8f3-dd56f13a833f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Designation]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="492b8860-56f1-4a14-aac0-4c63e3f65320"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desg}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="e4ee2536-8f12-4e3e-97e4-32b8f4a28192">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="70" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="266239a1-7741-44f9-8228-cd2940508f82"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Mobile No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="57cb7eb9-5e2c-4bac-8e24-64c981495da6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{mob}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="300" uuid="235bd725-4802-43af-9e8d-4d4db04a51b0">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="300" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="4528603e-6a28-46d3-ad95-4dd34820e753"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="300" height="20" isPrintWhenDetailOverflows="true" uuid="3cd4ed78-ae94-48b3-834d-a1ec1aba8567"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{th_ar_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="450" uuid="343baf3c-11a6-4f49-9aac-84c3f9e554c5">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="450" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c5141fb5-cd00-4f8e-8224-ff13ae619c6b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Major Discipline]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="450" height="20" isPrintWhenDetailOverflows="true" uuid="bd558872-75b7-4c06-98c8-6002f8a01d4e"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{disp}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="80" width="580" height="20" uuid="feff606d-cf61-4aa0-892a-6d13777ae923"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Broad Areawise Experts Count]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" positionType="Float" x="0" y="100" width="750" height="40" uuid="24bda76b-6035-4c1e-a45c-9c7da9c1aa04"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="expertCount" uuid="67d28d6c-89cf-40c7-a633-87928ebb439e">
+						<datasetParameter name="thematic_area_name">
+							<datasetParameterExpression><![CDATA[$P{thematic_area_name}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="disp_name">
+							<datasetParameterExpression><![CDATA[$P{disp_name}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="f5e32885-e821-4ac2-9e88-a7d1de2c48de">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="30" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="66e3b24c-3b13-4504-9497-59ab1da6a9b4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="02e02eae-2b81-430b-b76e-e9fc4adf4731"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="650" uuid="10b78275-a693-4ea5-85bf-f49ec5edf871">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="650" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f36066ac-ad0a-4c87-9e86-034058ebc291"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="650" height="20" isPrintWhenDetailOverflows="true" uuid="d1081738-15a3-4081-bc81-8b458de359f0"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{get_themetic_area_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="32edea74-f8d8-4112-a352-472f1631b239">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="70" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="82ab8b9e-5458-40f6-8c3b-a91eaf9758dc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="27d92588-a666-423b-be96-25a88ef03a54"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="140" width="580" height="20" uuid="20473846-b68d-4cba-b1ae-b7a9645cede3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Broad Area and Major Discipline wise Experts Count]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 3" style="table 3" positionType="Float" x="0" y="160" width="750" height="40" uuid="2b6d1caa-fa74-4b94-93b9-1249e3c635b1"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="majorDisCount" uuid="095bc358-d22e-41a2-8d97-1b9850102e1a">
+						<datasetParameter name="thematic_area_name">
+							<datasetParameterExpression><![CDATA[$P{thematic_area_name}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="disp_name">
+							<datasetParameterExpression><![CDATA[$P{disp_name}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="0bfd26de-0094-4070-99db-286dac454920">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="30" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="47ab0931-0805-4f22-9454-329acf563588"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[S.No]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="5e35a2da-ce41-4f99-8c23-ec965106cf6b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="300" uuid="16e80d88-8687-462d-ad6a-dde9ef6f4300">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="300" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="3efd61c3-8c12-4a15-a4ec-6fc295575b66"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Broad Area]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="300" height="20" isPrintWhenDetailOverflows="true" uuid="265144cb-9321-4432-80cd-ce614bce99c4"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{get_themetic_area_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="350" uuid="5966f83d-0ecd-4491-889d-932d6a32e619">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="350" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="cbddeb7e-ed12-420c-b8f2-0cb588703aa2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Major Discipline]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="350" height="20" isPrintWhenDetailOverflows="true" uuid="a598d360-75c5-4a1d-99ff-cdf3e07b928e"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{get_dis_for_user}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="0e97bd0d-76ca-4ef6-8380-4a74d178f83d">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement positionType="Float" x="0" y="0" width="70" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="1f9d07ef-da30-406c-a531-cfa9aad0c3f0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Number]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="1cf3b756-b78d-489e-a7d5-e831d813de5f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</title>
+</jasperReport>

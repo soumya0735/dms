@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="metadata">    
+    <typeAlias alias="logonForm" type="bean.login_Bean"/>
+    <typeAlias alias="SubjectMasterForm" type="bean.SubjectMasterForm"/>
+    <typeAlias alias="metadataForm" type="bean.metaDataBean"/>
+    <typeAlias alias="advanced_search" type="bean.advanced_search_bean"/>
+    
+    <!-- Metadata Related -->
+    <select id="getsites"  resultClass="metadataForm">
+        select site_id,name as site_name from site_mapping
+    </select>
+    <!-- Metadata Related -->
+    
+    
+    <!-- User Management -->
+    <delete id="deleteUser" parameterClass="int">
+        delete from m_user where userId=#userId#
+    </delete>
+    
+    <select id="checkLogin" parameterClass="logonForm" resultClass="logonForm">
+        select userName, name, userId,role
+        from 
+        m_user
+        where userName = #userName# 
+        and 
+        userPassword = #userPassword#        
+    </select>
+    
+    <delete id="deleteMetaData" parameterClass="int">
+        delete from item_metadata where bookid=#bookid#
+    </delete>
+    
+    <!--Subject Master -->
+    <select id="getSubjectList" parameterClass="SubjectMasterForm" resultClass="SubjectMasterForm">
+        select id,subject
+        from 
+        m_subject
+        where subject = #subject#     
+        
+    </select>
+    <insert id="insertSubjectMaster" parameterClass="SubjectMasterForm">
+        Insert into `m_subject` (`subject`) values(#subject#)
+    </insert>
+    <insert id="insertPublisherMaster" parameterClass="SubjectMasterForm">
+        Insert into `m_publisher` ( `publisher`) values(#publisher#)
+    </insert>
+    <select id="selectsubject" parameterClass="SubjectMasterForm" resultClass="SubjectMasterForm">
+        select distinct(subject)
+        from 
+        m_subject
+        where subject = #subject# 
+        
+    </select>
+        
+    <!-- META-DATA -->
+    <insert id="newMetadata" parameterClass="metadataForm">
+        insert into
+        item_metadata (
+        materialType,
+        date,
+        `language`,title,title1,title2,title3,creator,creator1,creator2,creator3,creator4,creator5,creator6,
+        creator7,creator8,creator9,keywords,keywords1,keywords2,keywords3,keywords4,keywords5,description,`subject`,publisher,
+        contributor,contributor1,documenttype1,documenttype2,`format`,identifier,source,relation,coverage,rights,
+        copyrightdate,scanningcentre,scanningnumber,digitalrepublisher,digitalpublicationdate,totalpages,
+        bookheadno,disk_name,site_id,subject1,subject2,filename,rootfolder)
+        values
+        (#materialType#,#date#,        
+        #language#,#title#,#title1#,#title2#,#title3#,#creator#,#creator1#,#creator2#,#creator3#,
+        #creator4#,#creator5#,#creator6#,#creator7#,#creator8#,#creator9#,#keywords#,#keywords1#,#keywords2#,
+        #keywords3#,#keywords4#,#keywords5#,#description#,#subject#,#publisher#,#contributor#,#contributor1#,
+        #documentType1#,#documentType2#,#format#,#identifier#,#source#,#relation#,#coverage#,#rights#,
+        #copyrightDate#,#scanningCentre#,#scanningNumber#,#digitalPublisher#,        
+        #digitalPublicationDate#,#pages#,#bookheadno#,#disk_name#,#site_id#,#subject1#,#subject2#,#filename#,#rootfolder#
+        )        
+        <selectKey keyProperty="bookid" type="post" resultClass="int">
+            SELECT max(bookId) as value from item_metadata
+        </selectKey>
+    </insert>
+    
+    <select id="metadataList" resultClass="metadataForm">
+        SELECT bookid,bookheadno,materialType,concat_ws(' ',title,title1,title2,title3) as title,
+        concat_ws(' ',creator,creator1,creator2) as creator,
+        description,
+        publisher,
+        totalpages
+        FROM item_metadata              
+        where verified=0
+    </select>
+    <select id="getItemDetailsDataBookId" parameterClass="String" resultClass="metadataForm">
+        SELECT 
+        bookid,
+        bookheadno,
+        language,
+        materialType,
+        concat_ws(' ',title,title1,title2,title3) as title,
+        concat_ws(' ',creator,creator1,creator2) as creator,
+        description,
+        concat_ws(' ', documenttype1,documenttype2) as documentType1,
+        subject,
+        publisher,
+        concat_ws(', ',keywords,keywords1,keywords2,keywords3,keywords4,keywords5) as keywords,
+        concat_ws(', ',contributor,contributor1) as contributor,
+        format,
+        identifier,
+        source,
+        relation,
+        coverage,
+        rights,
+        if(copyrightDate='0000-00-00',NULL,copyrightDate) as copyrightDate,
+        scanningcentre,
+        digitalrepublisher,
+        if(digitalpublicationdate='0000-00-00',null,digitalPublicationDate) as digitalPublicationDate,        
+        totalpages as pages,
+        language
+        FROM item_metadata
+        WHERE
+        bookid=#bookid#
+    </select>
+    <select id="getMetadataForUpdate" parameterClass="String" resultClass="metadataForm">
+        select materialType,
+        if(date='0000-00-00',NULL,date) as date,
+        `language`,
+        title,title1,title2,title3,
+        creator,creator1,creator2,creator3,creator4,creator5,creator6,creator7,creator8,creator9,keywords,
+        keywords1,keywords2,keywords3,keywords4,keywords5,description,`subject`,
+        publisher,contributor,contributor1,documenttype1,documenttype2,format,
+        identifier,source,relation,coverage,rights,
+        if(copyrightDate='0000-00-00',NULL,copyrightDate) as copyrightDate,
+        scanningcentre,scanningnumber,digitalrepublisher,
+        if(digitalpublicationdate='0000-00-00',null,digitalPublicationDate) as digitalPublicationDate,
+        totalpages as pages,bookheadno,disk_name,site_id,subject1,subject2,filename,rootfolder,bookid
+        from item_metadata where  bookid=#bookid#
+    </select>
+    <update id="metadataUpdate" parameterClass="metadataForm" >
+        update item_metadata
+        set
+        materialType=#materialType#,date=#date#,language=#language#,title=#title#,title1=#title1#,title2=#title2#,title3=#title3#,
+        creator=#creator#,creator1=#creator1#,creator2=#creator2#,creator3=#creator3#,creator4=#creator4#,creator5=#creator5#,
+        creator6=#creator6#,creator7=#creator7#,creator8=#creator8#,creator9=#creator9#,keywords=#keywords#,keywords1=#keywords1#,
+        keywords2=#keywords2#,keywords3=#keywords3#,keywords4=#keywords4#,keywords5=#keywords5#,description=#description#,
+        `subject`=#subject#,publisher=#publisher#,contributor=#contributor#,contributor1=#contributor1#,documenttype1=#documentType1#,
+        documenttype2=#documentType2#,`format`=#format#,identifier=#identifier#,source=#source#,relation=#relation#,
+        coverage=#coverage#,rights=#rights#,copyrightDate=#copyrightDate#,scanningcentre=#scanningCentre#,
+        scanningnumber=#scanningNumber#,digitalrepublisher='West Bengal Secretariat Library, Govt. of West Bengal',digitalpublicationdate=#digitalPublicationDate#,
+        totalpages=#pages#,bookheadno=#bookheadno#,disk_name=#disk_name#,site_id=#site_id#,subject1=#subject1#,
+        subject2=#subject2#,filename=#filename#,rootfolder=#rootfolder#  where   bookid=#bookid#
+    </update>
+    <update id="setVerifiedTag" parameterClass="String">
+        update item_metadata
+        set verified=1
+        where bookid=#bookId#
+    </update>
+    <insert id="insertLog" parameterClass="metadataForm">
+        Insert into `t_log` (`userid`,`operation`,`item_id` ) values(#userId#,#operation#,#bookid#)
+    </insert>
+    <select id="getDuplicateMetaDataList" resultClass="metadataForm">
+        SELECT bookid,bookheadno,publisher,materialType,language,title,creator,subject,totalpages pages FROM item_metadata where
+        title in(select distinct(title) from item_metadata
+        group by materialType,title,language,creator,subject,totalpages having count(*)>1)
+    </select> 
+    
+        
+    <!-- Metadata Update Search-->
+    <select id="getItem_metadata_advanced_search_result" resultClass="item_metadata" parameterClass="advanced_search">
+        SELECT 
+        bookid,
+        bookheadno,
+        title,
+        creator,
+        concat(keywords,keywords1,keywords2,keywords3,keywords4,keywords5) as keywords,
+        subject,
+        subject1,
+        language,
+        materialType,
+        publisher,
+        disk_name,
+        filename,
+        bookheadno,
+        DATE_FORMAT(copyrightdate, '%Y') as copyrightdate,
+        pdf_location
+        FROM 
+        item_metadata 
+        <dynamic prepend="WHERE ">
+            <isNotEmpty prepend="AND" property="bookheadno">
+                bookheadno like '%$bookheadno$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="title">
+                title like '%$title$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="creator">
+                creator like '%$creator$%' 
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="keywords">
+                (keywords like '$keywords$' 
+                or keywords1 like '%$keywords$%' 
+                or keywords2 like '%$keywords$%'
+                or keywords3 like '%$keywords$%' 
+                or keywords4 like '%$keywords$%'
+                or keywords5 like '%$keywords$%')
+            </isNotEmpty>
+            <isGreaterThan prepend="AND" property="fromPeriod" compareValue="0">
+                DATE_FORMAT(copyrightdate, '%Y') &gt;= #fromPeriod# 
+            </isGreaterThan>
+            <isGreaterThan prepend="AND" property="toPeriod" compareValue="0">
+                DATE_FORMAT(copyrightdate, '%Y') &lt;= #toPeriod# 
+            </isGreaterThan>
+        </dynamic>
+        order by title
+    </select>
+    
+    <select id="getAllHeadNo" resultClass="String">
+        SELECT distinct(bookheadno) as bookheadno FROM item_metadata order by bookheadno
+    </select>
+    <select id="getAllTitle" resultClass="String">
+        SELECT distinct(title) as title FROM item_metadata order by title
+    </select>
+    <select id="getAllCreator" resultClass="String">
+        SELECT distinct(creator) as creator FROM item_metadata order by creator
+    </select>
+    <!-- Metadata Update Search-->
+    
+</sqlMap>   

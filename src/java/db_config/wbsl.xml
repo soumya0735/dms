@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE sqlMap
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="wbsl">
+    <typeAlias alias="item_metadata" type="bean.item_metadata"/>
+    <typeAlias alias="feedback" type="bean_feedback.Feedback"/>
+    <typeAlias alias="feedbackAdmin" type="bean_feedback.FeedbackAdmin"/>
+    <typeAlias alias="applicationFormat" type="bean_application.application_format_bean"/>
+    <typeAlias alias="requisitionForm" type="bean_application.requisition_form_bean"/>
+    <typeAlias alias="newsShow" type="news.newsForm"/>
+    <typeAlias alias="wishlistForm" type="bean_wishlist.wish_list_bean"/>
+    <typeAlias alias="registration" type="bean_registration.Registration"/>
+    <typeAlias alias="password" type="bean_password.Password"/>
+     
+   <!-- <select id="getItem_metadata" resultClass="item_metadata">
+        SELECT bookid,title,creator,keywords,subject,language,materialType FROM item_metadata where materialType='book' 
+    </select> 
+    <select id="getItem_metadata" resultClass="item_metadata">
+        SELECT bookid,title,creator,concat(keywords,keywords1,keywords2,keywords3,keywords4,keywords5) as keywords,subject,language,materialType,pdf_location,disk_name FROM item_metadata where materialType='book' 
+    </select>-->
+    
+    <!--Search Archive-->
+    <select id="getItem_metadata" resultClass="item_metadata">
+        SELECT bookid,
+        title,
+        creator,
+        concat(keywords,keywords1,keywords2,keywords3,keywords4,keywords5) as keywords,
+        subject,
+        subject1,
+        language,
+        materialType,
+        publisher,
+        disk_name,
+        filename,
+        bookheadno,
+        if(copyrightdate='0000-00-00','N.A.',copyrightdate) as copyrightdate,
+        pdf_location
+        FROM item_metadata where materialType='book' order by title        
+    </select>
+    <!--Search Archive-->
+    
+    <select id="getBookmetadata" resultClass="item_metadata" parameterClass="int">       
+        SELECT
+        bookid,
+        ifnull(bookheadno,'niladri'),
+        materialType,
+        concat_ws(' ',title,title1,title2,title3) as title,
+        concat_ws(' ',creator,creator1,creator2,creator3,creator4,creator5,creator6) as creator,
+        description,
+        documenttype1,
+        documenttype2,
+        subject,subject1,
+        publisher,
+        concat_ws(' ',keywords,keywords1,keywords2,keywords3,keywords4,keywords5) as keywords,
+        format,
+        identifier,
+        source,
+        relation,
+        coverage,
+        rights,
+        if(copyrightdate='0000-00-00','N.A.',copyrightdate) as copyrightdate,
+        scanningcentre,
+        digitalrepublisher,
+        digitalpublicationdate as digitalpublicationdate,        
+        totalpages,
+        language,
+        microfilm_no,
+        pdf_location,
+        filename,
+        bookheadno,
+        disk_name
+        FROM item_metadata
+        WHERE
+        bookid=#bookId#
+    </select>
+    
+    <select id="getAudio_metadata" resultClass="item_metadata">
+        SELECT bookid,title,creator,keywords,subject,language,materialType,pdf_location,disk_name FROM item_metadata where materialType='audio' 
+    </select>
+    
+<!-- Feedback Section -->
+       
+    <insert id="insertFeedback" parameterClass="feedback">
+        INSERT into t_feedback (visitor_Name,visitor_Email,visitor_Organisation,visitor_Address,visitor_Comment)
+        values(#visitor_Name#,#visitor_Email#,#visitor_Organisation#,#visitor_Address#,#visitor_Comment#)
+        <selectKey keyProperty="feedback_Id" type="post" resultClass="int">
+            SELECT max(feedback_Id) as feedback_Id from t_feedback
+        </selectKey>
+    </insert>
+    <select id="getCurrentFeedback" parameterClass="int" resultClass="feedback">
+        select * from t_feedback where feedback_Id=#feedback_id#
+    </select>
+    <select id="getCurrentAdmin" resultClass="feedbackAdmin">
+        SELECT admin_Name,admin_Email FROM 
+        m_feedback_admin
+        where isValid='Y'
+        order by updated_on
+        limit 1
+    </select>
+    <!-- Feedback Section -->
+    
+    <!-- Requisition Form -->
+    <insert id="insertRequisitionForm" parameterClass="requisitionForm">
+        insert into requisition_form(callNo, issueDate, authorName, title, issuerName, issuerDepartment, issuedBy)
+        values (#callNo#,#issueDate#,#authorName#,#title#,#issuerName#,#issuerDepartment#,#issuedBy#)
+    </insert>
+    <!-- Requisition Form -->
+    
+    <!-- Application Format -->
+    <insert id="insertApplicationFormat" parameterClass="applicationFormat">
+        insert into application_format(
+        applicantType, 
+        applicantName, 
+        addressResidence, 
+        addressOffice, 
+        organisationName, 
+        phoneNo, 
+        mobileNo, 
+        emailAddress, 
+        nationality, 
+        designation, 
+        subject, 
+        officeName, 
+        recommendedBy,
+        inputFileData)
+        values
+        (#applicantType#,
+        #applicantName#,
+        #addressResidence#,
+        #addressOffice#,
+        #organisationName#,
+        #phoneNo#,
+        #mobileNo#,
+        #emailAddress#,
+        #nationality#,
+        #designation#,
+        #subject#,
+        #officeName#,
+        #recommendedBy#,
+        #inputFileData#)
+    </insert>
+    <!-- Application Format -->
+    
+    <!-- Wish List -->
+    <insert id="addWishlist" parameterClass="wishlistForm">
+        insert into wish_list(bookid, user_name, start_date) values(#bookid#, #user_name#, now())
+    </insert>
+    
+    <select id="checkIfExists" parameterClass="wishlistForm" resultClass="int">
+        Select count(*) from wish_list where user_name=#user_name# and bookid=#bookid#
+    </select>
+    <select id="checkDateDiff" parameterClass="wishlistForm" resultClass="int">
+        SELECT DATEDIFF(now(),start_date) as datediff FROM wish_list where user_name=#user_name# and bookid=#bookid#
+    </select>
+    <select id="checkNoOfBooksInTheWishList" parameterClass="wishlistForm" resultClass="int">
+        <![CDATA[select count(*) from wish_list where user_name=#user_name# and DATEDIFF(now(),start_date)<=14]]>
+    </select>
+    <select id="getWish_List" resultClass="item_metadata" parameterClass="String">
+        <![CDATA[SELECT 
+        bookid,
+        bookheadno,
+        title,
+        creator,
+        concat(keywords,keywords1,keywords2,keywords3,keywords4,keywords5) as keywords,
+        subject,
+        subject1,
+        language,
+        materialType,
+        publisher,
+        disk_name,
+        filename,
+        bookheadno,
+        DATE_FORMAT(copyrightdate, '%Y') as copyrightdate,
+        pdf_location
+        FROM 
+        item_metadata where 
+        bookid in (Select distinct (bookid) from wish_list where user_name=#user_name# and DATEDIFF(now(),start_date)<=14)
+        order by title]]>        
+    </select>
+    <delete id="deleteFromWishList" parameterClass="wishlistForm">
+        delete FROM wish_list where user_name=#user_name# and bookid=#bookid#
+    </delete>
+    <!-- Wish list -->
+    
+    <!--Registration Section-->
+    <select id="checkRegistrationIfExists" parameterClass="registration" resultClass="int">
+        Select count(*) from m_user where userName=#userName#
+    </select>
+    
+    <insert id="insertRegistration" parameterClass="registration">
+        INSERT into m_user (name,userName,userPassword, role)
+        values(#name#,#userName#,md5(#userPassword#), 'U')
+    </insert>
+    <!--Registration Section-->
+    
+    <!-- Password Change -->
+    <select id="checkPassword" parameterClass="password" resultClass="int">
+        SELECT count(*) FROM m_user where userName = #userName# and userPassword = md5(#userPassword#)
+    </select>
+    <update id="updatePassword" parameterClass="password">
+        UPDATE m_user SET userPassword = md5(#userPassword#) where userName = #userName#
+    </update>
+    <!-- Password Change -->
+    
+    
+</sqlMap>
+
+
+
+
+
+ 
